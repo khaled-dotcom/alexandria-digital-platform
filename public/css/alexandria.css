@@ -1,0 +1,359 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   هوية الإسكندرية البصرية — رسومات ورموز مستوحاة من معالم المدينة
+   كل حاجة هنا SVG/CSS خالص — من غير فيديو أو صور خارجية أو خطوط شبكة.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ═══ الأمواج ═════════════════════════════════════════════════════════
+   شريط موج بيتكرر بلا نهاية — بيتحط في أسفل أي قسم عايز حس بحري.  */
+
+/* كل شريط موج = عنصر عرضه ٢٠٠٪ جوّاه بلاطتين متطابقتين.
+   الحركة بتزحزحه ٥٠٪ (= بلاطة كاملة) فبيبان تكرار بلا نهاية من غير قطع. */
+
+.wave-band {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  overflow: hidden;
+  color: var(--primary);
+}
+
+.wave-band .tiles {
+  display: flex;
+  width: 200%; height: 100%;
+  animation: wave-drift 26s linear infinite;
+}
+.wave-band .tiles svg { flex: 0 0 50%; height: 100%; }
+
+@keyframes wave-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══ خلفية الهيدرو — بحر + سما + شعاع المنارة ═══════════════════════ */
+
+.hero-sea {
+  position: relative;
+  overflow: hidden;
+  /* سما → وهج الغروب عند الأفق → بحر. الأفق عند ٧٠٪ عشان يقع تحت قاعدة الأفق المرسوم. */
+  background: linear-gradient(180deg,
+    var(--hero-sky-1) 0%,
+    var(--hero-sky-2) 46%,
+    var(--hero-glow) 68%,
+    var(--hero-sea-1) 71%,
+    var(--hero-sea-2) 100%);
+
+  /* الافتراضي = الوضع الفاتح: ظهيرة متوسطية */
+  --hero-sky-1: #1D4E80;
+  --hero-sky-2: #3B86C9;
+  --hero-glow:  #8FC6D8;
+  --hero-sea-1: #14889B;
+  --hero-sea-2: #0A5468;
+  --skyline-c:  #0B2C46;
+}
+
+/* الوضع الداكن: غروب/ليل على الكورنيش */
+[data-theme='dark'] .hero-sea {
+  --hero-sky-1: #050D1C;
+  --hero-sky-2: #0E2A4E;
+  --hero-glow:  #3E5F7E;
+  --hero-sea-1: #0C3F58;
+  --hero-sea-2: #06202F;
+  --skyline-c:  #02070F;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .hero-sea {
+    --hero-sky-1: #050D1C;
+    --hero-sky-2: #0E2A4E;
+    --hero-glow:  #3E5F7E;
+    --hero-sea-1: #0C3F58;
+    --hero-sea-2: #06202F;
+    --skyline-c:  #02070F;
+  }
+}
+
+/* ═══ صورة حقيقية للمعلم — بدل/فوق الأفق المرسوم ═══════════════════════
+   طبقة صورة فعلية (Wikimedia Commons، تراخيص CC-BY/CC-BY-SA — الاعتمادات
+   في /credits) بتتحط بأدنى مستوى، وفوقها تدرّج شفاف بلون الهوية عشان
+   النص يفضل مقروء والصورة تحس إنها جزء من نفس النظام مش لزقة خارجية. */
+.hero-sea.has-photo,
+.page-banner.has-photo {
+  background-image:
+    linear-gradient(180deg,
+      rgba(10, 30, 56, .78) 0%,
+      rgba(15, 47, 83, .32) 45%,
+      rgba(10, 62, 82, .55) 78%,
+      rgba(8, 50, 68, .82) 100%),
+    var(--hero-photo-url);
+  background-size: cover, cover;
+  background-position: center, center 38%;
+  background-repeat: no-repeat, no-repeat;
+}
+[data-theme='dark'] .hero-sea.has-photo,
+[data-theme='dark'] .page-banner.has-photo {
+  background-image:
+    linear-gradient(180deg,
+      rgba(2, 7, 15, .88) 0%,
+      rgba(5, 13, 28, .5) 45%,
+      rgba(6, 32, 47, .68) 78%,
+      rgba(2, 7, 15, .9) 100%),
+    var(--hero-photo-url);
+}
+
+/* لمّا فيه صورة حقيقية، الأفق المرسوم والشعاع بيتخفوا — مفيش داعي
+   لسلويت فوق صورة حقيقية لنفس المعلم */
+.has-photo .hero-skyline,
+.has-photo .banner-landmark,
+.has-photo .hero-beam {
+  display: none;
+}
+
+/* اعتماد الصورة — رقم صغير شفاف في الركن، يفتح صفحة الاعتمادات الكاملة */
+.photo-credit {
+  position: absolute; z-index: 3;
+  inset-block-end: var(--s-3); inset-inline-end: var(--s-5);
+  font-size: 10px;
+  color: rgba(255, 255, 255, .55);
+  text-decoration: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+}
+.photo-credit:hover { color: rgba(255, 255, 255, .85); text-decoration: underline; }
+
+/* شمس/قمر عاكس على الميه */
+.hero-sun {
+  position: absolute;
+  inset-inline-end: 14%; top: 16%;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 38%, #FFF3D6, var(--gold-300) 58%, transparent 71%);
+  box-shadow: 0 0 100px 34px rgba(232, 190, 95, .3);
+  animation: sun-glow 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sun-glow {
+  0%, 100% { opacity: .85; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.05); }
+}
+
+/* طبقات موج متحركة أمام بعض بسرعات مختلفة (parallax) */
+.hero-waves {
+  position: absolute; inset-inline: 0; bottom: 0;
+  height: 34%;
+  pointer-events: none;
+}
+
+/* left/right فيزيائي مقصود مش inset-inline: الحركة أفقية بالإحداثيات الفعلية،
+   ولو اتقلبت مع اتجاه الصفحة الشريط بيسيب فراغ على طرف الشاشة. */
+.hero-wave-layer {
+  position: absolute; left: 0; bottom: 0;
+  display: flex;
+  width: 200%; height: 100%;
+}
+.hero-wave-layer svg { flex: 0 0 50%; height: 100%; }
+
+.hero-wave-1 { animation: wave-drift 30s linear infinite; }
+.hero-wave-2 { animation: wave-drift 21s linear infinite reverse; height: 78%; }
+.hero-wave-3 { animation: wave-drift 44s linear infinite; height: 118%; }
+
+/* أفق المدينة كسلويت — الفنار وقايتباي والمكتبة وستانلي */
+.hero-skyline {
+  position: absolute;
+  inset-inline: 0; bottom: 30%;
+  height: 42%;
+  display: flex; align-items: flex-end; justify-content: center;
+  color: var(--skyline-c, #061A2E);
+  opacity: .85;
+  pointer-events: none;
+}
+.hero-skyline svg { height: 100%; width: 100%; }
+
+/* شعاع الفنار — بيتحط فوق الأفق بنفس الإحداثيات */
+.hero-beam {
+  position: absolute;
+  inset-inline: 0; bottom: 30%;
+  height: 42%;
+  display: flex; align-items: flex-end; justify-content: center;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.hero-beam svg { height: 100%; width: 100%; overflow: visible; }
+
+/* نور المنارة الدوّار */
+.lighthouse-beam {
+  transform-origin: 50% 100%;
+  animation: beam-sweep 4.5s ease-in-out infinite;
+}
+@keyframes beam-sweep {
+  0%, 100% { transform: rotate(-22deg); opacity: .85; }
+  50%      { transform: rotate(22deg);  opacity: 1; }
+}
+
+/* طيور محلّقة */
+.hero-bird {
+  position: absolute;
+  animation: bird-fly linear infinite;
+  opacity: .8;
+}
+@keyframes bird-fly {
+  from { transform: translateX(-8vw) translateY(0); }
+  to   { transform: translateX(108vw) translateY(-18px); }
+}
+.bird-flap { animation: bird-flap .55s ease-in-out infinite alternate; transform-origin: 50% 50%; }
+@keyframes bird-flap { from { transform: scaleY(1); } to { transform: scaleY(.4); } }
+
+/* نجوم (تظهر في الوضع الداكن بس) */
+.hero-stars { position: absolute; inset: 0; opacity: 0; transition: opacity var(--d-slower) var(--ease-out); }
+[data-theme='dark'] .hero-stars { opacity: 1; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .hero-stars { opacity: 1; }
+}
+
+.star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%; animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+
+/* ═══ أفق مصغّر — للهيدر/الفوتر ══════════════════════════════════════ */
+
+.mini-skyline {
+  display: block; width: 100%; height: auto;
+  color: var(--border-strong);
+  opacity: .5;
+}
+
+/* ═══ إطار زخرفي بنمط الأعمدة اليونانية ══════════════════════════════ */
+
+.column-divider {
+  display: flex; align-items: center; gap: var(--s-2);
+  justify-content: center;
+  color: var(--border-strong);
+  margin: var(--s-8) 0;
+}
+.column-divider .line { flex: 1; height: 1px; background: var(--border); max-width: 120px; }
+
+/* ═══ رقعة نمط هندسي (زخرفة إسلامية/يونانية مبسّطة) للخلفيات الثانوية ═ */
+
+.pattern-bg {
+  position: relative;
+}
+.pattern-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--grid-line) 1px, transparent 0);
+  background-size: 24px 24px;
+  opacity: .6;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, black, transparent);
+}
+
+/* ═══ توهّج بحري خفيف خلف الكروت المميزة ═════════════════════════════ */
+
+.glow-card { position: relative; }
+.glow-card::before {
+  content: '';
+  position: absolute; inset: -1px;
+  background: linear-gradient(135deg, var(--alx-400), var(--teal-400), var(--gold-400));
+  border-radius: inherit;
+  opacity: 0; z-index: -1;
+  filter: blur(16px);
+  transition: opacity var(--d-slow) var(--ease-out);
+}
+.glow-card:hover::before { opacity: .35; }
+
+/* ═══ الرسومات التوضيحية (الحالات الفارغة) ═══════════════════════════ */
+
+.illo {
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto var(--s-5);
+  color: var(--text-faint);
+}
+.illo .accent-1 { color: var(--primary); opacity: .85; }
+.illo .accent-2 { color: var(--accent); opacity: .7; }
+.illo .accent-3 { color: var(--gold); opacity: .8; }
+
+/* موجة صغيرة متحركة جوه الرسمة التوضيحية */
+.illo .mini-wave { animation: wave-bob 3s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes wave-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+.illo .float-slow { animation: float-slow 4.5s ease-in-out infinite; }
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-6px) rotate(-2deg); }
+}
+
+/* ═══ شاشة التحميل — شعاع منارة دوّار ═════════════════════════════════ */
+
+.page-loader {
+  position: fixed; inset: 0;
+  z-index: 9999;
+  display: grid; place-items: center;
+  background: var(--bg);
+  transition: opacity var(--d-slow) var(--ease-out), visibility var(--d-slow);
+}
+.page-loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.loader-mark {
+  display: flex; flex-direction: column; align-items: center; gap: var(--s-4);
+}
+.loader-mark svg { width: 64px; height: 64px; }
+.loader-mark .beam { animation: beam-sweep 1.4s ease-in-out infinite; }
+.loader-label { font-size: var(--t-sm); font-weight: 700; color: var(--text-muted); letter-spacing: .04em; }
+
+/* ═══ الاستجابة والحركة ══════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .hero-skyline { bottom: 10%; height: 32%; }
+  .hero-sun { width: 80px; height: 80px; inset-inline-end: 8%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-band svg, .hero-wave-layer, .lighthouse-beam,
+  .hero-bird, .bird-flap, .illo .mini-wave, .illo .float-slow,
+  .hero-sun, .star, .loader-mark .beam {
+    animation: none !important;
+  }
+}
+
+/* ═══ شريط المعلم أعلى الصفحة ════════════════════════════════════════
+   كل صفحة ليها معلم مختلف من معالم الإسكندرية — ديكور خالص. */
+
+.page-banner {
+  position: relative;
+  height: 186px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.banner-landmark {
+  position: absolute;
+  inset-inline: 0; bottom: 20%;
+  height: 92%;
+  display: flex; align-items: flex-end; justify-content: center;
+  color: var(--skyline-c);
+  opacity: .82;
+  pointer-events: none;
+}
+.banner-landmark svg { height: 100%; width: auto; max-width: 94%; }
+
+.page-banner .hero-sun {
+  width: 52px; height: 52px;
+  top: 16%; inset-inline-end: 9%;
+  box-shadow: 0 0 48px 16px rgba(232, 190, 95, .28);
+}
+
+/* اسم المعلم — يظهر بهدوء في ركن الشريط */
+.banner-caption {
+  position: absolute; z-index: 3;
+  inset-block-end: var(--s-3); inset-inline-start: var(--s-5);
+  font-size: var(--t-xs); font-weight: 700;
+  letter-spacing: .04em;
+  color: rgba(255, 255, 255, .72);
+  text-shadow: 0 1px 8px rgba(0, 20, 40, .6);
+}
+
+@media (max-width: 640px) {
+  .page-banner { height: 124px; }
+  .banner-caption { inset-inline-start: var(--s-4); font-size: 10px; }
+}

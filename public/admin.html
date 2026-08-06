@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ar-EG" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="لوحة إدارة النظام: حسابات الموظفين والأدوار وسجل التدقيق — لمديري النظام فقط.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>لوحة الإدارة | منصة الإسكندرية الرقمية</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
+  <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/alexandria.css">
+  <script src="/js/theme-boot.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="/">
+      <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+          <path d="M16 10 3 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M16 10 29 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z" fill="#fff"/>
+          <rect x="12.3" y="7.3" width="7.4" height="5.7" rx="1.4" fill="#fff"/>
+          <circle cx="16" cy="10.1" r="1.7" fill="#E1A736"/>
+          <path d="M16 3.3l1.2 3.1h-2.4z" fill="#fff"/>
+          <path d="M4 28.4c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"
+                stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+        </svg></span>
+      <span>الإسكندرية الرقمية
+        <span class="brand-sub">لوحة إدارة النظام</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      <a href="/dashboard">لوحة البلاغات</a>
+      <a href="/admin" class="active" aria-current="page">إدارة النظام</a>
+    </nav>
+
+    <div class="header-actions">
+      <span id="userChip" class="chip hidden"></span>
+      <button type="button" class="icon-btn" id="paletteBtn" aria-label="بحث سريع (Ctrl+K)" title="بحث سريع — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </button>
+      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
+      <a class="btn btn-sm btn-ghost" href="#" id="logoutLink">خروج</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
+              aria-label="فتح القائمة"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-banner hero-sea" data-landmark="pompey" aria-hidden="true"></div>
+
+<main id="main" class="page">
+
+  <!-- بيبان لغير المصرّح لهم بس -->
+  <div id="deniedBox" class="card empty hidden" data-illo="lighthouse">
+    <h3>الصفحة دي لمديري النظام بس</h3>
+    <p class="muted">سجّل دخولك بحساب أدمن عشان توصل للوحة الإدارة.</p>
+    <a class="btn mt-4" href="/login">دخول الموظفين</a>
+  </div>
+
+  <div id="adminBox" class="hidden">
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">إدارة النظام</span>
+        <h1>حسابات الموظفين والصلاحيات</h1>
+        <p class="subtitle">منفصلة عن تشغيل البلاغات اليومي — هنا بس إدارة مين يقدر يعمل إيه.</p>
+      </div>
+    </div>
+
+    <div id="alert" class="alert hidden"></div>
+
+    <!-- لقطة سريعة -->
+    <div class="stats-grid">
+      <div class="stat is-total">
+        <span class="stat-icon" aria-hidden="true">👥</span>
+        <div class="value" id="statUsers">—</div>
+        <div class="label">إجمالي الحسابات</div>
+      </div>
+      <div class="stat is-resolved">
+        <span class="stat-icon" aria-hidden="true">✅</span>
+        <div class="value" id="statActive">—</div>
+        <div class="label">حسابات نشطة</div>
+      </div>
+      <div class="stat is-new">
+        <span class="stat-icon" aria-hidden="true">⏸️</span>
+        <div class="value" id="statInactive">—</div>
+        <div class="label">حسابات موقوفة</div>
+      </div>
+      <div class="stat is-sla">
+        <span class="stat-icon" aria-hidden="true">📋</span>
+        <div class="value" id="statComplaints">—</div>
+        <div class="label">إجمالي بلاغات المحافظة</div>
+      </div>
+    </div>
+
+    <!-- الحسابات -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-icon" aria-hidden="true">👤</span>
+          <h2>حسابات الموظفين</h2>
+        </div>
+        <button class="btn btn-sm" id="newUserBtn">＋ حساب جديد</button>
+      </div>
+
+      <!-- نموذج الإنشاء — مطوي افتراضيًا -->
+      <form id="newUserForm" class="card card-pad-sm hidden" style="background:var(--surface-2);margin-bottom:var(--s-5)">
+        <div class="two-col">
+          <div class="field">
+            <label for="nuUsername">اسم المستخدم <span class="req">*</span>
+              <span class="hint">إنجليزي، بيبدأ بحرف</span>
+            </label>
+            <input type="text" id="nuUsername" required pattern="[a-z][a-z0-9_.]{2,31}" placeholder="مثال: governorate2">
+          </div>
+          <div class="field">
+            <label for="nuEmail">الإيميل <span class="req">*</span></label>
+            <input type="email" id="nuEmail" required placeholder="name@alexandria.gov.eg">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="nuName">الاسم الكامل <span class="req">*</span></label>
+          <input type="text" id="nuName" required placeholder="الاسم اللي هيظهر في الواجهة">
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="nuRole">الدور <span class="req">*</span></label>
+            <select id="nuRole" required></select>
+          </div>
+          <div class="field">
+            <label for="nuDistrict">الحي <span class="hint">لرئيس حي بس</span></label>
+            <select id="nuDistrict"><option value="">— بدون —</option></select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="nuDept">الإدارة <span class="hint">اختياري</span></label>
+          <select id="nuDept"><option value="">— بدون —</option></select>
+        </div>
+
+        <div class="field" style="margin:0">
+          <label for="nuPassword">الباسورد <span class="hint">اختياري — سيبه فاضي عشان يتولّد تلقائيًا</span></label>
+          <input type="text" id="nuPassword" placeholder="8 حروف على الأقل" minlength="8">
+        </div>
+
+        <div class="row" style="margin-top:var(--s-5)">
+          <button type="submit" class="btn">إنشاء الحساب</button>
+          <button type="button" class="btn btn-secondary" id="cancelNewUser">إلغاء</button>
+        </div>
+      </form>
+
+      <!-- الباسورد المؤقت — بيبان مرة واحدة بس بعد الإنشاء/إعادة التعيين -->
+      <div id="tempPasswordBox" class="alert alert-info hidden"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>اسم المستخدم / الإيميل</th>
+              <th>الدور</th>
+              <th>النطاق</th>
+              <th>الحالة</th>
+              <th>آخر دخول</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- سجل التدقيق -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-icon" aria-hidden="true">🧾</span>
+          <h2>آخر نشاط في سجل التدقيق</h2>
+        </div>
+      </div>
+      <ul class="timeline" id="auditList"></ul>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-bottom">
+    محافظة الإسكندرية — لوحة إدارة النظام · وصول داخلي لمديري النظام فقط
+  </div>
+</footer>
+
+<script type="module" src="/js/ui.js"></script>
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ar-EG" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="تابع حالة بلاغك في محافظة الإسكندرية بالرقم المرجعي خطوة بخطوة.">
+  <title>تابع بلاغك | منصة الإسكندرية الرقمية</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
+  <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/alexandria.css">
+  <script src="/js/theme-boot.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="/">
+      <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+          <path d="M16 10 3 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M16 10 29 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z" fill="#fff"/>
+          <rect x="12.3" y="7.3" width="7.4" height="5.7" rx="1.4" fill="#fff"/>
+          <circle cx="16" cy="10.1" r="1.7" fill="#E1A736"/>
+          <path d="M16 3.3l1.2 3.1h-2.4z" fill="#fff"/>
+          <path d="M4 28.4c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"
+                stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+        </svg></span>
+      <span>الإسكندرية الرقمية
+        <span class="brand-sub">بوابة الخدمات والشكاوى</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      <a href="/">بلّغ عن مشكلة</a>
+      <a href="/appointments">المواعيد</a>
+      <a href="/track" class="active" aria-current="page">تابع بلاغك</a>
+      <a href="/my">حسابي</a>
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" class="icon-btn" id="paletteBtn" aria-label="بحث سريع (Ctrl+K)" title="بحث سريع — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </button>
+      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
+      <a class="btn btn-sm" href="/citizen-login">تسجيل الدخول</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
+              aria-label="فتح القائمة"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-banner hero-sea" data-landmark="pharos" aria-hidden="true"></div>
+
+<main id="main" class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <span class="eyebrow">متابعة</span>
+      <h1>تابع بلاغك</h1>
+      <p class="subtitle">اكتب الرقم المرجعي اللي استلمته وقت إرسال البلاغ عشان تشوف حالته ومراحل معالجته.</p>
+    </div>
+  </div>
+
+  <div id="alert" class="alert hidden"></div>
+
+  <div class="card">
+    <form id="trackForm">
+      <div class="field" style="margin:0">
+        <label for="refInput">الرقم المرجعي
+          <span class="hint">بيبدأ بـ ALX ولقيته في شاشة تأكيد البلاغ</span>
+        </label>
+        <div class="row wrap">
+          <input type="text" id="refInput" class="mono grow" placeholder="ALX-2026-000147"
+                 style="min-width:200px" required>
+          <button type="submit" class="btn btn-lg">ابحث</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div id="result" class="hidden">
+    <div class="card">
+      <div class="row-between" style="margin-bottom:14px">
+        <div class="ref-code" style="margin:0;font-size:var(--t-base)" id="rRef"></div>
+        <span id="rStatus" style="display:flex;gap:5px;flex-wrap:wrap"></span>
+      </div>
+
+      <img id="rPhoto" alt="صورة البلاغ"
+           style="width:100%;border-radius:var(--r-lg);max-height:340px;object-fit:cover;display:block;margin-bottom:var(--s-4)">
+
+      <div id="rCategory" style="font-weight:800;font-size:var(--t-lg);margin-bottom:var(--s-2)"></div>
+      <p id="rDesc" style="margin:0 0 12px"></p>
+
+      <div class="muted" style="font-size:.89rem">
+        <div id="rDistrict"></div>
+        <div id="rAddress"></div>
+        <div id="rDept"></div>
+        <div id="rDate"></div>
+      </div>
+
+      <div id="rAi"></div>
+    </div>
+
+    <div class="card hidden" id="rCommentsCard">
+      <div class="card-head"><div class="card-title-row"><span class="card-icon" aria-hidden="true">💬</span><h2>ردود الجهة المسؤولة</h2></div></div>
+      <div id="rComments"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title-row"><span class="card-icon" aria-hidden="true">🧭</span><h2>مراحل معالجة البلاغ</h2></div></div>
+      <ul class="timeline" id="rTimeline"></ul>
+    </div>
+
+    <div class="card hidden" id="rRatingCard">
+      <h2>تقييم الخدمة</h2>
+      <div id="rRating"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+          <path d="M16 10 3 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M16 10 29 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z" fill="#fff"/>
+          <rect x="12.3" y="7.3" width="7.4" height="5.7" rx="1.4" fill="#fff"/>
+          <circle cx="16" cy="10.1" r="1.7" fill="#E1A736"/>
+          <path d="M16 3.3l1.2 3.1h-2.4z" fill="#fff"/>
+          <path d="M4 28.4c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"
+                stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+        </svg></span>
+        <span>الإسكندرية الرقمية</span>
+      </a>
+      <p class="footer-about">
+        بوابة موحّدة لخدمات محافظة الإسكندرية: بلّغ عن مشكلة في مدينتك، احجز موعدك
+        في مقر الحي، وتابع كل طلباتك من مكان واحد.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h5>الخدمات</h5>
+      <ul>
+        <li><a href="/">بلّغ عن مشكلة</a></li>
+        <li><a href="/appointments">حجز المواعيد</a></li>
+        <li><a href="/track">متابعة بلاغ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>الحساب</h5>
+      <ul>
+        <li><a href="/citizen-login">دخول المواطنين</a></li>
+        <li><a href="/my">حسابي وطلباتي</a></li>
+        <li><a href="/login">دخول الموظفين</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>طوارئ</h5>
+      <ul>
+        <li><a href="tel:123">الإسعاف — 123</a></li>
+        <li><a href="tel:180">المطافي — 180</a></li>
+        <li><a href="tel:122">النجدة — 122</a></li>
+        <li><a href="tel:16528">المحافظة — 16528</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    محافظة الإسكندرية — منصة الخدمات والشكاوى الرقمية · جميع الحقوق محفوظة
+  </div>
+</footer>
+
+<script type="module" src="/js/ui.js"></script>
+<script type="module" src="/js/track.js"></script>
+</body>
+</html>

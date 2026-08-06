@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="ar-EG" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="خريطة حيّة لبلاغات محافظة الإسكندرية مع مؤشرات الأداء وزمن الاستجابة لكل حي.">
+  <title>الخريطة والبلاغات | منصة الإسكندرية الرقمية</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
+  <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/vendor/markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="/vendor/markercluster/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/alexandria.css">
+  <script src="/js/theme-boot.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="/">
+      <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+          <path d="M16 10 3 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M16 10 29 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z" fill="#fff"/>
+          <rect x="12.3" y="7.3" width="7.4" height="5.7" rx="1.4" fill="#fff"/>
+          <circle cx="16" cy="10.1" r="1.7" fill="#E1A736"/>
+          <path d="M16 3.3l1.2 3.1h-2.4z" fill="#fff"/>
+          <path d="M4 28.4c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"
+                stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+        </svg></span>
+      <span>الإسكندرية الرقمية
+        <span class="brand-sub">بوابة الخدمات والشكاوى</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      <a href="/">بلّغ عن مشكلة</a>
+      <a href="/appointments">المواعيد</a>
+      <a href="/dashboard" class="active" aria-current="page">الخريطة والبلاغات</a>
+      <a href="/track">تابع بلاغك</a>
+      <a href="/my">حسابي</a>
+    </nav>
+
+    <div class="header-actions">
+      <span id="userChip" class="chip hidden"></span>
+      <a href="/queue" id="queueLink" class="btn btn-sm btn-secondary hidden">طابور المواعيد</a>
+      <a href="/governor" id="execLink" class="btn btn-sm btn-secondary hidden">اللوحة التنفيذية</a>
+      <a href="/admin" id="adminLink" class="btn btn-sm btn-secondary hidden">إدارة النظام</a>
+      <button type="button" class="icon-btn" id="paletteBtn" aria-label="بحث سريع (Ctrl+K)" title="بحث سريع — Ctrl+K">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </button>
+      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
+      <a class="btn btn-sm" href="/login" id="authLink">دخول الموظفين</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
+              aria-label="فتح القائمة"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-banner hero-sea" data-landmark="stanley" aria-hidden="true"></div>
+
+<main id="main" class="page">
+
+  <!-- بيبان للمواطنين والزوّار — الخريطة وتفاصيل البلاغات للموظفين بس -->
+  <div id="deniedBox" class="card empty" data-illo="lighthouse">
+    <h3>الصفحة دي لموظفي المحافظة بس</h3>
+    <p class="muted">خريطة البلاغات وتفاصيلها متاحة لموظفي المحافظة عشان يتابعوا شغلهم.
+      لو عايز تتابع بلاغك، استخدم الرقم المرجعي.</p>
+    <div class="mt-6" style="display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-lg" href="/track">تابع بلاغك</a>
+      <a class="btn btn-lg btn-secondary" href="/login">دخول الموظفين</a>
+    </div>
+  </div>
+
+  <div id="dashboardBox" class="hidden">
+  <div class="page-head">
+    <div>
+      <span class="eyebrow">غرفة عمليات المدينة</span>
+      <h1 id="pageTitle">لوحة متابعة البلاغات</h1>
+      <p class="subtitle">البلاغات على الخريطة مع مؤشرات الأداء والالتزام بالمهل</p>
+    </div>
+    <button class="btn btn-secondary hidden" id="exportBtn">⬇️ تصدير CSV</button>
+  </div>
+
+  <div id="scopeNote" class="alert alert-info hidden"></div>
+  <div id="alert" class="alert hidden"></div>
+
+  <!-- مؤشرات الأداء -->
+  <div class="stats-grid">
+    <div class="stat is-total">
+      <span class="stat-icon" aria-hidden="true">📋</span>
+      <div class="value" id="statTotal">—</div>
+      <div class="label">إجمالي البلاغات</div>
+    </div>
+    <div class="stat is-new">
+      <span class="stat-icon" aria-hidden="true">🔴</span>
+      <div class="value" id="statOpen">—</div>
+      <div class="label">مفتوحة حاليًا</div>
+    </div>
+    <div class="stat is-resolved">
+      <span class="stat-icon" aria-hidden="true">✅</span>
+      <div class="value" id="statResolved">—</div>
+      <div class="label">تم حلها</div>
+    </div>
+    <div class="stat is-sla">
+      <span class="stat-icon" aria-hidden="true">🎯</span>
+      <div class="value" id="statSla">—</div>
+      <div class="label">الالتزام بالمهلة (الهدف ٨٠٪)</div>
+    </div>
+    <div class="stat is-overdue">
+      <span class="stat-icon" aria-hidden="true">⏰</span>
+      <div class="value" id="statOverdue">—</div>
+      <div class="label">متأخرة عن المهلة</div>
+    </div>
+    <div class="stat is-rating">
+      <span class="stat-icon" aria-hidden="true">⭐</span>
+      <div class="value" id="statRating">—</div>
+      <div class="label">رضا المواطنين</div>
+    </div>
+    <div class="stat is-time">
+      <span class="stat-icon" aria-hidden="true">⚡</span>
+      <div class="value" id="statAvgTime">—</div>
+      <div class="label">متوسط زمن الحل</div>
+    </div>
+  </div>
+
+  <!-- الفلاتر -->
+  <div class="card">
+    <div class="filters">
+      <div>
+        <label for="fCategory">نوع المشكلة</label>
+        <select id="fCategory"></select>
+      </div>
+      <div>
+        <label for="fDistrict">الحي</label>
+        <select id="fDistrict"></select>
+      </div>
+      <div>
+        <label for="fStatus">الحالة</label>
+        <select id="fStatus"></select>
+      </div>
+      <div>
+        <label for="fPriority">الأولوية</label>
+        <select id="fPriority"></select>
+      </div>
+      <div>
+        <label for="fPeriod">المدة</label>
+        <select id="fPeriod">
+          <option value="">كل الفترات</option>
+          <option value="1">آخر ٢٤ ساعة</option>
+          <option value="7">آخر أسبوع</option>
+          <option value="30">آخر شهر</option>
+        </select>
+      </div>
+      <div>
+        <label for="fRisk">التحليل الآلي 🤖</label>
+        <select id="fRisk">
+          <option value="">الكل</option>
+          <option value="health">☣️ فيه خطر صحي</option>
+          <option value="invalid">⚠️ الصورة مش مطابقة</option>
+          <option value="duplicate">👥 مكرر</option>
+          <option value="flagged" data-staff-only>🚩 وصف متعلّم عليه</option>
+        </select>
+      </div>
+      <div>
+        <label class="check-inline">
+          <input type="checkbox" id="fOpenOnly">
+          <span>المفتوحة بس</span>
+        </label>
+      </div>
+      <div>
+        <button class="btn btn-secondary btn-block" id="resetFilters">مسح الفلاتر</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- الخريطة -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-icon" aria-hidden="true">🗺️</span>
+        <h2>الخريطة <span class="muted" style="font-weight:400;font-size:var(--t-sm)" id="mapCount"></span></h2>
+      </div>
+      <div class="row wrap">
+        <button class="btn btn-sm btn-secondary" id="toggleHeat">🔥 كثافة البلاغات</button>
+        <button class="btn btn-sm btn-secondary" id="fitBounds">🎯 اعرض الكل</button>
+      </div>
+    </div>
+
+    <div class="map-main" id="mainMap"></div>
+
+    <div class="legend">
+      <span><i class="dot pin-red"></i> جديد / معاد فتحه</span>
+      <span><i class="dot pin-amber"></i> قيد المراجعة</span>
+      <span><i class="dot pin-orange"></i> جاري التنفيذ</span>
+      <span><i class="dot pin-green"></i> تم الحل</span>
+      <span><i class="dot pin-purple"></i> مُصعَّد ⚡</span>
+      <span><i class="dot pin-gray"></i> مغلق / مرفوض</span>
+      <span class="muted">— حجم النقطة = الأولوية · الهالة الحمرا = خطر صحي أو تأخير</span>
+    </div>
+  </div>
+
+  <!-- التوزيع -->
+  <div class="two-col">
+    <div class="card">
+      <h2>حسب نوع المشكلة</h2>
+      <div class="bars" id="categoryBars"></div>
+    </div>
+    <div class="card">
+      <h2>أكثر الأحياء بلاغات</h2>
+      <div class="bars" id="districtBars"></div>
+    </div>
+  </div>
+
+  <div class="divider-deco" aria-hidden="true"><span class="marks"><span></span><span></span><span></span></span></div>
+
+  <!-- ═══ تحليلات المدينة ═══════════════════════════════════════════ -->
+  <section class="mt-8" data-reveal>
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">تحليلات</span>
+        <h2>اتجاه البلاغات وأداء الأحياء</h2>
+        <p class="subtitle">مقارنة الأحياء ببعضها، والأماكن اللي بتتكرر فيها نفس المشكلة</p>
+      </div>
+      <div class="field-inline">
+        <label for="aPeriod">الفترة</label>
+        <select id="aPeriod">
+          <option value="14">آخر أسبوعين</option>
+          <option value="30" selected>آخر شهر</option>
+          <option value="90">آخر ٣ شهور</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>الجديد مقابل المحلول</h3>
+        <div class="chart-legend">
+          <span><i class="swatch" style="background:var(--danger)"></i> بلاغات جديدة</span>
+          <span><i class="swatch" style="background:var(--success)"></i> تم حلها</span>
+        </div>
+      </div>
+      <div id="trendChart" class="chart"></div>
+    </div>
+
+    <div class="two-col mt-6">
+      <div class="card">
+        <div class="card-head">
+          <h3>أداء الأحياء</h3>
+          <span class="muted" id="districtNote"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الحي</th>
+                <th>البلاغات</th>
+                <th>نسبة الحل</th>
+                <th>الالتزام بالمهلة</th>
+                <th>متوسط الاستجابة</th>
+              </tr>
+            </thead>
+            <tbody id="districtPerf"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>البؤر المتكررة</h3>
+          <span class="muted">أماكن اتكرر فيها البلاغ ٣ مرات أو أكتر</span>
+        </div>
+        <div id="hotspotList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- الجدول -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-icon" aria-hidden="true">📋</span>
+        <h2>البلاغات <span class="muted" style="font-weight:400;font-size:var(--t-sm)" id="tableCount"></span></h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>الصورة</th>
+            <th>الرقم المرجعي</th>
+            <th>النوع</th>
+            <th>الحي</th>
+            <th>الحالة</th>
+            <th>الأولوية</th>
+            <th>المهلة</th>
+            <th title="نتيجة التحليل الآلي">🤖</th>
+            <th>التاريخ</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty hidden" id="emptyState" data-illo="corniche">
+      <h3>مفيش بلاغات مطابقة</h3>
+      <p class="muted">جرّب توسّع الفلاتر أو تمسحها كلها.</p>
+    </div>
+  </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+          <path d="M16 10 3 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M16 10 29 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z" fill="#fff"/>
+          <rect x="12.3" y="7.3" width="7.4" height="5.7" rx="1.4" fill="#fff"/>
+          <circle cx="16" cy="10.1" r="1.7" fill="#E1A736"/>
+          <path d="M16 3.3l1.2 3.1h-2.4z" fill="#fff"/>
+          <path d="M4 28.4c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"
+                stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+        </svg></span>
+        <span>الإسكندرية الرقمية</span>
+      </a>
+      <p class="footer-about">
+        بوابة موحّدة لخدمات محافظة الإسكندرية: بلّغ عن مشكلة في مدينتك، احجز موعدك
+        في مقر الحي، وتابع كل طلباتك من مكان واحد.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h5>الخدمات</h5>
+      <ul>
+        <li><a href="/">بلّغ عن مشكلة</a></li>
+        <li><a href="/appointments">حجز المواعيد</a></li>
+        <li><a href="/track">متابعة بلاغ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>الحساب</h5>
+      <ul>
+        <li><a href="/citizen-login">دخول المواطنين</a></li>
+        <li><a href="/my">حسابي وطلباتي</a></li>
+        <li><a href="/login">دخول الموظفين</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>طوارئ</h5>
+      <ul>
+        <li><a href="tel:123">الإسعاف — 123</a></li>
+        <li><a href="tel:180">المطافي — 180</a></li>
+        <li><a href="tel:122">النجدة — 122</a></li>
+        <li><a href="tel:16528">المحافظة — 16528</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    محافظة الإسكندرية — منصة الخدمات والشكاوى الرقمية · جميع الحقوق محفوظة
+  </div>
+</footer>
+
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/markercluster/leaflet.markercluster.js"></script>
+<script src="/vendor/heat/leaflet-heat.js"></script>
+<script type="module" src="/js/ui.js"></script>
+<script type="module" src="/js/dashboard.js"></script>
+<script type="module" src="/js/analytics.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ar-EG" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="اللوحة التنفيذية للمحافظة: أداء الأحياء والإدارات ومؤشرات الأداء العامة.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>اللوحة التنفيذية | منصة الإسكندرية الرقمية</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
+  <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/alexandria.css">
+  <script src="/js/theme-boot.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="/">
+      <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+          <path d="M16 10 3 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M16 10 29 5.5v9L16 10Z" fill="#fff" opacity=".4"/>
+          <path d="M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z" fill="#fff"/>
+          <rect x="12.3" y="7.3" width="7.4" height="5.7" rx="1.4" fill="#fff"/>
+          <circle cx="16" cy="10.1" r="1.7" fill="#E1A736"/>
+          <path d="M16 3.3l1.2 3.1h-2.4z" fill="#fff"/>
+          <path d="M4 28.4c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"
+                stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+        </svg></span>
+      <span>الإسكندرية الرقمية
+        <span class="brand-sub">اللوحة التنفيذية</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      <a href="/dashboard">لوحة البلاغات</a>
+      <a href="/governor" class="active" aria-current="page">اللوحة التنفيذية</a>
+    </nav>
+
+    <div class="header-actions">
+      <span id="userChip" class="chip hidden"></span>
+      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
+      <a class="btn btn-sm btn-ghost" href="#" id="logoutLink">خروج</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
+              aria-label="فتح القائمة"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-banner hero-sea" data-landmark="qaitbay" aria-hidden="true"></div>
+
+<main id="main" class="page">
+
+  <div id="deniedBox" class="card empty hidden" data-illo="lighthouse">
+    <h3>الصفحة دي للمحافظ ومكتب المحافظة بس</h3>
+    <p class="muted">سجّل دخولك بحساب مخوّل عشان توصل للّوحة التنفيذية.</p>
+    <a class="btn mt-4" href="/login">دخول الموظفين</a>
+  </div>
+
+  <div id="execBox" class="hidden">
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">نظرة استراتيجية</span>
+        <h1>اللوحة التنفيذية لمحافظة الإسكندرية</h1>
+        <p class="subtitle">أداء الأحياء والإدارات ومؤشرات الالتزام — للقراءة والمتابعة فقط.</p>
+      </div>
+    </div>
+
+    <div id="alert" class="alert hidden"></div>
+
+    <!-- المؤشرات العليا -->
+    <div class="stats-grid">
+      <div class="stat is-total">
+        <span class="stat-icon" aria-hidden="true">📋</span>
+        <div class="value" id="statTotal">—</div>
+        <div class="label">إجمالي البلاغات</div>
+      </div>
+      <div class="stat is-resolved">
+        <span class="stat-icon" aria-hidden="true">✅</span>
+        <div class="value" id="statResolved">—</div>
+        <div class="label">تم حلّها</div>
+      </div>
+      <div class="stat is-sla">
+        <span class="stat-icon" aria-hidden="true">🎯</span>
+        <div class="value" id="statSla">—</div>
+        <div class="label">الالتزام بالمهلة (الهدف ٨٠٪)</div>
+      </div>
+      <div class="stat is-overdue">
+        <span class="stat-icon" aria-hidden="true">⏰</span>
+        <div class="value" id="statOverdue">—</div>
+        <div class="label">متأخرة عن المهلة</div>
+      </div>
+      <div class="stat is-rating">
+        <span class="stat-icon" aria-hidden="true">⭐</span>
+        <div class="value" id="statRating">—</div>
+        <div class="label">رضا المواطنين</div>
+      </div>
+      <div class="stat is-time">
+        <span class="stat-icon" aria-hidden="true">⚡</span>
+        <div class="value" id="statAvgTime">—</div>
+        <div class="label">متوسط زمن الحل</div>
+      </div>
+    </div>
+
+    <div class="divider-deco" aria-hidden="true"><span class="marks"><span></span><span></span><span></span></span></div>
+
+    <!-- الاتجاه الزمني -->
+    <div class="card">
+      <div class="card-head">
+        <h3>الجديد مقابل المحلول</h3>
+        <div class="chart-legend">
+          <span><i class="swatch" style="background:var(--danger)"></i> بلاغات جديدة</span>
+          <span><i class="swatch" style="background:var(--success)"></i> تم حلها</span>
+        </div>
+      </div>
+      <div id="trendChart" class="chart"></div>
+    </div>
+
+    <!-- ترتيب الأحياء وأداء الإدارات -->
+    <div class="two-col mt-6">
+      <div class="card">
+        <div class="card-head">
+          <h3>ترتيب الأحياء</h3>
+          <span class="muted" id="districtNote"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الحي</th>
+                <th>البلاغات</th>
+                <th>نسبة الحل</th>
+                <th>الالتزام بالمهلة</th>
+                <th>متوسط الاستجابة</th>
+              </tr>
+            </thead>
+            <tbody id="districtPerf"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>أداء الإدارات</h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الإدارة</th>
+                <th>البلاغات</th>
+                <th>نسبة الحل</th>
+                <th>متوسط الحل</th>
+              </tr>
+            </thead>
+            <tbody id="deptPerf"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- البؤر المتكررة -->
+    <div class="card mt-6">
+      <div class="card-head">
+        <h3>البؤر المتكررة على مستوى المحافظة</h3>
+        <span class="muted">أماكن اتكرر فيها نفس البلاغ ٣ مرات أو أكتر</span>
+      </div>
+      <div id="hotspotList"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-bottom">
+    محافظة الإسكندرية — اللوحة التنفيذية · وصول داخلي للمحافظ ومكتب المحافظة فقط
+  </div>
+</footer>
+
+<script type="module" src="/js/ui.js"></script>
+<script type="module" src="/js/governor.js"></script>
+<script type="module" src="/js/analytics.js"></script>
+</body>
+</html>

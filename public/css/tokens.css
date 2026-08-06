@@ -1,0 +1,317 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   منصة الإسكندرية — نظام التصميم
+   Design Tokens · v2.0
+
+   كل قيمة في الواجهة بتيجي من هنا. لو عايز تغيّر هوية المنصة كلها،
+   غيّر الملف ده بس.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── الخط ──────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Cairo';
+  src: url('/fonts/cairo-arabic.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+08A0-08FF,
+                 U+200C-200E, U+2010-2011, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('/fonts/cairo-latin.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+                 U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* خط العرض — أميري، نسخة معاصرة من نسخ بولاق التاريخية.
+   بيتحط بس على العناوين الكبيرة والعناصر "الرسمية" (المرجع/التذكرة)
+   عشان يدّي طابع كلاسيكي من غير ما يمسّ سهولة القراءة في الواجهة العادية. */
+@font-face {
+  font-family: 'Amiri';
+  src: url('/fonts/amiri-arabic-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+}
+@font-face {
+  font-family: 'Amiri';
+  src: url('/fonts/amiri-arabic-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+:root {
+  /* ═══ الألوان الأساسية ═══════════════════════════════════════════════
+     أزرق الإسكندرية — البحر المتوسط في الشتا
+     التركواز       — البحر في الصيف
+     الذهبي         — منارة الإسكندرية والرمل                          */
+
+  --alx-50:  #EEF6FD;
+  --alx-100: #D6E9FA;
+  --alx-200: #AFD3F4;
+  --alx-300: #7DB6EA;
+  --alx-400: #4A93DA;
+  --alx-500: #2673C0;
+  --alx-600: #175BA2;
+  --alx-700: #124884;
+  --alx-800: #123C6C;
+  --alx-900: #0F2F53;
+  --alx-950: #0A1E38;
+
+  --teal-50:  #ECFDFA;
+  --teal-100: #CFFAF2;
+  --teal-200: #A2F3E7;
+  --teal-300: #68E6D8;
+  --teal-400: #33CFC3;
+  --teal-500: #14B2AA;
+  --teal-600: #0C8F8B;
+  --teal-700: #0E7270;
+  --teal-800: #10595A;
+  --teal-900: #124A4B;
+
+  --gold-50:  #FDF8ED;
+  --gold-100: #F8EDCE;
+  --gold-200: #F1D89A;
+  --gold-300: #E8BE5F;
+  --gold-400: #E1A736;
+  --gold-500: #D18D1F;
+  --gold-600: #B46D18;
+  --gold-700: #904F18;
+  --gold-800: #773F1A;
+  --gold-900: #65351B;
+
+  /* ═══ ألوان الحالة ═══════════════════════════════════════════════ */
+  --green-50:  #ECFDF3;  --green-100: #D1FADF;  --green-200: #A6F4C5;
+  --green-400: #32D583;  --green-500: #12B76A;  --green-600: #039855;
+  --green-700: #027A48;  --green-800: #05603A;
+
+  --red-50:  #FEF3F2;  --red-100: #FEE4E2;  --red-200: #FECDCA;
+  --red-400: #F97066;  --red-500: #F04438;  --red-600: #D92D20;
+  --red-700: #B42318;  --red-800: #912018;
+
+  --orange-50:  #FFFAEB;  --orange-100: #FEF0C7;  --orange-200: #FEDF89;
+  --orange-400: #FDB022;  --orange-500: #F79009;  --orange-600: #DC6803;
+  --orange-700: #B54708;  --orange-800: #93370D;
+
+  --purple-50:  #F4F3FF;  --purple-100: #EBE9FE;  --purple-200: #D9D6FE;
+  --purple-400: #A48AFB;  --purple-500: #875BF7;  --purple-600: #7839EE;
+  --purple-700: #6927DA;  --purple-800: #5720B7;
+
+  /* ═══ الرمادي ═══════════════════════════════════════════════════ */
+  --gray-25:  #FCFCFD;  --gray-50:  #F8FAFC;  --gray-100: #F1F5F9;
+  --gray-200: #E4EAF2;  --gray-300: #CFD8E5;  --gray-400: #96A5BC;
+  --gray-500: #667897;  --gray-600: #4A5A77;  --gray-700: #36445C;
+  --gray-800: #202C41;  --gray-900: #131E30;  --gray-950: #0A1220;
+
+  /* ═══ المسافات — أساس ٤ بكسل ══════════════════════════════════ */
+  --s-1: 4px;    --s-2: 8px;    --s-3: 12px;   --s-4: 16px;
+  --s-5: 20px;   --s-6: 24px;   --s-7: 28px;   --s-8: 32px;   --s-10: 40px;
+  --s-12: 48px;  --s-16: 64px;  --s-20: 80px;  --s-24: 96px;
+  --s-32: 128px;
+
+  /* ═══ الأنصاف ═══════════════════════════════════════════════════ */
+  --r-xs: 6px;   --r-sm: 8px;   --r-md: 12px;  --r-lg: 16px;
+  --r-xl: 20px;  --r-2xl: 26px; --r-3xl: 34px; --r-full: 9999px;
+
+  /* ═══ المقاسات ══════════════════════════════════════════════════ */
+  --t-xs: 0.75rem;    /* 12 */
+  --t-sm: 0.8125rem;  /* 13 */
+  --t-md: 0.875rem;   /* 14 */
+  --t-base: 0.9375rem;/* 15 */
+  --t-lg: 1.0625rem;  /* 17 */
+  --t-xl: 1.25rem;    /* 20 */
+  --t-2xl: 1.5rem;    /* 24 */
+  --t-3xl: 1.875rem;  /* 30 */
+  --t-4xl: 2.375rem;  /* 38 */
+  --t-5xl: 3rem;      /* 48 */
+  --t-6xl: 3.75rem;   /* 60 */
+
+  --font: 'Cairo', 'Segoe UI', 'Noto Sans Arabic', system-ui, -apple-system, sans-serif;
+  --font-display: 'Amiri', 'Cairo', 'Segoe UI', serif;
+  --font-mono: 'SF Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.65;
+  --lh-relaxed: 1.85;
+
+  /* ═══ الحركة ════════════════════════════════════════════════════
+     المنحنيات دي هي اللي بتدّي الإحساس «الپريميوم» — خروج سريع
+     في الأول وتباطؤ ناعم في الآخر.                                 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --d-fast: 140ms;
+  --d-base: 220ms;
+  --d-slow: 380ms;
+  --d-slower: 600ms;
+
+  /* ═══ الطبقات ═══════════════════════════════════════════════════ */
+  --z-base: 1;      --z-sticky: 100;   --z-header: 200;
+  --z-drawer: 300;  --z-overlay: 400;  --z-modal: 500;
+  --z-toast: 600;   --z-palette: 700;  --z-tooltip: 800;
+
+  /* ═══ المقاسات الثابتة ══════════════════════════════════════════ */
+  --header-h: 68px;
+  --container: 1320px;
+  --container-narrow: 760px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   الوضع النهاري
+   ═══════════════════════════════════════════════════════════════════════ */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg:          #F4F7FB;
+  --bg-subtle:   #EDF2F9;
+  --surface:     #FFFFFF;
+  --surface-2:   #F8FAFC;
+  --surface-3:   #F1F5F9;
+  --surface-inv: var(--gray-900);
+
+  --border:        #E1E8F2;
+  --border-strong: #CBD6E6;
+  --border-subtle: #EDF2F8;
+
+  --text:       var(--gray-900);
+  --text-2:     var(--gray-700);
+  --text-muted: var(--gray-500);
+  --text-faint: var(--gray-400);
+  --text-inv:   #FFFFFF;
+
+  --primary:       var(--alx-600);
+  --primary-hover: var(--alx-700);
+  --primary-soft:  var(--alx-50);
+  --primary-text:  var(--alx-700);
+  --on-primary:    #FFFFFF;
+
+  --accent:      var(--teal-500);
+  --accent-soft: var(--teal-50);
+  --gold:        var(--gold-500);
+  --gold-soft:   var(--gold-50);
+
+  --success: var(--green-600); --success-soft: var(--green-50); --success-text: var(--green-700);
+  --danger:  var(--red-600);   --danger-soft:  var(--red-50);   --danger-text:  var(--red-700);
+  --warning: var(--orange-500);--warning-soft: var(--orange-50);--warning-text: var(--orange-700);
+  --info:    var(--purple-600);--info-soft:    var(--purple-50);--info-text:    var(--purple-700);
+
+  --shadow-xs: 0 1px 2px rgba(16, 30, 54, .05);
+  --shadow-sm: 0 1px 3px rgba(16, 30, 54, .07), 0 1px 2px rgba(16, 30, 54, .04);
+  --shadow-md: 0 4px 10px -2px rgba(16, 30, 54, .08), 0 2px 6px -2px rgba(16, 30, 54, .05);
+  --shadow-lg: 0 12px 24px -6px rgba(16, 30, 54, .10), 0 4px 10px -4px rgba(16, 30, 54, .05);
+  --shadow-xl: 0 24px 48px -12px rgba(16, 30, 54, .16);
+  --shadow-2xl: 0 36px 72px -18px rgba(16, 30, 54, .22);
+  --shadow-primary: 0 8px 20px -6px rgba(23, 91, 162, .35);
+
+  --glass-bg: rgba(255, 255, 255, .72);
+  --glass-brd: rgba(255, 255, 255, .6);
+
+  --ring: 0 0 0 3px rgba(38, 115, 192, .18);
+  --overlay: rgba(10, 20, 35, .45);
+
+  --grid-line: rgba(16, 30, 54, .06);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   الوضع الليلي
+   ═══════════════════════════════════════════════════════════════════════ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg:          #070C15;
+  --bg-subtle:   #0A1120;
+  --surface:     #0F172A;
+  --surface-2:   #16202F;
+  --surface-3:   #1D2939;
+  --surface-inv: #FFFFFF;
+
+  --border:        #23303F;
+  --border-strong: #33404F;
+  --border-subtle: #1A2433;
+
+  --text:       #ECF2FA;
+  --text-2:     #C3D0E0;
+  --text-muted: #8C9DB4;
+  --text-faint: #64758B;
+  --text-inv:   var(--gray-900);
+
+  --primary:       var(--alx-400);
+  --primary-hover: var(--alx-300);
+  --primary-soft:  rgba(74, 147, 218, .14);
+  --primary-text:  var(--alx-300);
+  --on-primary:    #061424;
+
+  --accent:      var(--teal-400);
+  --accent-soft: rgba(51, 207, 195, .14);
+  --gold:        var(--gold-300);
+  --gold-soft:   rgba(232, 190, 95, .14);
+
+  --success: var(--green-400); --success-soft: rgba(50, 213, 131, .14); --success-text: var(--green-200);
+  --danger:  var(--red-400);   --danger-soft:  rgba(249, 112, 102, .14);--danger-text:  var(--red-200);
+  --warning: var(--orange-400);--warning-soft: rgba(253, 176, 34, .14); --warning-text: var(--orange-200);
+  --info:    var(--purple-400);--info-soft:    rgba(164, 138, 251, .14);--info-text:    var(--purple-200);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .5), 0 1px 2px rgba(0, 0, 0, .35);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, .55), 0 2px 6px -2px rgba(0, 0, 0, .4);
+  --shadow-lg: 0 14px 28px -6px rgba(0, 0, 0, .6), 0 4px 10px -4px rgba(0, 0, 0, .45);
+  --shadow-xl: 0 28px 56px -12px rgba(0, 0, 0, .7);
+  --shadow-2xl: 0 40px 80px -18px rgba(0, 0, 0, .8);
+  --shadow-primary: 0 8px 24px -6px rgba(74, 147, 218, .4);
+
+  --glass-bg: rgba(15, 23, 42, .74);
+  --glass-brd: rgba(255, 255, 255, .08);
+
+  --ring: 0 0 0 3px rgba(74, 147, 218, .28);
+  --overlay: rgba(0, 0, 0, .68);
+
+  --grid-line: rgba(255, 255, 255, .05);
+}
+
+/* الوضع الافتراضي يتبع النظام لو المستخدم ماختارش */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --bg: #070C15; --bg-subtle: #0A1120; --surface: #0F172A;
+    --surface-2: #16202F; --surface-3: #1D2939; --surface-inv: #FFFFFF;
+    --border: #23303F; --border-strong: #33404F; --border-subtle: #1A2433;
+    --text: #ECF2FA; --text-2: #C3D0E0; --text-muted: #8C9DB4;
+    --text-faint: #64758B; --text-inv: var(--gray-900);
+    --primary: var(--alx-400); --primary-hover: var(--alx-300);
+    --primary-soft: rgba(74, 147, 218, .14); --primary-text: var(--alx-300);
+    --on-primary: #061424;
+    --accent: var(--teal-400); --accent-soft: rgba(51, 207, 195, .14);
+    --gold: var(--gold-300); --gold-soft: rgba(232, 190, 95, .14);
+    --success: var(--green-400); --success-soft: rgba(50, 213, 131, .14); --success-text: var(--green-200);
+    --danger: var(--red-400); --danger-soft: rgba(249, 112, 102, .14); --danger-text: var(--red-200);
+    --warning: var(--orange-400); --warning-soft: rgba(253, 176, 34, .14); --warning-text: var(--orange-200);
+    --info: var(--purple-400); --info-soft: rgba(164, 138, 251, .14); --info-text: var(--purple-200);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.5), 0 1px 2px rgba(0,0,0,.35);
+    --shadow-md: 0 4px 12px -2px rgba(0,0,0,.55), 0 2px 6px -2px rgba(0,0,0,.4);
+    --shadow-lg: 0 14px 28px -6px rgba(0,0,0,.6), 0 4px 10px -4px rgba(0,0,0,.45);
+    --shadow-xl: 0 28px 56px -12px rgba(0,0,0,.7);
+    --shadow-2xl: 0 40px 80px -18px rgba(0,0,0,.8);
+    --shadow-primary: 0 8px 24px -6px rgba(74,147,218,.4);
+    --glass-bg: rgba(15,23,42,.74); --glass-brd: rgba(255,255,255,.08);
+    --ring: 0 0 0 3px rgba(74,147,218,.28); --overlay: rgba(0,0,0,.68);
+    --grid-line: rgba(255,255,255,.05);
+  }
+}
+
+/* احترام تفضيل تقليل الحركة — مطلب أساسي في معايير الوصول */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "ballagh-alexandria",
+  "version": "1.0.0",
+  "description": "بلّغ — نظام الإبلاغ عن تجمعات القمامة في محافظة الإسكندرية",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seed.js",
+    "set-password": "node scripts/set-password.js",
+    "backup": "node scripts/backup.js",
+    "test": "node tests/run-all.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "leaflet": "^1.9.4",
+    "leaflet.heat": "^0.2.0",
+    "leaflet.markercluster": "^1.5.3",
+    "multer": "^2.2.0"
+  }
+}
