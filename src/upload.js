@@ -6,7 +6,8 @@ import { dirname, join, extname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const UPLOAD_DIR = join(ROOT, 'uploads');
+// قابل للضبط عشان الاستضافات اللي بتركّب قرص دائم على مسار تاني (Fly/Railway)
+export const UPLOAD_DIR = process.env.UPLOAD_DIR || join(ROOT, 'uploads');
 
 mkdirSync(UPLOAD_DIR, { recursive: true });
 

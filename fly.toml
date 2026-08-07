@@ -1,0 +1,46 @@
+# نشر منصة الإسكندرية الرقمية على Fly.io
+# غيّر app لاسم فريد قبل أول نشر: fly launch --no-deploy
+app = "alexandria-digital-platform"
+primary_region = "cdg"   # باريس — أقرب منطقة لمصر بزمن استجابة معقول
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+  TRUST_PROXY = "1"
+  # القاعدة والصور على القرص الدائم — من غير كده بتتمسح مع كل نشر
+  DB_PATH = "/data/db/app.db"
+  UPLOAD_DIR = "/data/uploads"
+
+# القرص الدائم. اعمله مرة واحدة قبل النشر:
+#   fly volumes create alx_data --size 1 --region cdg
+[[mounts]]
+  source = "alx_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  # صفر مكن = القاعدة بتنام؛ واحد بيخلي أول طلب سريع
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+# Fly بيستخدم /healthz اللي السيرفر بيوفّره أصلاً
+[[http_service.checks]]
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "10s"
+  method = "GET"
+  path = "/healthz"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

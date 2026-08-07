@@ -8,7 +8,8 @@ import { seedReferenceData, departmentIdMap, migrateLegacyReports } from './sche
 import { departmentFor, slaFor, isOpen, OPEN_STATUSES } from './taxonomy.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DB_PATH = join(ROOT, 'data', 'app.db');
+// قابل للضبط عشان الاستضافات اللي بتركّب قرص دائم على مسار تاني (Fly/Railway)
+const DB_PATH = process.env.DB_PATH || join(ROOT, 'data', 'app.db');
 
 mkdirSync(dirname(DB_PATH), { recursive: true });
 

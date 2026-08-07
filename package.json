@@ -1,8 +1,13 @@
 {
-  "name": "ballagh-alexandria",
+  "name": "alexandria-digital-platform",
   "version": "1.0.0",
-  "description": "بلّغ — نظام الإبلاغ عن تجمعات القمامة في محافظة الإسكندرية",
+  "description": "منصة الإسكندرية الرقمية — بلاغات المواطنين، مواعيد وطوابير، وتحليلات أداء لمحافظة الإسكندرية",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khaled-dotcom/alexandria-digital-platform.git"
+  },
   "type": "module",
   "engines": {
     "node": ">=22.5.0"
