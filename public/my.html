@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
-  <meta name="description" content="حسابك في منصة الإسكندرية الرقمية: بلاغاتك، مواعيدك، وبياناتك.">
+  <meta name="theme-color" content="#175BA2">
+  <meta name="description" content="حسابك في منصة الإسكندرية الرقمية: بلاغاتك ومواعيدك وبياناتك.">
   <title>حسابي | منصة الإسكندرية الرقمية</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
   <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
@@ -38,9 +37,9 @@
     </a>
 
     <nav class="site-nav" aria-label="التنقل الرئيسي">
-      <a href="/">بلّغ عن مشكلة</a>
+      <a href="/">الإبلاغ عن مشكلة</a>
       <a href="/appointments">المواعيد</a>
-      <a href="/track">تابع بلاغك</a>
+      <a href="/track">متابعة بلاغ</a>
       <a href="/my" class="active" aria-current="page">حسابي</a>
     </nav>
 
@@ -51,7 +50,6 @@
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
         </svg>
       </button>
-      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
       <a class="btn btn-sm btn-ghost hidden" href="#" id="logoutLink">خروج</a>
       <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
               aria-label="فتح القائمة"><span></span></button>
@@ -91,8 +89,8 @@
     </div>
     <div id="appointmentsList"></div>
     <div class="empty hidden" id="noAppointments" data-illo="library">
-      <h3>مفيش مواعيد لسه</h3>
-      <p class="muted">احجز موعدك في مقر الحي واستلم رقم دورك من غير ما تستنى.</p>
+      <h3>لا توجد مواعيد بعد</h3>
+      <p class="muted">احجز موعدك في مقرّ الحي واستلم رقم دورك دون انتظار.</p>
       <a class="btn mt-4" href="/appointments">احجز موعدك الأول</a>
     </div>
   </div>
@@ -104,13 +102,13 @@
         <span class="card-icon" aria-hidden="true">📣</span>
         <h2>بلاغاتي</h2>
       </div>
-      <a class="btn btn-sm" href="/">＋ بلّغ عن مشكلة</a>
+      <a class="btn btn-sm" href="/">＋ الإبلاغ عن مشكلة</a>
     </div>
     <div id="complaintsList"></div>
     <div class="empty hidden" id="noComplaints" data-illo="corniche">
-      <h3>مفيش بلاغات لسه</h3>
-      <p class="muted">شفت مشكلة في الشارع؟ صوّرها وابعتها في دقيقة.</p>
-      <a class="btn mt-4" href="/">بلّغ عن مشكلة</a>
+      <h3>لا توجد بلاغات بعد</h3>
+      <p class="muted">هل لاحظت مشكلة في الشارع؟ صوّرها وأرسلها في دقيقة.</p>
+      <a class="btn mt-4" href="/">الإبلاغ عن مشكلة</a>
     </div>
   </div>
 
@@ -130,7 +128,7 @@
     </div>
     <div class="field">
       <label for="editDistrict">الحي</label>
-      <select id="editDistrict"><option value="">— اختار الحي —</option></select>
+      <select id="editDistrict"><option value="">— اختر الحي —</option></select>
     </div>
     <button class="btn btn-secondary" id="saveProfile">حفظ التعديلات</button>
   </div>
@@ -153,7 +151,7 @@
         <span>الإسكندرية الرقمية</span>
       </a>
       <p class="footer-about">
-        بوابة موحّدة لخدمات محافظة الإسكندرية: بلّغ عن مشكلة في مدينتك، احجز موعدك
+        بوابة موحّدة لخدمات محافظة الإسكندرية: الإبلاغ عن مشكلة في مدينتك، احجز موعدك
         في مقر الحي، وتابع كل طلباتك من مكان واحد.
       </p>
     </div>
@@ -161,7 +159,7 @@
     <div class="footer-col">
       <h5>الخدمات</h5>
       <ul>
-        <li><a href="/">بلّغ عن مشكلة</a></li>
+        <li><a href="/">الإبلاغ عن مشكلة</a></li>
         <li><a href="/appointments">حجز المواعيد</a></li>
         <li><a href="/track">متابعة بلاغ</a></li>
       </ul>

@@ -37,7 +37,7 @@ async function lookup(ref) {
     $('rCategory').textContent = meta
       ? `${categoryLabel(meta, c.category)} — ${subcategoryLabel(meta, c.category, c.subcategory)}`
       : c.category;
-    $('rDesc').textContent = c.description || 'من غير وصف إضافي.';
+    $('rDesc').textContent = c.description || 'دون وصف إضافي.';
     $('rDistrict').textContent = `📍 حي ${c.district}`;
     $('rAddress').textContent = c.address || '';
     $('rDate').textContent = `🕒 اتسجّل في ${formatDate(c.created_at)}`;
@@ -131,7 +131,7 @@ function renderRating(c) {
     class: 'btn', text: 'إرسال التقييم',
     style: 'margin-top:10px',
     onclick: async () => {
-      if (!chosen) { showAlert(alertBox, 'اختار عدد النجوم الأول.', 'warn'); return; }
+      if (!chosen) { showAlert(alertBox, 'يُرجى تحديد عدد النجوم أولًا.', 'warn'); return; }
       send.disabled = true;
       try {
         await api(`/api/complaints/${encodeURIComponent(currentRef)}/rate`, {
@@ -148,7 +148,7 @@ function renderRating(c) {
   });
 
   box.append(
-    el('p', { class: 'muted', style: 'margin:0 0 8px', text: 'البلاغ اتحل — قيّم الخدمة عشان تساعدنا نحسّنها:' }),
+    el('p', { class: 'muted', style: 'margin:0 0 8px', text: 'تمّت معالجة البلاغ — قيّم الخدمة لمساعدتنا على تحسينها:' }),
     stars, comment, send
   );
 }

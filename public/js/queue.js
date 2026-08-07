@@ -63,7 +63,7 @@ async function boot() {
   fillSelect($('fLocation'), locations.map((l) => ({ code: l.id, name: `${l.name} — ${l.district}` })));
 
   if (!locations.length) {
-    showAlert(alertBox, 'مفيش مقار متاحة في نطاقك.');
+    showAlert(alertBox, 'لا توجد مقارّ متاحة في نطاقك.');
     return;
   }
 

@@ -66,7 +66,7 @@ function isClosed(locationId, dateStr) {
  */
 export function availability(locationId, dateStr) {
   const location = getLocation(locationId);
-  if (!location) return { ok: false, error: 'المقر ده مش موجود.' };
+  if (!location) return { ok: false, error: 'هذا المقرّ غير مسجّل.' };
 
   const today = new Date().toISOString().slice(0, 10);
   if (dateStr < today) return { ok: false, error: 'مش ممكن تحجز في يوم فات.' };
@@ -145,17 +145,17 @@ function nextRef() {
  */
 export function book({ citizenId, locationId, serviceCode, date, time, notes }) {
   const location = getLocation(locationId);
-  if (!location) return { ok: false, error: 'المقر ده مش موجود.' };
+  if (!location) return { ok: false, error: 'هذا المقرّ غير مسجّل.' };
 
   const service = getService(serviceCode);
-  if (!service) return { ok: false, error: 'الخدمة دي مش متاحة.' };
+  if (!service) return { ok: false, error: 'هذه الخدمة غير متاحة.' };
 
   const avail = availability(locationId, date);
   if (!avail.ok) return avail;
 
   const slot = avail.slots.find((s) => s.time === time);
-  if (!slot) return { ok: false, error: 'الفترة دي مش متاحة في اليوم ده.' };
-  if (slot.available <= 0) return { ok: false, error: 'الفترة دي اتحجزت بالكامل. اختار فترة تانية.' };
+  if (!slot) return { ok: false, error: 'هذه الفترة غير متاحة في هذا اليوم.' };
+  if (slot.available <= 0) return { ok: false, error: 'هذه الفترة محجوزة بالكامل. يُرجى اختيار فترة أخرى.' };
 
   // المواطن مايحجزش أكتر من اللازم
   const open = db
@@ -195,7 +195,7 @@ export function book({ citizenId, locationId, serviceCode, date, time, notes }) 
       .get(locationId, date, time).n;
 
     if (taken >= location.per_slot) {
-      return { ok: false, error: 'الفترة دي اتحجزت بالكامل. اختار فترة تانية.' };
+      return { ok: false, error: 'هذه الفترة محجوزة بالكامل. يُرجى اختيار فترة أخرى.' };
     }
 
     // رقم الدور بيتحسب من أكبر رقم موجود مش من العدد — لأن قيد UNIQUE
@@ -293,10 +293,10 @@ export function listDayQueue(locationId, date) {
 
 export function cancelAppointment(id, reason, byCitizen = true) {
   const appointment = getAppointmentById(id);
-  if (!appointment) return { ok: false, error: 'الموعد مش موجود.' };
+  if (!appointment) return { ok: false, error: 'الموعد غير موجود.' };
 
   if (['completed', 'cancelled'].includes(appointment.status)) {
-    return { ok: false, error: 'الموعد ده مش ممكن يتلغي.' };
+    return { ok: false, error: 'لا يمكن إلغاء هذا الموعد.' };
   }
 
   const now = new Date().toISOString();
@@ -317,7 +317,7 @@ const NEXT_STATUS = {
 
 export function updateAppointmentStatus(id, status, note) {
   const appointment = getAppointmentById(id);
-  if (!appointment) return { ok: false, error: 'الموعد مش موجود.' };
+  if (!appointment) return { ok: false, error: 'الموعد غير موجود.' };
 
   if (!APPOINTMENT_STATUSES.includes(status)) {
     return { ok: false, error: 'حالة غير معروفة.' };

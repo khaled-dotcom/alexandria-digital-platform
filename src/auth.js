@@ -10,7 +10,7 @@ const SESSION_MS = 12 * 60 * 60 * 1000; // ١٢ ساعة
 function secret() {
   const s = process.env.SESSION_SECRET;
   if (!s || s === 'change-me-to-a-long-random-string') {
-    throw new Error('SESSION_SECRET مش متظبط في ملف .env');
+    throw new Error('SESSION_SECRET غير مضبوط في ملف .env');
   }
   return s;
 }
@@ -103,12 +103,12 @@ export function hasLevel(user, minRole) {
 export function requireRole(minRole) {
   return (req, res, next) => {
     if (!req.user) {
-      res.status(401).json({ error: 'محتاج تسجّل دخول عشان تعمل ده.' });
+      res.status(401).json({ error: 'يلزم تسجيل الدخول للقيام بهذا الإجراء.' });
       return;
     }
     if (!hasLevel(req.user, minRole)) {
       res.status(403).json({
-        error: `الصلاحية دي محتاجة دور «${ROLES[minRole]?.label ?? minRole}» على الأقل.`,
+        error: `هذه الصلاحية تتطلّب دور «${ROLES[minRole]?.label ?? minRole}» على الأقل.`,
       });
       return;
     }
@@ -133,7 +133,7 @@ export const requireGovernor = requireRole('governor');
  */
 export function requireSystemAdmin(req, res, next) {
   if (!req.user) {
-    res.status(401).json({ error: 'محتاج تسجّل دخول عشان تعمل ده.' });
+    res.status(401).json({ error: 'يلزم تسجيل الدخول للقيام بهذا الإجراء.' });
     return;
   }
   if (req.user.role !== 'admin') {
@@ -190,13 +190,13 @@ export function requireDistrictAccess(getComplaint) {
     const complaint = getComplaint(Number(req.params.id));
 
     if (!complaint) {
-      res.status(404).json({ error: 'البلاغ مش موجود.' });
+      res.status(404).json({ error: 'البلاغ غير موجود.' });
       return;
     }
 
     if (!canAccessDistrict(req.user, complaint.district)) {
       // 404 مش 403 — عشان مانأكدش لحد إن البلاغ ده موجود أصلاً
-      res.status(404).json({ error: 'البلاغ مش موجود.' });
+      res.status(404).json({ error: 'البلاغ غير موجود.' });
       return;
     }
 

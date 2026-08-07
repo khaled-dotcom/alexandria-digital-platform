@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#175BA2">
   <meta name="description" content="لوحة إدارة النظام: حسابات الموظفين والأدوار وسجل التدقيق — لمديري النظام فقط.">
   <meta name="robots" content="noindex, nofollow">
   <title>لوحة الإدارة | منصة الإسكندرية الرقمية</title>
@@ -50,7 +49,6 @@
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
         </svg>
       </button>
-      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
       <a class="btn btn-sm btn-ghost" href="#" id="logoutLink">خروج</a>
       <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
               aria-label="فتح القائمة"><span></span></button>
@@ -65,7 +63,7 @@
   <!-- بيبان لغير المصرّح لهم بس -->
   <div id="deniedBox" class="card empty hidden" data-illo="lighthouse">
     <h3>الصفحة دي لمديري النظام بس</h3>
-    <p class="muted">سجّل دخولك بحساب أدمن عشان توصل للوحة الإدارة.</p>
+    <p class="muted">سجّل الدخول بحساب مدير النظام للوصول إلى لوحة الإدارة.</p>
     <a class="btn mt-4" href="/login">دخول الموظفين</a>
   </div>
 
@@ -74,7 +72,7 @@
       <div>
         <span class="eyebrow">إدارة النظام</span>
         <h1>حسابات الموظفين والصلاحيات</h1>
-        <p class="subtitle">منفصلة عن تشغيل البلاغات اليومي — هنا بس إدارة مين يقدر يعمل إيه.</p>
+        <p class="subtitle">منفصلة عن التشغيل اليومي للبلاغات — هنا تُدار الصلاحيات فقط.</p>
       </div>
     </div>
 
@@ -131,7 +129,7 @@
 
         <div class="field">
           <label for="nuName">الاسم الكامل <span class="req">*</span></label>
-          <input type="text" id="nuName" required placeholder="الاسم اللي هيظهر في الواجهة">
+          <input type="text" id="nuName" required placeholder="الاسم الذي يظهر في الواجهة">
         </div>
 
         <div class="two-col">
@@ -151,7 +149,7 @@
         </div>
 
         <div class="field" style="margin:0">
-          <label for="nuPassword">الباسورد <span class="hint">اختياري — سيبه فاضي عشان يتولّد تلقائيًا</span></label>
+          <label for="nuPassword">الباسورد <span class="hint">اختياري — اتركه فارغًا ليُولَّد تلقائيًا</span></label>
           <input type="text" id="nuPassword" placeholder="8 حروف على الأقل" minlength="8">
         </div>
 

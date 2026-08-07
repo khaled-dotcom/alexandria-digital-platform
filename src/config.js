@@ -14,7 +14,7 @@ export async function loadConfig() {
 
   const secret = process.env.SESSION_SECRET;
   if (!secret || secret === 'change-me-to-a-long-random-string') {
-    errors.push('SESSION_SECRET مش متظبط — شغّل: npm run set-password');
+    errors.push('SESSION_SECRET غير مضبوط — شغّل: npm run set-password');
   } else if (secret.length < 32) {
     (isProd ? errors : warnings).push('SESSION_SECRET قصير — المفروض ٣٢ حرف على الأقل');
   }
@@ -24,7 +24,7 @@ export async function loadConfig() {
     const { db } = await import('./db.js');
     const users = db.prepare('SELECT COUNT(*) AS n FROM users WHERE is_active = 1').get().n;
     if (users === 0) {
-      warnings.push('مفيش حسابات موظفين — تسجيل الدخول مش هيشتغل. شغّل: npm run set-password');
+      warnings.push('لا توجد حسابات موظفين — لن يعمل تسجيل الدخول. شغّل: npm run set-password');
     }
   } catch (err) {
     errors.push(`مش قادرين نفتح قاعدة البيانات: ${err.message}`);
@@ -32,11 +32,11 @@ export async function loadConfig() {
 
   const aiEnabled = Boolean(process.env.ANTHROPIC_API_KEY);
   if (!aiEnabled) {
-    warnings.push('ANTHROPIC_API_KEY مش متظبط — تصنيف الصور بالـ AI هيبقى متعطّل');
+    warnings.push('ANTHROPIC_API_KEY غير مضبوط — التصنيف الآلي بالذكاء الاصطناعي معطَّل');
   }
 
   if (isProd && process.env.TRUST_PROXY === undefined) {
-    warnings.push('TRUST_PROXY مش متظبط — لو وراك nginx حطّه = 1 عشان حد الطلبات يشتغل صح');
+    warnings.push('TRUST_PROXY غير مضبوط — إذا كان خلفه nginx فاضبطه = 1 ليعمل حدّ الطلبات بشكل صحيح');
   }
 
   for (const w of warnings) log.warn('config.warning', { message: w });

@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#175BA2">
   <meta name="description" content="خريطة حيّة لبلاغات محافظة الإسكندرية مع مؤشرات الأداء وزمن الاستجابة لكل حي.">
   <title>الخريطة والبلاغات | منصة الإسكندرية الرقمية</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
@@ -41,10 +40,10 @@
     </a>
 
     <nav class="site-nav" aria-label="التنقل الرئيسي">
-      <a href="/">بلّغ عن مشكلة</a>
+      <a href="/">الإبلاغ عن مشكلة</a>
       <a href="/appointments">المواعيد</a>
       <a href="/dashboard" class="active" aria-current="page">الخريطة والبلاغات</a>
-      <a href="/track">تابع بلاغك</a>
+      <a href="/track">متابعة بلاغ</a>
       <a href="/my">حسابي</a>
     </nav>
 
@@ -58,7 +57,6 @@
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
         </svg>
       </button>
-      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
       <a class="btn btn-sm" href="/login" id="authLink">دخول الموظفين</a>
       <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
               aria-label="فتح القائمة"><span></span></button>
@@ -74,9 +72,9 @@
   <div id="deniedBox" class="card empty" data-illo="lighthouse">
     <h3>الصفحة دي لموظفي المحافظة بس</h3>
     <p class="muted">خريطة البلاغات وتفاصيلها متاحة لموظفي المحافظة عشان يتابعوا شغلهم.
-      لو عايز تتابع بلاغك، استخدم الرقم المرجعي.</p>
+      لو عايز تمتابعة بلاغ، استخدم الرقم المرجعي.</p>
     <div class="mt-6" style="display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap">
-      <a class="btn btn-lg" href="/track">تابع بلاغك</a>
+      <a class="btn btn-lg" href="/track">متابعة بلاغ</a>
       <a class="btn btn-lg btn-secondary" href="/login">دخول الموظفين</a>
     </div>
   </div>
@@ -166,7 +164,7 @@
         <select id="fRisk">
           <option value="">الكل</option>
           <option value="health">☣️ فيه خطر صحي</option>
-          <option value="invalid">⚠️ الصورة مش مطابقة</option>
+          <option value="invalid">⚠️ الصورة غير مطابقة</option>
           <option value="duplicate">👥 مكرر</option>
           <option value="flagged" data-staff-only>🚩 وصف متعلّم عليه</option>
         </select>
@@ -229,7 +227,7 @@
       <div>
         <span class="eyebrow">تحليلات</span>
         <h2>اتجاه البلاغات وأداء الأحياء</h2>
-        <p class="subtitle">مقارنة الأحياء ببعضها، والأماكن اللي بتتكرر فيها نفس المشكلة</p>
+        <p class="subtitle">مقارنة الأحياء بعضها ببعض، والمواقع التي تتكرّر فيها المشكلة ذاتها</p>
       </div>
       <div class="field-inline">
         <label for="aPeriod">الفترة</label>
@@ -311,7 +309,7 @@
       </table>
     </div>
     <div class="empty hidden" id="emptyState" data-illo="corniche">
-      <h3>مفيش بلاغات مطابقة</h3>
+      <h3>لا توجد بلاغات مطابقة</h3>
       <p class="muted">جرّب توسّع الفلاتر أو تمسحها كلها.</p>
     </div>
   </div>
@@ -335,7 +333,7 @@
         <span>الإسكندرية الرقمية</span>
       </a>
       <p class="footer-about">
-        بوابة موحّدة لخدمات محافظة الإسكندرية: بلّغ عن مشكلة في مدينتك، احجز موعدك
+        بوابة موحّدة لخدمات محافظة الإسكندرية: الإبلاغ عن مشكلة في مدينتك، احجز موعدك
         في مقر الحي، وتابع كل طلباتك من مكان واحد.
       </p>
     </div>
@@ -343,7 +341,7 @@
     <div class="footer-col">
       <h5>الخدمات</h5>
       <ul>
-        <li><a href="/">بلّغ عن مشكلة</a></li>
+        <li><a href="/">الإبلاغ عن مشكلة</a></li>
         <li><a href="/appointments">حجز المواعيد</a></li>
         <li><a href="/track">متابعة بلاغ</a></li>
       </ul>

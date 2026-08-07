@@ -109,11 +109,11 @@ adminRouter.post('/users', (req, res) => {
   const { username, name, email, role, departmentCode, district } = check.value;
 
   if (findUserByUsername(username)) {
-    res.status(409).json({ error: 'اسم المستخدم ده مستخدم بالفعل.' });
+    res.status(409).json({ error: 'اسم المستخدم مستخدَم بالفعل.' });
     return;
   }
   if (findUserByEmail(email)) {
-    res.status(409).json({ error: 'الإيميل ده مسجّل لحساب تاني.' });
+    res.status(409).json({ error: 'هذا البريد مسجَّل لحساب آخر.' });
     return;
   }
 
@@ -140,7 +140,7 @@ adminRouter.post('/users', (req, res) => {
 adminRouter.patch('/users/:id', (req, res) => {
   const id = Number(req.params.id);
   const existing = getUserByIdAny(id);
-  if (!existing) { res.status(404).json({ error: 'الحساب مش موجود.' }); return; }
+  if (!existing) { res.status(404).json({ error: 'الحساب غير موجود.' }); return; }
 
   const check = validateAccountInput(req.body ?? {}, { partial: true });
   if (!check.ok) { res.status(400).json({ error: check.error }); return; }
@@ -154,14 +154,14 @@ adminRouter.patch('/users/:id', (req, res) => {
 
   if (check.value.email && check.value.email !== existing.email) {
     const dupe = findUserByEmail(check.value.email);
-    if (dupe && dupe.id !== id) { res.status(409).json({ error: 'الإيميل ده مسجّل لحساب تاني.' }); return; }
+    if (dupe && dupe.id !== id) { res.status(409).json({ error: 'هذا البريد مسجَّل لحساب آخر.' }); return; }
   }
 
   const isActive = typeof req.body?.isActive === 'boolean' ? req.body.isActive : undefined;
 
   // الأدمن مايقدرش يغيّر دوره أو يوقف حسابه بنفسه — تفادي قفل النفس بره النظام
   if (id === req.user.id && (check.value.role || isActive === false)) {
-    res.status(400).json({ error: 'متقدرش تعدّل دورك أو توقف حسابك بنفسك.' });
+    res.status(400).json({ error: 'لا يمكنك تعديل دورك أو إيقاف حسابك بنفسك.' });
     return;
   }
 
@@ -179,7 +179,7 @@ adminRouter.patch('/users/:id', (req, res) => {
 adminRouter.post('/users/:id/reset-password', (req, res) => {
   const id = Number(req.params.id);
   const existing = getUserByIdAny(id);
-  if (!existing) { res.status(404).json({ error: 'الحساب مش موجود.' }); return; }
+  if (!existing) { res.status(404).json({ error: 'الحساب غير موجود.' }); return; }
 
   const password = typeof req.body?.password === 'string' && req.body.password.length >= 8
     ? req.body.password

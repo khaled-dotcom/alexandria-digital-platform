@@ -56,13 +56,13 @@ complaintsRouter.post('/', createLimiter, handleUpload, async (req, res, next) =
     // الصورة مطلوبة من الويب، بس اختيارية من الكول سنتر
     const fromStaff = isStaff(req.user);
     if (!req.file && !fromStaff) {
-      res.status(400).json({ error: 'لازم ترفع صورة توضّح المشكلة.' });
+      res.status(400).json({ error: 'يلزم رفع صورة توضّح المشكلة.' });
       return;
     }
 
     if (req.file && !isRealImage(join(UPLOAD_DIR, req.file.filename))) {
       cleanupUpload();
-      res.status(400).json({ error: 'الملف اللي رفعته مش صورة حقيقية.' });
+      res.status(400).json({ error: 'الملف المرفوع ليس صورة صالحة.' });
       return;
     }
 
@@ -144,7 +144,7 @@ complaintsRouter.get('/:ref', (req, res) => {
   // نجيب النسخة العامة الأول عشان نعرف الحي، وبعدين نقرر مستوى التفاصيل
   const basic = getComplaintByRef(req.params.ref);
   if (!basic) {
-    res.status(404).json({ error: 'مفيش بلاغ بالرقم المرجعي ده.' });
+    res.status(404).json({ error: 'لا يوجد بلاغ بهذا الرقم المرجعي.' });
     return;
   }
 
@@ -223,7 +223,7 @@ complaintsRouter.post('/:id/assign', requireSupervisor, blockGovernor, scoped, (
   const complaint = req.complaint;
 
   if (department && !DEPARTMENTS.some((d) => d.code === department)) {
-    res.status(400).json({ error: 'الإدارة دي مش موجودة.' });
+    res.status(400).json({ error: 'هذه الإدارة غير مسجّلة.' });
     return;
   }
 
@@ -286,7 +286,7 @@ const rateLimiter = rateLimit({
 complaintsRouter.post('/:ref/rate', rateLimiter, (req, res) => {
   const complaint = getComplaintByRef(req.params.ref);
   if (!complaint) {
-    res.status(404).json({ error: 'مفيش بلاغ بالرقم المرجعي ده.' });
+    res.status(404).json({ error: 'لا يوجد بلاغ بهذا الرقم المرجعي.' });
     return;
   }
 
@@ -335,18 +335,18 @@ complaintsRouter.post('/:id/mark-duplicate', requireStaff, blockGovernor, scoped
   const id = req.complaint.id;
 
   if (!originalId || originalId === id) {
-    res.status(400).json({ error: 'لازم تحدد البلاغ الأصلي.' });
+    res.status(400).json({ error: 'يلزم تحديد البلاغ الأصلي.' });
     return;
   }
 
   const original = getComplaintById(originalId);
   if (!original) {
-    res.status(404).json({ error: 'البلاغ الأصلي مش موجود.' });
+    res.status(404).json({ error: 'البلاغ الأصلي غير موجود.' });
     return;
   }
   // مايقدرش يربط بلاغ حيّه ببلاغ في حي تاني
   if (!canAccessDistrict(req.user, original.district)) {
-    res.status(404).json({ error: 'البلاغ الأصلي مش موجود.' });
+    res.status(404).json({ error: 'البلاغ الأصلي غير موجود.' });
     return;
   }
 
@@ -364,7 +364,7 @@ complaintsRouter.post('/:id/mark-duplicate', requireStaff, blockGovernor, scoped
 // ── إعادة التحليل بالـ AI (موظف) ─────────────────────────────────────────
 complaintsRouter.post('/:id/reclassify', requireStaff, blockGovernor, scoped, async (req, res, next) => {
   if (!aiEnabled()) {
-    res.status(503).json({ error: 'تصنيف الـ AI مش مفعّل. ظبّط ANTHROPIC_API_KEY في ملف .env' });
+    res.status(503).json({ error: 'التصنيف الآلي غير مفعَّل. اضبط ANTHROPIC_API_KEY في ملف .env' });
     return;
   }
 
@@ -398,7 +398,7 @@ complaintsRouter.post('/:id/reclassify', requireStaff, blockGovernor, scoped, as
 complaintsRouter.delete('/:id', requireSupervisor, blockGovernor, scoped, (req, res) => {
   const removed = deleteComplaint(req.complaint.id);
   if (!removed) {
-    res.status(404).json({ error: 'البلاغ مش موجود.' });
+    res.status(404).json({ error: 'البلاغ غير موجود.' });
     return;
   }
 

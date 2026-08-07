@@ -158,7 +158,7 @@ function renderComplaints(list) {
 }
 
 async function cancelAppointment(a) {
-  if (!confirm(`متأكد إنك عايز تلغي موعد ${a.service_name} يوم ${a.slot_date}؟`)) return;
+  if (!confirm(`هل تريد بالتأكيد تلغي موعد ${a.service_name} يوم ${a.slot_date}؟`)) return;
 
   try {
     await api(`/api/appointments/${a.id}/cancel`, {

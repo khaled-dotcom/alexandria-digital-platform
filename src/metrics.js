@@ -48,7 +48,7 @@ export function renderMetrics() {
     overdue.map((r) => ({ labels: { district: r.district }, value: r.n })));
 
   const breached = db.prepare('SELECT COUNT(*) AS n FROM complaints WHERE sla_breached = 1').get().n;
-  metric(lines, 'alx_sla_breached_total', 'إجمالي البلاغات اللي تجاوزت مهلتها', 'counter',
+  metric(lines, 'alx_sla_breached_total', 'إجمالي البلاغات التي تجاوزت مهلتها', 'counter',
     [{ value: breached }]);
 
   const compliance = db
@@ -115,7 +115,7 @@ export function renderMetrics() {
   const ai = queueDepth();
   metric(lines, 'alx_ai_queue_pending', 'بلاغات في طابور التصنيف الآلي', 'gauge',
     [{ value: ai.pending }]);
-  metric(lines, 'alx_ai_queue_active', 'تصنيفات جارية دلوقتي', 'gauge', [{ value: ai.active }]);
+  metric(lines, 'alx_ai_queue_active', 'تصنيفات جارية الآن', 'gauge', [{ value: ai.active }]);
 
   // ── العملية نفسها ─────────────────────────────────────────────────────
   metric(lines, 'alx_process_uptime_seconds', 'مدة تشغيل السيرفر بالثواني', 'counter',

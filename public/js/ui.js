@@ -1,55 +1,12 @@
-// طبقة التفاعل المشتركة — الثيم · التوست · لوحة الأوامر · الهيدر · معلم الصفحة
-// بتتحمّل في كل صفحة وبتشتغل لوحدها من غير إعداد.
+// طبقة التفاعل المشتركة — التنبيهات · لوحة الأوامر · الهيدر · معلم الصفحة
+// تُحمَّل في كل صفحة وتعمل تلقائيًا دون إعداد.
+//
+// للمنصة هيئة بصرية واحدة مستمدة من ألوان الإسكندرية — لا يوجد وضع ليلي
+// ولا تبديل سمات. الثبات هنا مقصود: الجهة الرسمية تُعرَف بمظهر واحد.
 
 import { pageBanner, LANDMARK_PHOTOS, ILLO_CORNICHE, ILLO_LIBRARY, ILLO_LIGHTHOUSE } from './marks.js';
 
-// ═══ ١. الثيم (دارك/لايت) ═══════════════════════════════════════════════
-
-const THEME_KEY = 'alx-theme';
-
-export function getTheme() {
-  return localStorage.getItem(THEME_KEY) ?? 'auto';
-}
-
-export function applyTheme(theme) {
-  if (theme === 'auto') {
-    document.documentElement.removeAttribute('data-theme');
-    localStorage.removeItem(THEME_KEY);
-  } else {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(THEME_KEY, theme);
-  }
-  updateThemeButton();
-}
-
-/** الترتيب: تلقائي ← فاتح ← داكن ← تلقائي */
-export function cycleTheme() {
-  const order = ['auto', 'light', 'dark'];
-  const next = order[(order.indexOf(getTheme()) + 1) % order.length];
-  applyTheme(next);
-
-  const labels = { auto: 'الثيم يتبع النظام', light: 'الوضع الفاتح', dark: 'الوضع الداكن' };
-  toast(labels[next], { icon: next === 'dark' ? '🌙' : next === 'light' ? '☀️' : '🖥️' });
-}
-
-const THEME_ICONS = {
-  auto: '<path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/><circle cx="12" cy="12" r="4"/>',
-  light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/>',
-  dark: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
-};
-
-function updateThemeButton() {
-  const btn = document.getElementById('themeBtn');
-  if (!btn) return;
-
-  const theme = getTheme();
-  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">${THEME_ICONS[theme]}</svg>`;
-  btn.setAttribute('aria-label', { auto: 'الثيم: تلقائي', light: 'الثيم: فاتح', dark: 'الثيم: داكن' }[theme]);
-  btn.title = btn.getAttribute('aria-label');
-}
-
-// ═══ ٢. التوست ══════════════════════════════════════════════════════════
+// ═══ ١. التنبيهات ═══════════════════════════════════════════════════════
 
 let toastHost = null;
 
@@ -122,7 +79,6 @@ const COMMANDS = [
   { label: 'تابع بلاغك', hint: 'بالرقم المرجعي', icon: '🔍', href: '/track' },
   { label: 'دخول المواطنين', hint: 'بالرقم القومي', icon: '🆔', href: '/citizen-login' },
   { label: 'دخول الموظفين', hint: 'لموظفي المحافظة', icon: '🔐', href: '/login' },
-  { label: 'تبديل الثيم', hint: 'فاتح / داكن / تلقائي', icon: '🌓', action: cycleTheme },
 ];
 
 let palette = null;
@@ -161,7 +117,7 @@ function renderPaletteList(query = '') {
   if (!matches.length) {
     const empty = document.createElement('li');
     empty.className = 'palette-empty';
-    empty.textContent = 'مفيش نتايج';
+    empty.textContent = 'لا توجد نتائج';
     list.append(empty);
     return;
   }
@@ -254,8 +210,6 @@ function initHeader() {
       if (e.target.tagName === 'A') nav.classList.remove('open');
     });
   }
-
-  document.getElementById('themeBtn')?.addEventListener('click', cycleTheme);
   document.getElementById('paletteBtn')?.addEventListener('click', openPalette);
 }
 
@@ -375,9 +329,6 @@ function initReveal() {
   for (const t of targets) io.observe(t);
 }
 
-// الثيم بيتطبّق قبل أي رسم عشان مايحصلش وميض
-applyTheme(getTheme());
-
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', boot);
 } else {
@@ -391,5 +342,4 @@ function boot() {
   initShortcuts();
   initRipple();
   initReveal();
-  updateThemeButton();
 }

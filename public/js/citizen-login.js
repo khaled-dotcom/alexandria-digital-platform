@@ -75,7 +75,7 @@ async function requestCode() {
     showAlert(alertBox, err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = 'ابعت كود التحقق';
+    btn.textContent = 'إرسال رمز التحقّق';
   }
 }
 

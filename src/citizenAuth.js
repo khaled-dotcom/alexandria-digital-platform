@@ -17,7 +17,7 @@ const OTP_RESEND_COOLDOWN_MS = Number(process.env.OTP_COOLDOWN_SEC ?? 60) * 1000
 function secret() {
   const s = process.env.SESSION_SECRET;
   if (!s || s === 'change-me-to-a-long-random-string') {
-    throw new Error('SESSION_SECRET مش متظبط في ملف .env');
+    throw new Error('SESSION_SECRET غير مضبوط في ملف .env');
   }
   return s;
 }
@@ -91,7 +91,7 @@ export function verifyOtp({ nationalId, code }) {
     )
     .get(nationalId);
 
-  if (!row) return { ok: false, error: 'مفيش كود مطلوب. اطلب كود جديد.' };
+  if (!row) return { ok: false, error: 'لا يوجد رمز مطلوب. اطلب رمزًا جديدًا.' };
 
   if (new Date(row.expires_at).getTime() < Date.now()) {
     return { ok: false, error: 'الكود انتهت صلاحيته. اطلب كود جديد.' };
@@ -221,7 +221,7 @@ export function attachCitizen(req, _res, next) {
 /** middleware بيمنع الوصول لو المواطن مش مسجّل دخول */
 export function requireCitizen(req, res, next) {
   if (!req.citizen) {
-    res.status(401).json({ error: 'لازم تسجّل دخول بالرقم القومي عشان تعمل ده.' });
+    res.status(401).json({ error: 'يلزم تسجيل الدخول بالرقم القومي للقيام بهذا الإجراء.' });
     return;
   }
   next();

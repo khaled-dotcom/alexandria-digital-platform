@@ -29,25 +29,25 @@ export function validateComplaint(body) {
   const lng = Number(body.lng);
 
   if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-    return { ok: false, error: 'لازم تحدد موقع المشكلة على الخريطة.' };
+    return { ok: false, error: 'يلزم تحديد موقع المشكلة على الخريطة.' };
   }
   if (!inBounds(lat, lng, EGYPT_BOUNDS)) {
-    return { ok: false, error: 'الموقع اللي حددته خارج حدود جمهورية مصر العربية.' };
+    return { ok: false, error: 'الموقع المحدَّد يقع خارج حدود جمهورية مصر العربية.' };
   }
 
   const category = String(body.category ?? '').trim();
   if (!getCategory(category)) {
-    return { ok: false, error: 'اختار نوع المشكلة من القائمة.' };
+    return { ok: false, error: 'اختر نوع المشكلة من القائمة.' };
   }
 
   const subcategory = String(body.subcategory ?? '').trim() || null;
   if (subcategory && !getSubcategory(category, subcategory)) {
-    return { ok: false, error: 'النوع الفرعي مش تابع للفئة اللي اخترتها.' };
+    return { ok: false, error: 'النوع الفرعي لا يتبع الفئة المختارة.' };
   }
 
   const district = String(body.district ?? '').trim();
   if (!DISTRICTS.includes(district)) {
-    return { ok: false, error: 'اختار الحي من القائمة.' };
+    return { ok: false, error: 'اختر الحي من القائمة.' };
   }
 
   const severity = String(body.severity ?? 'medium').trim();
@@ -101,7 +101,7 @@ export function validateComplaint(body) {
   };
 
   if (!inBounds(lat, lng, ALEX_BOUNDS)) {
-    result.warning = 'الموقع اللي حددته يبدو خارج حدود محافظة الإسكندرية — البلاغ اتسجّل بس ممكن يتحوّل لجهة تانية.';
+    result.warning = 'الموقع المحدَّد يبدو خارج حدود محافظة الإسكندرية — سُجِّل البلاغ، وقد يُحال إلى جهة أخرى.';
   }
 
   return result;

@@ -49,7 +49,7 @@ export function parseNationalId(raw) {
 
   const century = { 2: 1900, 3: 2000 }[id[0]];
   if (!century) {
-    return { ok: false, error: 'الرقم القومي مش صحيح — أول رقم لازم يكون ٢ أو ٣.' };
+    return { ok: false, error: 'الرقم القومي غير صحيح — يجب أن يبدأ بالرقم ٢ أو ٣.' };
   }
 
   const year = century + Number(id.slice(1, 3));
@@ -57,7 +57,7 @@ export function parseNationalId(raw) {
   const day = Number(id.slice(5, 7));
 
   if (month < 1 || month > 12) {
-    return { ok: false, error: 'الرقم القومي مش صحيح — شهر الميلاد غلط.' };
+    return { ok: false, error: 'الرقم القومي غير صحيح — شهر الميلاد غير سليم.' };
   }
 
   // نتحقق إن التاريخ حقيقي (مش ٣١ فبراير مثلاً)
@@ -68,17 +68,17 @@ export function parseNationalId(raw) {
     date.getUTCDate() === day;
 
   if (!realDate) {
-    return { ok: false, error: 'الرقم القومي مش صحيح — تاريخ الميلاد غلط.' };
+    return { ok: false, error: 'الرقم القومي غير صحيح — تاريخ الميلاد غير سليم.' };
   }
 
   if (date.getTime() > Date.now()) {
-    return { ok: false, error: 'الرقم القومي مش صحيح — تاريخ الميلاد في المستقبل.' };
+    return { ok: false, error: 'الرقم القومي غير صحيح — تاريخ الميلاد يقع في المستقبل.' };
   }
 
   const govCode = id.slice(7, 9);
   const governorate = GOVERNORATES[govCode];
   if (!governorate) {
-    return { ok: false, error: 'الرقم القومي مش صحيح — كود المحافظة غلط.' };
+    return { ok: false, error: 'الرقم القومي غير صحيح — رمز المحافظة غير سليم.' };
   }
 
   const age = Math.floor((Date.now() - date.getTime()) / (365.25 * 86400_000));
@@ -86,7 +86,7 @@ export function parseNationalId(raw) {
     return { ok: false, error: 'الخدمة متاحة لمن أتم ١٦ سنة.' };
   }
   if (age > 120) {
-    return { ok: false, error: 'الرقم القومي مش صحيح — تاريخ الميلاد قديم جدًا.' };
+    return { ok: false, error: 'الرقم القومي غير صحيح — تاريخ الميلاد موغل في القِدَم.' };
   }
 
   return {

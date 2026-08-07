@@ -24,7 +24,7 @@ function drawTrend(host, rows) {
   host.replaceChildren();
 
   if (!rows.length) {
-    host.append(emptyState('مفيش بيانات كفاية للفترة دي'));
+    host.append(emptyState('لا توجد بيانات كافية لهذه الفترة'));
     return;
   }
 
@@ -98,7 +98,7 @@ function drawDistricts(rows) {
   $('districtNote').textContent = rows.length ? `${formatNumber(rows.length)} حي` : '';
 
   if (!rows.length) {
-    body.append(el('tr', {}, [el('td', { colspan: 5, class: 'muted text-center', text: 'مفيش بيانات' })]));
+    body.append(el('tr', {}, [el('td', { colspan: 5, class: 'muted text-center', text: 'لا توجد بيانات' })]));
     return;
   }
 
@@ -139,7 +139,7 @@ function drawHotspots(rows) {
   host.replaceChildren();
 
   if (!rows.length) {
-    host.append(emptyState('مفيش بؤر متكررة في الفترة دي — ده مؤشر كويس 👍'));
+    host.append(emptyState('لا توجد بؤر متكرّرة في هذه الفترة — وهذا مؤشّر إيجابي'));
     return;
   }
 
@@ -147,7 +147,7 @@ function drawHotspots(rows) {
     const item = el('button', {
       type: 'button',
       class: 'hotspot',
-      title: 'اضغط عشان تشوف المكان على الخريطة',
+      title: 'اضغط لعرض الموقع على الخريطة',
     });
 
     const parts = [`${formatNumber(h.total)} بلاغ`, h.district];

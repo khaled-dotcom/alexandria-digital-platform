@@ -81,7 +81,7 @@ function popupContent(c) {
     c.subcategory
       ? el('div', { class: 'popup-sub', text: subcategoryLabel(meta, c.category, c.subcategory) })
       : null,
-    el('div', { class: 'desc', text: c.description || 'من غير وصف إضافي.' }),
+    el('div', { class: 'desc', text: c.description || 'دون وصف إضافي.' }),
     el('div', { class: 'meta' }, [
       el('div', { text: `📍 ${c.district}` }),
       c.address ? el('div', { text: c.address }) : null,
@@ -196,7 +196,7 @@ function renderTable(list) {
 
     const row = el('tr', {
       onclick: () => focusComplaint(c),
-      title: 'اضغط عشان تشوفه على الخريطة',
+      title: 'اضغط لعرضه على الخريطة',
       class: sla?.tone === 'overdue' ? 'row-overdue' : '',
     }, [
       el('td', {}, [
@@ -235,7 +235,7 @@ function aiFlags(c) {
     wrap.append(el('span', { title: c.ai_health_risk_reason || 'خطر صحي', text: '☣️' }));
   }
   if (c.ai_is_valid === 0) {
-    wrap.append(el('span', { title: 'الصورة مش مطابقة للبلاغ', text: '⚠️' }));
+    wrap.append(el('span', { title: 'الصورة غير مطابقة للبلاغ', text: '⚠️' }));
   }
   if (isStaff() && c.ai_text_flag && c.ai_text_flag !== 'safe') {
     wrap.append(el('span', { title: c.ai_text_flag_reason || 'الوصف متعلّم عليه', text: '🚩' }));
@@ -414,14 +414,14 @@ async function showDuplicates(c) {
     const lines = list.map((d) => `${d.ref} — على بعد ${d.distance} متر — ${d.description ?? 'بدون وصف'}`);
     const chosen = prompt(
       `لقينا ${list.length} بلاغ مشابه:\n\n${lines.join('\n')}\n\n` +
-      `اكتب الرقم المرجعي للبلاغ الأصلي عشان تعلّم ${c.ref} كمكرر، أو سيبها فاضية:`
+      `أدخل الرقم المرجعي للبلاغ الأصلي لتعليم ${c.ref} كمكرَّر، أو اتركها فارغة:`
     )?.trim();
 
     if (!chosen) return;
 
     const original = list.find((d) => d.ref === chosen);
     if (!original) {
-      showAlert(alertBox, 'الرقم المرجعي ده مش في القائمة.');
+      showAlert(alertBox, 'هذا الرقم المرجعي غير مُدرَج.');
       return;
     }
 

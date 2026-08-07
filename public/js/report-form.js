@@ -54,7 +54,7 @@ $('locateBtn').addEventListener('click', (event) => {
   const btn = event.currentTarget;
 
   if (!navigator.geolocation) {
-    showAlert(alertBox, 'المتصفح بتاعك مش بيدعم تحديد الموقع. حدد المكان على الخريطة بإيدك.', 'warn');
+    showAlert(alertBox, 'متصفحك لا يدعم تحديد الموقع. يُرجى تحديد الموقع على الخريطة يدويًا.', 'warn');
     return;
   }
 
@@ -71,7 +71,7 @@ $('locateBtn').addEventListener('click', (event) => {
     (err) => {
       const messages = {
         1: 'رفضت إذن الوصول للموقع. حدد المكان على الخريطة بإيدك.',
-        2: 'مش قادرين نحدد موقعك دلوقتي. حدد المكان على الخريطة بإيدك.',
+        2: 'تعذّر تحديد موقعك الآن. يُرجى تحديد الموقع على الخريطة يدويًا.',
         3: 'محاولة تحديد الموقع أخدت وقت طويل. حدد المكان على الخريطة بإيدك.',
       };
       showAlert(alertBox, messages[err.code] ?? messages[2], 'warn');
@@ -197,33 +197,33 @@ form.addEventListener('submit', async (event) => {
   hideAlert(alertBox);
 
   if (!selectedCategory) {
-    showAlert(alertBox, 'اختار نوع المشكلة الأول.');
+    showAlert(alertBox, 'يُرجى اختيار نوع المشكلة أولًا.');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
 
   const subcategory = $('subcategory').value;
   if (!subcategory) {
-    showAlert(alertBox, 'اختار تفاصيل المشكلة من القائمة.');
+    showAlert(alertBox, 'اختر تفاصيل المشكلة من القائمة.');
     $('subcategoryWrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
   if (!photoBlob) {
-    showAlert(alertBox, 'لازم ترفع صورة توضّح المشكلة.');
+    showAlert(alertBox, 'يلزم رفع صورة توضّح المشكلة.');
     document.querySelector('.photo-drop').scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
   if (!form.dataset.lat) {
-    showAlert(alertBox, 'لازم تحدد مكان المشكلة على الخريطة.');
+    showAlert(alertBox, 'يلزم تحديد موقع المشكلة على الخريطة.');
     document.querySelector('.map-picker').scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
   const district = $('district').value;
   if (!district) {
-    showAlert(alertBox, 'اختار الحي من القائمة.');
+    showAlert(alertBox, 'اختر الحي من القائمة.');
     return;
   }
 

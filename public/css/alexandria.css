@@ -51,26 +51,6 @@
   --skyline-c:  #0B2C46;
 }
 
-/* الوضع الداكن: غروب/ليل على الكورنيش */
-[data-theme='dark'] .hero-sea {
-  --hero-sky-1: #050D1C;
-  --hero-sky-2: #0E2A4E;
-  --hero-glow:  #3E5F7E;
-  --hero-sea-1: #0C3F58;
-  --hero-sea-2: #06202F;
-  --skyline-c:  #02070F;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .hero-sea {
-    --hero-sky-1: #050D1C;
-    --hero-sky-2: #0E2A4E;
-    --hero-glow:  #3E5F7E;
-    --hero-sea-1: #0C3F58;
-    --hero-sea-2: #06202F;
-    --skyline-c:  #02070F;
-  }
-}
-
 /* ═══ صورة حقيقية للمعلم — بدل/فوق الأفق المرسوم ═══════════════════════
    طبقة صورة فعلية (Wikimedia Commons، تراخيص CC-BY/CC-BY-SA — الاعتمادات
    في /credits) بتتحط بأدنى مستوى، وفوقها تدرّج شفاف بلون الهوية عشان
@@ -97,22 +77,6 @@
   background-position: center, center, center 38%;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
-[data-theme='dark'] .hero-sea.has-photo,
-[data-theme='dark'] .page-banner.has-photo {
-  background-image:
-    linear-gradient(to left,
-      rgba(2, 7, 15, .92) 0%,
-      rgba(2, 7, 15, .74) 26%,
-      rgba(2, 7, 15, .24) 58%,
-      transparent 82%),
-    linear-gradient(180deg,
-      rgba(2, 7, 15, .84) 0%,
-      rgba(5, 13, 28, .44) 45%,
-      rgba(6, 32, 47, .64) 78%,
-      rgba(2, 7, 15, .9) 100%),
-    var(--hero-photo-url);
-}
-
 /* على الموبايل النص بياخد العرض كله، فالحجاب بيبقى رأسي بدل جانبي */
 @media (max-width: 760px) {
   .hero-sea.has-photo,
@@ -234,11 +198,6 @@
 
 /* نجوم (تظهر في الوضع الداكن بس) */
 .hero-stars { position: absolute; inset: 0; opacity: 0; transition: opacity var(--d-slower) var(--ease-out); }
-[data-theme='dark'] .hero-stars { opacity: 1; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .hero-stars { opacity: 1; }
-}
-
 .star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%; animation: twinkle 3s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
 
@@ -422,29 +381,6 @@ body::before {
     radial-gradient(90% 46% at 50% 108%,
       rgba(232, 148, 75, .10) 0%,
       transparent 68%);
-}
-
-[data-theme='dark'] body::before {
-  background-image:
-    radial-gradient(120% 62% at 50% -12%,
-      rgba(63, 163, 168, .13) 0%,
-      rgba(11, 59, 84, .10) 44%,
-      transparent 74%),
-    radial-gradient(90% 46% at 50% 108%,
-      rgba(232, 148, 75, .07) 0%,
-      transparent 68%);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) body::before {
-    background-image:
-      radial-gradient(120% 62% at 50% -12%,
-        rgba(63, 163, 168, .13) 0%,
-        rgba(11, 59, 84, .10) 44%,
-        transparent 74%),
-      radial-gradient(90% 46% at 50% 108%,
-        rgba(232, 148, 75, .07) 0%,
-        transparent 68%);
-  }
 }
 
 /* ── ٢. جدار الحروف — إشارة لمكتبة الإسكندرية ───────────────────────

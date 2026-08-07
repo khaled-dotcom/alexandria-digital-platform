@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#175BA2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A1E38" media="(prefers-color-scheme: dark)">
-  <meta name="description" content="بلّغ عن أي مشكلة في الإسكندرية: قمامة، حفرة، كسر مواسير، إنارة. صوّر، حدد المكان، وتابع بلاغك برقم مرجعي.">
-  <title>بلّغ عن مشكلة | منصة الإسكندرية الرقمية</title>
+  <meta name="theme-color" content="#175BA2">
+  <meta name="description" content="أبلِغ عن أي مشكلة في الإسكندرية: مخلّفات، حفرة، كسر مواسير، إنارة. صوّر، وحدّد الموقع، وتابع بلاغك برقم مرجعي.">
+  <title>الإبلاغ عن مشكلة | منصة الإسكندرية الرقمية</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23175BA2'/><path d='M13 13h6l1.5 13.6a1 1 0 0 1-1 1.1h-7a1 1 0 0 1-1-1.1L13 13Z' fill='%23fff'/><rect x='12.3' y='7.3' width='7.4' height='5.7' rx='1.4' fill='%23fff'/><circle cx='16' cy='10.1' r='1.7' fill='%23E1A736'/></svg>">
   <link rel="preload" href="/fonts/cairo-arabic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
@@ -39,9 +38,9 @@
     </a>
 
     <nav class="site-nav" aria-label="التنقل الرئيسي">
-      <a href="/" class="active" aria-current="page">بلّغ عن مشكلة</a>
+      <a href="/" class="active" aria-current="page">الإبلاغ عن مشكلة</a>
       <a href="/appointments">المواعيد</a>
-      <a href="/track">تابع بلاغك</a>
+      <a href="/track">متابعة بلاغ</a>
       <a href="/my">حسابي</a>
     </nav>
 
@@ -51,7 +50,6 @@
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
         </svg>
       </button>
-      <button type="button" class="icon-btn" id="themeBtn" aria-label="تبديل الثيم"></button>
       <a class="btn btn-sm" href="/citizen-login" id="authLink">تسجيل الدخول</a>
       <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false"
               aria-label="فتح القائمة"><span></span></button>
@@ -67,14 +65,14 @@
   <div class="ed-hero-body">
     <div class="ed-wrap">
       <p class="ed-kicker">محافظة الإسكندرية · البوابة الرقمية</p>
-      <h1 class="ed-display"><span class="nowrap">مدينتك على بُعد</span><br><span class="nowrap">بلاغ واحد</span></h1>
+      <h1 class="ed-display"><span class="nowrap">مدينتك على بُعد</span><br><span class="nowrap">بلاغٍ واحد</span></h1>
       <p class="ed-hero-lede">
-        من الكورنيش لبرج العرب — صوّر المشكلة، حدّد مكانها على الخريطة،
-        وسيبنا نوصّلها للإدارة المختصة. وتابعها بالرقم المرجعي لحد ما تتحلّ.
+        من الكورنيش إلى برج العرب — صوّر المشكلة، وحدّد موقعها على الخريطة،
+        ونتولّى نحن إحالتها إلى الإدارة المختصة. وتابعها برقمها المرجعي حتى تُحَل.
       </p>
       <div class="ed-hero-actions">
-        <a class="btn btn-lg btn-gold" href="#report">بلّغ عن مشكلة</a>
-        <a class="btn btn-lg btn-glass" href="/appointments">احجز موعد في الحي</a>
+        <a class="btn btn-lg btn-gold" href="#report">الإبلاغ عن مشكلة</a>
+        <a class="btn btn-lg btn-glass" href="/appointments">حجز موعد في الحي</a>
       </div>
     </div>
   </div>
@@ -92,9 +90,9 @@
     <div data-ed-reveal>
       <p class="ed-kicker">المنصة في سطر</p>
       <p class="ed-statement">
-        بوابة واحدة لكل خدمات المحافظة. البلاغ بيتصنّف ويتحوّل للإدارة المختصة
-        <strong>في نفس اللحظة</strong>، وليه مهلة محدّدة بيتراقب عليها —
-        ولو اتأخر بيتصعّد لوحده.
+        بوابة واحدة لجميع خدمات المحافظة. يُصنَّف البلاغ ويُحال إلى الإدارة المختصة
+        <strong>في اللحظة ذاتها</strong>، وله مهلة محدّدة تخضع للمتابعة —
+        وإذا تأخّر عنها تصاعَد تلقائيًا.
       </p>
     </div>
 
@@ -105,15 +103,15 @@
       </div>
       <div class="item">
         <div class="ed-figure" id="hsResolved">—</div>
-        <div class="k">تم حلّه</div>
+        <div class="k">بلاغ تمّت معالجته</div>
       </div>
       <div class="item">
         <div class="ed-figure" id="hsSla">—</div>
-        <div class="k">التزام بالمواعيد</div>
+        <div class="k">الالتزام بالمُهَل</div>
       </div>
       <div class="item">
         <div class="ed-figure" id="hsDistricts">١٠</div>
-        <div class="k">أحياء تحت التغطية</div>
+        <div class="k">أحياء مشمولة بالخدمة</div>
       </div>
     </div>
   </div>
@@ -133,49 +131,49 @@
     <div class="ed-wrap">
       <div data-ed-reveal>
         <p class="ed-kicker">الخدمات</p>
-        <h2 class="ed-display-sm">إيه اللي محتاجه دلوقتي؟</h2>
-        <p class="ed-lede mt-4">كل خدمات المحافظة من مكان واحد — من غير طوابير ولا ورق.</p>
+        <h2 class="ed-display-sm">ما الخدمة التي تحتاجها؟</h2>
+        <p class="ed-lede mt-4">جميع خدمات المحافظة من مكان واحد — دون طوابير ولا أوراق.</p>
       </div>
 
       <div class="ed-services mt-8" data-ed-stagger>
         <a class="ed-card is-feature" href="#report">
           <span class="ed-card-media" aria-hidden="true"
                 style="background-image:url('/img/landmarks/stanley.jpg')"></span>
-          <h3>بلّغ عن مشكلة</h3>
-          <p>قمامة، حفرة، كسر مواسير، إنارة مطفية، إشغالات… صوّر وابعت في دقيقة.</p>
-          <span class="ed-card-go">ابدأ البلاغ <span aria-hidden="true">←</span></span>
+          <h3>الإبلاغ عن مشكلة</h3>
+          <p>مخلّفات، حفرة، كسر في المواسير، إنارة متوقّفة، إشغالات… صوّرها وأرسلها في دقيقة.</p>
+          <span class="ed-card-go">ابدأ الإبلاغ <span aria-hidden="true">←</span></span>
         </a>
 
         <a class="ed-card" href="/appointments">
           <span class="ed-card-media" aria-hidden="true"
                 style="background-image:url('/img/landmarks/bibliotheca.jpg')"></span>
-          <h3>احجز موعد</h3>
-          <p>تصاريح، شهادات، ورخص — اختار الحي والميعاد واستلم رقم دورك فورًا.</p>
-          <span class="ed-card-go">شوف المواعيد <span aria-hidden="true">←</span></span>
+          <h3>حجز موعد</h3>
+          <p>تصاريح وشهادات ورخص — اختر الحي والموعد المناسب واستلم رقم دورك فورًا.</p>
+          <span class="ed-card-go">عرض المواعيد <span aria-hidden="true">←</span></span>
         </a>
 
         <a class="ed-card" href="/track">
           <span class="ed-card-media" aria-hidden="true"
                 style="background-image:url('/img/landmarks/qaitbay.jpg')"></span>
-          <h3>تابع بلاغك</h3>
-          <p>اكتب الرقم المرجعي وشوف البلاغ وصل فين ومين الإدارة المسؤولة.</p>
-          <span class="ed-card-go">تابع دلوقتي <span aria-hidden="true">←</span></span>
+          <h3>متابعة بلاغ</h3>
+          <p>أدخل الرقم المرجعي لمعرفة المرحلة التي بلغها البلاغ والإدارة المسؤولة عنه.</p>
+          <span class="ed-card-go">تابع الآن <span aria-hidden="true">←</span></span>
         </a>
 
         <a class="ed-card" href="/my">
           <span class="ed-card-media" aria-hidden="true"
                 style="background-image:url('/img/landmarks/montaza.jpg')"></span>
           <h3>حسابي</h3>
-          <p>كل بلاغاتك ومواعيدك وبياناتك في صفحة واحدة — بالرقم القومي.</p>
-          <span class="ed-card-go">ادخل على حسابك <span aria-hidden="true">←</span></span>
+          <p>جميع بلاغاتك ومواعيدك وبياناتك في صفحة واحدة — عبر الرقم القومي.</p>
+          <span class="ed-card-go">الدخول إلى حسابك <span aria-hidden="true">←</span></span>
         </a>
 
         <a class="ed-card" href="/citizen-login">
           <span class="ed-card-media" aria-hidden="true"
                 style="background-image:url('/img/landmarks/amphitheatre.jpg')"></span>
           <h3>دخول المواطنين</h3>
-          <p>بالرقم القومي وكود تحقق يوصلك على تليفونك — من غير باسورد تحفظه.</p>
-          <span class="ed-card-go">سجّل دخولك <span aria-hidden="true">←</span></span>
+          <p>بالرقم القومي ورمز تحقّق يصل إلى هاتفك — دون كلمة مرور تحتاج إلى حفظها.</p>
+          <span class="ed-card-go">تسجيل الدخول <span aria-hidden="true">←</span></span>
         </a>
       </div>
     </div>
@@ -186,23 +184,23 @@
     <div class="ed-wrap">
       <div data-ed-reveal>
         <p class="ed-kicker">التغطية</p>
-        <h2 class="ed-display-sm">عشرة أحياء — مقر خدمة في كل واحد</h2>
+        <h2 class="ed-display-sm">عشرة أحياء — مقرّ خدمة في كلٍّ منها</h2>
         <p class="ed-lede mt-4">
-          كل حي ليه مقر بمواعيده وخدماته، ورئيس حي بيشوف بلاغات حيّه ويتابعها.
+          لكل حي مقرّه بمواعيده وخدماته، ورئيسٌ يطّلع على بلاغات حيّه ويتابع معالجتها.
         </p>
       </div>
 
       <div class="ed-districts mt-8" data-ed-reveal>
-        <a class="ed-district-row" href="/appointments"><span class="name">المنتزه أول</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">المنتزه ثان</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">شرق</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">وسط</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">غرب</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">الجمرك</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">العامرية أول</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">العامرية ثان</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">برج العرب</span><span class="meta">احجز في المقر ←</span></a>
-        <a class="ed-district-row" href="/appointments"><span class="name">برج العرب الجديدة</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">المنتزه أول</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">المنتزه ثان</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">شرق</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">وسط</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">غرب</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">الجمرك</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">العامرية أول</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">العامرية ثان</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">برج العرب</span><span class="meta">حجز موعد في المقرّ ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">برج العرب الجديدة</span><span class="meta">حجز موعد في المقرّ ←</span></a>
       </div>
     </div>
   </section>
@@ -215,8 +213,8 @@
     <div class="ed-wrap ed-form-wrap">
       <div data-ed-reveal>
         <p class="ed-kicker">بلاغ جديد</p>
-        <h2 class="ed-display-sm">بلّغ عن مشكلة في مدينتك</h2>
-        <p class="ed-lede mt-4">صوّر المشكلة، حدد مكانها على الخريطة، وابعت البلاغ. هيوصل للإدارة المختصة فورًا وتقدر تتابعه برقم مرجعي.</p>
+        <h2 class="ed-display-sm">الإبلاغ عن مشكلة في مدينتك</h2>
+        <p class="ed-lede mt-4">صوّر المشكلة، وحدّد موقعها على الخريطة، ثم أرسل البلاغ. سيصل إلى الإدارة المختصة فورًا، ويمكنك متابعته برقم مرجعي.</p>
       </div>
 
   <div id="alert" class="alert hidden"></div>
@@ -225,14 +223,14 @@
   <div id="successBox" class="card success-box hidden">
     <span class="icon">✅</span>
     <h2>تم استلام بلاغك</h2>
-    <p class="muted">احتفظ بالرقم المرجعي ده عشان تتابع حالة البلاغ:</p>
+    <p class="muted">احتفظ بهذا الرقم المرجعي لمتابعة حالة البلاغ:</p>
     <div class="ref-code" id="successRef"></div>
     <div id="successSla" class="alert alert-info" style="margin-top:6px"></div>
     <div id="successWarning" class="alert alert-warn hidden"></div>
     <div class="mt-3" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <a class="btn" id="trackLink" href="#">تابع البلاغ</a>
       <button class="btn btn-secondary" id="newReportBtn">بلاغ جديد</button>
-      <a class="btn btn-secondary" href="/dashboard">شوف الخريطة</a>
+      <a class="btn btn-secondary" href="/dashboard">عرض الخريطة</a>
     </div>
   </div>
 
@@ -243,7 +241,7 @@
         <span class="step-n"><span>١</span></span>
         <div>
           <h3>نوع المشكلة</h3>
-          <p>اختار النوع عشان البلاغ يروح للإدارة الصح من أول لحظة</p>
+          <p>اختر النوع لتوجيه البلاغ إلى الإدارة الصحيحة من اللحظة الأولى</p>
         </div>
       </div>
       <div class="field" style="margin:0">
@@ -262,7 +260,7 @@
         <span class="step-n"><span>٢</span></span>
         <div>
           <h3>صورة توضّح المشكلة</h3>
-          <p>الصورة بتتضغط في المتصفح قبل الرفع — مش هتاكل من باقة النت</p>
+          <p>تُضغط الصورة داخل المتصفح قبل الرفع — دون استهلاك يُذكر من باقة الإنترنت</p>
         </div>
       </div>
       <div class="field" style="margin:0">
@@ -319,7 +317,7 @@
       <div class="field">
         <label for="district">الحي <span class="req">*</span></label>
         <select id="district" required>
-          <option value="">— اختار الحي —</option>
+          <option value="">— اختر الحي —</option>
         </select>
       </div>
 
@@ -341,7 +339,7 @@
         <label class="urgent-toggle">
           <input type="checkbox" id="isUrgent">
           <span><strong>⚡ عاجل — فيه خطر على الأرواح أو شلل مروري</strong>
-          <span class="hint" style="display:block">استخدمها بس في الحالات الخطرة فعلاً عشان الفرق توصل بسرعة</span></span>
+          <span class="hint" style="display:block">استخدمها في الحالات الخطرة فحسب، لتصل الفرق بأسرع وقت</span></span>
         </label>
       </div>
 
@@ -352,7 +350,7 @@
       </div>
 
       <div class="field" style="margin:0">
-        <label for="phone">رقم تليفونك <span class="hint">اختياري — عشان نبعتلك تحديثات البلاغ. مش هيظهر لأي حد.</span></label>
+        <label for="phone">رقم تليفونك <span class="hint">اختياري — لإرسال تحديثات البلاغ إليك. ولن يظهر لأي جهة أخرى.</span></label>
         <input type="tel" id="phone" inputmode="numeric" placeholder="01012345678" maxlength="11">
       </div>
     </div>
@@ -367,7 +365,7 @@
     <div class="ed-wrap">
       <div data-ed-reveal>
         <p class="ed-kicker">في الحالات الخطرة</p>
-        <h2 class="ed-display-sm">اتصل فورًا — متستناش البلاغ</h2>
+        <h2 class="ed-display-sm">اتصل فورًا — لا تنتظر البلاغ</h2>
         <p class="ed-lede mt-4">لو فيه خطر على الأرواح أو حريق أو تسريب غاز، المكالمة أسرع من أي منصة.</p>
       </div>
 
@@ -414,7 +412,7 @@
         <span>الإسكندرية الرقمية</span>
       </a>
       <p class="footer-about">
-        بوابة موحّدة لخدمات محافظة الإسكندرية: بلّغ عن مشكلة في مدينتك، احجز موعدك
+        بوابة موحّدة لخدمات محافظة الإسكندرية: الإبلاغ عن مشكلة في مدينتك، احجز موعدك
         في مقر الحي، وتابع كل طلباتك من مكان واحد.
       </p>
     </div>
@@ -422,7 +420,7 @@
     <div class="footer-col">
       <h5>الخدمات</h5>
       <ul>
-        <li><a href="/">بلّغ عن مشكلة</a></li>
+        <li><a href="/">الإبلاغ عن مشكلة</a></li>
         <li><a href="/appointments">حجز المواعيد</a></li>
         <li><a href="/track">متابعة بلاغ</a></li>
       </ul>

@@ -50,17 +50,20 @@
      التركواز       — البحر في الصيف
      الذهبي         — منارة الإسكندرية والرمل                          */
 
-  --alx-50:  #EEF6FD;
-  --alx-100: #D6E9FA;
-  --alx-200: #AFD3F4;
-  --alx-300: #7DB6EA;
-  --alx-400: #4A93DA;
-  --alx-500: #2673C0;
-  --alx-600: #175BA2;
-  --alx-700: #124884;
-  --alx-800: #123C6C;
-  --alx-900: #0F2F53;
-  --alx-950: #0A1E38;
+  /* السُلّم مبنيّ حول #3F6E96 — وهو اللون الأغلب في صور الكورنيش الحقيقية.
+     أخفض تشبّعًا وأميل للرمادي من السُلّم السابق (#175BA2) لأن هذا ما تبدو
+     عليه المدينة فعلًا تحت ضباب المتوسط. */
+  --alx-50:  #F2F5F8;
+  --alx-100: #E1E9F0;
+  --alx-200: #C6D5E1;
+  --alx-300: #A3BACD;
+  --alx-400: #7A9BB6;
+  --alx-500: #57809F;
+  --alx-600: #3F6E96;   /* ← بحر الإسكندرية المقيس */
+  --alx-700: #335A7C;
+  --alx-800: #2A4964;
+  --alx-900: #1E3D54;   /* ← عمق الميناء المقيس */
+  --alx-950: #16202B;   /* ← حبر الميناء */
 
   --teal-50:  #ECFDFA;
   --teal-100: #CFFAF2;
@@ -110,12 +113,22 @@
   --terra-600: #9C4B2E;
   --terra-700: #7C3C26;
 
-  /* ═══ ألوان المدينة الدلالية ═══════════════════════════════════════ */
-  --alx-sea-deep:  #0B3B54;   /* البحر في العمق — أغمق وأخضر من الأزرق العادي */
-  --alx-sea:       #14657F;   /* المتوسط في النهار */
-  --alx-shallow:   #3FA3A8;   /* الميّه الضحلة على الصخر */
-  --alx-sunset:    #E8944B;   /* الساعة الذهبية على الكورنيش */
-  --alx-night:     #05101F;   /* البحر بالليل */
+  /* ═══ ألوان المدينة الدلالية ═══════════════════════════════════════
+     هذه القيم **مقيسة** لا مختارة: استُخرجت من تحليل الألوان السائدة في
+     سبع صور فوتوغرافية حقيقية للمدينة (راجع docs/هوية-الإسكندرية-البصرية.md).
+
+     النتيجة المهمة: ألوان الإسكندرية مخفوضة التشبّع ومائلة للرمادي، لأن
+     رطوبة المتوسط تصنع ضبابًا يبعثر الضوء. فالمدينة ليست زرقاء صارخة —
+     وأي أزرق مشبَّع هنا يبدو «متوسطيًا عامًّا» لا إسكندرانيًا.          */
+  --alx-sea:       #3F6E96;   /* أغلب ألوان الكورنيش — أزرق فولاذي مائل للرمادي */
+  --alx-sea-deep:  #1E3D54;   /* ظلال ماء الميناء */
+  --alx-sky:       #A9C6E4;   /* سماء الظهيرة في صور المنتزه وقايتباي */
+  --alx-shallow:   #6E9BB5;   /* الماء الضحل على الصخر */
+  --alx-sunset:    #D9A05B;   /* الساعة الذهبية على الكورنيش */
+  --alx-amber:     #E8B25E;   /* مصابيح ستانلي ليلًا */
+  --alx-bronze:    #8C6E4A;   /* معادن متأكسدة وطوب روماني */
+  --alx-palm:      #5F7A5B;   /* نخيل المنتزه والمكتبة */
+  --alx-night:     #16202B;   /* حبر الميناء — أدفأ من الأسود النقي */
   --alx-limestone: var(--stone-100);
   --alx-terracotta: var(--terra-500);
 
@@ -209,8 +222,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    الوضع النهاري
    ═══════════════════════════════════════════════════════════════════════ */
-:root,
-[data-theme='light'] {
+:root {
   color-scheme: light;
 
   /* خلفية دافية مايلة للحجر الجيري بدل الرمادي المزرق المحايد —
@@ -265,92 +277,6 @@
   --grid-line: rgba(16, 30, 54, .06);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   الوضع الليلي
-   ═══════════════════════════════════════════════════════════════════════ */
-[data-theme='dark'] {
-  color-scheme: dark;
-
-  --bg:          #070C15;
-  --bg-subtle:   #0A1120;
-  --surface:     #0F172A;
-  --surface-2:   #16202F;
-  --surface-3:   #1D2939;
-  --surface-inv: #FFFFFF;
-
-  --border:        #23303F;
-  --border-strong: #33404F;
-  --border-subtle: #1A2433;
-
-  --text:       #ECF2FA;
-  --text-2:     #C3D0E0;
-  --text-muted: #8C9DB4;
-  --text-faint: #64758B;
-  --text-inv:   var(--gray-900);
-
-  --primary:       var(--alx-400);
-  --primary-hover: var(--alx-300);
-  --primary-soft:  rgba(74, 147, 218, .14);
-  --primary-text:  var(--alx-300);
-  --on-primary:    #061424;
-
-  --accent:      var(--teal-400);
-  --accent-soft: rgba(51, 207, 195, .14);
-  --gold:        var(--gold-300);
-  --gold-soft:   rgba(232, 190, 95, .14);
-
-  --success: var(--green-400); --success-soft: rgba(50, 213, 131, .14); --success-text: var(--green-200);
-  --danger:  var(--red-400);   --danger-soft:  rgba(249, 112, 102, .14);--danger-text:  var(--red-200);
-  --warning: var(--orange-400);--warning-soft: rgba(253, 176, 34, .14); --warning-text: var(--orange-200);
-  --info:    var(--purple-400);--info-soft:    rgba(164, 138, 251, .14);--info-text:    var(--purple-200);
-
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .4);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .5), 0 1px 2px rgba(0, 0, 0, .35);
-  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, .55), 0 2px 6px -2px rgba(0, 0, 0, .4);
-  --shadow-lg: 0 14px 28px -6px rgba(0, 0, 0, .6), 0 4px 10px -4px rgba(0, 0, 0, .45);
-  --shadow-xl: 0 28px 56px -12px rgba(0, 0, 0, .7);
-  --shadow-2xl: 0 40px 80px -18px rgba(0, 0, 0, .8);
-  --shadow-primary: 0 8px 24px -6px rgba(74, 147, 218, .4);
-
-  --glass-bg: rgba(15, 23, 42, .74);
-  --glass-brd: rgba(255, 255, 255, .08);
-
-  --ring: 0 0 0 3px rgba(74, 147, 218, .28);
-  --overlay: rgba(0, 0, 0, .68);
-
-  --grid-line: rgba(255, 255, 255, .05);
-}
-
-/* الوضع الافتراضي يتبع النظام لو المستخدم ماختارش */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    color-scheme: dark;
-
-    --bg: #070C15; --bg-subtle: #0A1120; --surface: #0F172A;
-    --surface-2: #16202F; --surface-3: #1D2939; --surface-inv: #FFFFFF;
-    --border: #23303F; --border-strong: #33404F; --border-subtle: #1A2433;
-    --text: #ECF2FA; --text-2: #C3D0E0; --text-muted: #8C9DB4;
-    --text-faint: #64758B; --text-inv: var(--gray-900);
-    --primary: var(--alx-400); --primary-hover: var(--alx-300);
-    --primary-soft: rgba(74, 147, 218, .14); --primary-text: var(--alx-300);
-    --on-primary: #061424;
-    --accent: var(--teal-400); --accent-soft: rgba(51, 207, 195, .14);
-    --gold: var(--gold-300); --gold-soft: rgba(232, 190, 95, .14);
-    --success: var(--green-400); --success-soft: rgba(50, 213, 131, .14); --success-text: var(--green-200);
-    --danger: var(--red-400); --danger-soft: rgba(249, 112, 102, .14); --danger-text: var(--red-200);
-    --warning: var(--orange-400); --warning-soft: rgba(253, 176, 34, .14); --warning-text: var(--orange-200);
-    --info: var(--purple-400); --info-soft: rgba(164, 138, 251, .14); --info-text: var(--purple-200);
-    --shadow-sm: 0 1px 3px rgba(0,0,0,.5), 0 1px 2px rgba(0,0,0,.35);
-    --shadow-md: 0 4px 12px -2px rgba(0,0,0,.55), 0 2px 6px -2px rgba(0,0,0,.4);
-    --shadow-lg: 0 14px 28px -6px rgba(0,0,0,.6), 0 4px 10px -4px rgba(0,0,0,.45);
-    --shadow-xl: 0 28px 56px -12px rgba(0,0,0,.7);
-    --shadow-2xl: 0 40px 80px -18px rgba(0,0,0,.8);
-    --shadow-primary: 0 8px 24px -6px rgba(74,147,218,.4);
-    --glass-bg: rgba(15,23,42,.74); --glass-brd: rgba(255,255,255,.08);
-    --ring: 0 0 0 3px rgba(74,147,218,.28); --overlay: rgba(0,0,0,.68);
-    --grid-line: rgba(255,255,255,.05);
-  }
-}
 
 /* احترام تفضيل تقليل الحركة — مطلب أساسي في معايير الوصول */
 @media (prefers-reduced-motion: reduce) {

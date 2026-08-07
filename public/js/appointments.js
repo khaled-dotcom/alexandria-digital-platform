@@ -41,7 +41,7 @@ try {
     }
   } else {
     showAlert(alertBox,
-      'لازم تسجّل دخول بالرقم القومي عشان تحجز موعد. تقدر تشوف المواعيد المتاحة من دلوقتي.',
+      'يلزم تسجيل الدخول بالرقم القومي لحجز موعد. ويمكنك الاطّلاع على المواعيد المتاحة الآن.',
       'info');
   }
 } catch (err) {
@@ -166,7 +166,7 @@ async function selectDay(date) {
     grid.replaceChildren();
 
     if (!slots.length) {
-      grid.append(el('p', { class: 'muted', text: reason ?? 'مفيش فترات متاحة في اليوم ده.' }));
+      grid.append(el('p', { class: 'muted', text: reason ?? 'لا توجد فترات متاحة في هذا اليوم.' }));
     }
 
     for (const s of slots) {
@@ -205,8 +205,8 @@ function updateSubmit() {
 
   btn.disabled = !ready;
   btn.textContent = ready
-    ? (citizen ? 'أكّد الحجز' : 'سجّل دخول عشان تحجز')
-    : 'اختار الخدمة والمقر والوقت';
+    ? (citizen ? 'أكّد الحجز' : 'سجّل الدخول للحجز')
+    : 'اختر الخدمة والمقرّ والوقت';
 }
 
 // ── الإرسال ──────────────────────────────────────────────────────────────

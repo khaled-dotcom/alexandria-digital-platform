@@ -65,7 +65,7 @@ async function loadOverview() {
   list.replaceChildren();
 
   if (!o.recentAudit.length) {
-    list.append(el('li', { text: 'مفيش نشاط مسجّل لسه.', class: 'muted' }));
+    list.append(el('li', { text: 'لا يوجد نشاط مسجَّل بعد.', class: 'muted' }));
     return;
   }
 
@@ -109,7 +109,7 @@ async function loadUsers() {
           text: u.isActive ? 'نشط' : 'موقوف',
         }),
       ]),
-      el('td', { text: u.lastLoginAt ? formatDate(u.lastLoginAt) : 'ما دخلش لسه', class: 'muted' }),
+      el('td', { text: u.lastLoginAt ? formatDate(u.lastLoginAt) : 'لم يسجّل الدخول بعد', class: 'muted' }),
     ]);
 
     const actions = el('td', { class: 'row wrap', style: 'gap:6px' });
@@ -181,7 +181,7 @@ function showTempPassword(password, forWhom) {
   box.classList.remove('hidden');
   box.replaceChildren(
     el('div', {}, [
-      el('strong', { text: `الباسورد المؤقت لـ ${forWhom} — انسخه دلوقتي، مش هيتعرض تاني: ` }),
+      el('strong', { text: `كلمة المرور المؤقتة لـ ${forWhom} — انسخها الآن، فلن تُعرض مرة أخرى: ` }),
       el('span', { class: 'mono', text: password, style: 'font-size:1.05rem;user-select:all' }),
     ])
   );
@@ -224,7 +224,7 @@ form.addEventListener('submit', async (e) => {
 
 async function toggleActive(u) {
   const verb = u.isActive ? 'توقيف' : 'تفعيل';
-  if (!confirm(`متأكد إنك عايز ${verb} حساب «${u.name}»؟`)) return;
+  if (!confirm(`هل تريد بالتأكيد ${verb} حساب «${u.name}»؟`)) return;
 
   try {
     await api(`/api/admin/users/${u.id}`, { method: 'PATCH', body: JSON.stringify({ isActive: !u.isActive }) });

@@ -47,7 +47,7 @@ citizenRouter.post('/otp/request', otpLimiter, (req, res) => {
   const targetPhone = phone || existing?.phone;
 
   if (!targetPhone) {
-    res.status(400).json({ error: 'اكتب رقم موبايلك عشان نبعتلك كود التحقق.' });
+    res.status(400).json({ error: 'أدخل رقم هاتفك لإرسال رمز التحقّق إليه.' });
     return;
   }
   if (!PHONE_RE.test(targetPhone)) {
@@ -56,7 +56,7 @@ citizenRouter.post('/otp/request', otpLimiter, (req, res) => {
   }
 
   if (existing?.is_blocked) {
-    res.status(403).json({ error: 'الحساب ده موقوف. راجع مقر الحي.' });
+    res.status(403).json({ error: 'هذا الحساب موقوف. يُرجى مراجعة مقرّ الحي.' });
     return;
   }
 
@@ -152,7 +152,7 @@ citizenRouter.patch('/me', requireCitizen, (req, res) => {
   const district = req.body?.district;
 
   if (district && !DISTRICTS.includes(district)) {
-    res.status(400).json({ error: 'الحي ده مش موجود.' });
+    res.status(400).json({ error: 'هذا الحي غير مسجّل.' });
     return;
   }
 

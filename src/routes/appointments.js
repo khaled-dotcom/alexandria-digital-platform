@@ -36,7 +36,7 @@ appointmentsRouter.get('/services', (_req, res) => {
 appointmentsRouter.get('/locations/:id/days', (req, res) => {
   const location = getLocation(Number(req.params.id));
   if (!location) {
-    res.status(404).json({ error: 'المقر ده مش موجود.' });
+    res.status(404).json({ error: 'هذا المقرّ غير مسجّل.' });
     return;
   }
 
@@ -50,7 +50,7 @@ appointmentsRouter.get('/locations/:id/days', (req, res) => {
 appointmentsRouter.get('/locations/:id/slots', (req, res) => {
   const date = req.query.date;
   if (!isValidDate(date)) {
-    res.status(400).json({ error: 'التاريخ لازم يكون بصيغة YYYY-MM-DD.' });
+    res.status(400).json({ error: 'يجب أن يكون التاريخ بصيغة YYYY-MM-DD.' });
     return;
   }
 
@@ -69,11 +69,11 @@ appointmentsRouter.post('/', requireCitizen, bookLimiter, (req, res) => {
   const { locationId, serviceCode, date, time, notes } = req.body ?? {};
 
   if (!isValidDate(date)) {
-    res.status(400).json({ error: 'التاريخ لازم يكون بصيغة YYYY-MM-DD.' });
+    res.status(400).json({ error: 'يجب أن يكون التاريخ بصيغة YYYY-MM-DD.' });
     return;
   }
   if (!/^\d{2}:\d{2}$/.test(time ?? '')) {
-    res.status(400).json({ error: 'الوقت لازم يكون بصيغة HH:MM.' });
+    res.status(400).json({ error: 'يجب أن يكون الوقت بصيغة HH:MM.' });
     return;
   }
 
@@ -118,7 +118,7 @@ appointmentsRouter.post('/', requireCitizen, bookLimiter, (req, res) => {
 appointmentsRouter.get('/:ref', (req, res) => {
   const appointment = getAppointmentByRef(req.params.ref);
   if (!appointment) {
-    res.status(404).json({ error: 'مفيش موعد بالرقم ده.' });
+    res.status(404).json({ error: 'لا يوجد موعد بهذا الرقم.' });
     return;
   }
 
@@ -127,7 +127,7 @@ appointmentsRouter.get('/:ref', (req, res) => {
   const isStaffHere = req.user && canAccessDistrict(req.user, appointment.location_district);
 
   if (!isOwner && !isStaffHere) {
-    res.status(404).json({ error: 'مفيش موعد بالرقم ده.' });
+    res.status(404).json({ error: 'لا يوجد موعد بهذا الرقم.' });
     return;
   }
 
@@ -138,7 +138,7 @@ appointmentsRouter.post('/:id/cancel', requireCitizen, (req, res) => {
   const appointment = getAppointmentById(Number(req.params.id));
 
   if (!appointment || appointment.citizen_id !== req.citizen.id) {
-    res.status(404).json({ error: 'الموعد ده مش موجود.' });
+    res.status(404).json({ error: 'هذا الموعد غير موجود.' });
     return;
   }
 
@@ -165,12 +165,12 @@ appointmentsRouter.post('/:id/cancel', requireCitizen, (req, res) => {
 appointmentsRouter.get('/queue/:locationId', requireStaff, (req, res) => {
   const location = getLocation(Number(req.params.locationId));
   if (!location) {
-    res.status(404).json({ error: 'المقر ده مش موجود.' });
+    res.status(404).json({ error: 'هذا المقرّ غير مسجّل.' });
     return;
   }
 
   if (!canAccessDistrict(req.user, location.district)) {
-    res.status(404).json({ error: 'المقر ده مش موجود.' });
+    res.status(404).json({ error: 'هذا المقرّ غير مسجّل.' });
     return;
   }
 
@@ -194,13 +194,13 @@ appointmentsRouter.get('/queue/:locationId', requireStaff, (req, res) => {
 appointmentsRouter.patch('/:id/status', requireStaff, blockGovernor, (req, res) => {
   const appointment = getAppointmentById(Number(req.params.id));
   if (!appointment) {
-    res.status(404).json({ error: 'الموعد مش موجود.' });
+    res.status(404).json({ error: 'الموعد غير موجود.' });
     return;
   }
 
   const location = getLocation(appointment.location_id);
   if (!canAccessDistrict(req.user, location?.district)) {
-    res.status(404).json({ error: 'الموعد مش موجود.' });
+    res.status(404).json({ error: 'الموعد غير موجود.' });
     return;
   }
 

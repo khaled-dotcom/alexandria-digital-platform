@@ -99,7 +99,7 @@ export function timeAgo(iso) {
   if (!iso) return '—';
   const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
 
-  if (mins < 1) return 'دلوقتي';
+  if (mins < 1) return 'الآن';
   if (mins < 60) return `من ${mins} دقيقة`;
 
   const hours = Math.floor(mins / 60);
@@ -208,7 +208,7 @@ export function aiBlock(complaint, { showStaffOnly = false, meta = null } = {}) 
   const chips = el('div', { class: 'ai-chips' });
 
   if (complaint.ai_is_valid === 0) {
-    chips.append(el('span', { class: 'badge badge-gray', text: '⚠️ الصورة مش مطابقة للبلاغ' }));
+    chips.append(el('span', { class: 'badge badge-gray', text: '⚠️ الصورة غير مطابقة للبلاغ' }));
   }
   if (complaint.ai_health_risk === 1) {
     chips.append(el('span', { class: 'badge badge-red', text: '☣️ خطر صحي' }));

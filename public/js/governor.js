@@ -63,7 +63,7 @@ function renderDepartments(rows) {
   body.replaceChildren();
 
   if (!rows.length) {
-    body.append(el('tr', {}, [el('td', { colspan: 4, class: 'muted text-center', text: 'مفيش بيانات' })]));
+    body.append(el('tr', {}, [el('td', { colspan: 4, class: 'muted text-center', text: 'لا توجد بيانات' })]));
     return;
   }
 

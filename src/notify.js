@@ -34,7 +34,7 @@ const providers = {
     name: 'http',
     async send({ recipient, message }) {
       const endpoint = process.env.SMS_ENDPOINT;
-      if (!endpoint) return { ok: false, error: 'SMS_ENDPOINT مش متظبط' };
+      if (!endpoint) return { ok: false, error: 'SMS_ENDPOINT غير مضبوط' };
 
       try {
         const res = await fetch(endpoint, {
