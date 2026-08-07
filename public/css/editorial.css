@@ -1,0 +1,408 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   منصة الإسكندرية — الطبقة التحريرية (Editorial Layer)
+   نظام التصميم الفاخر · v3.0
+
+   الفكرة الأساسية: الصورة الفوتوغرافية هي البطل، والتيبوغرافي هو الصوت،
+   والفراغ هو اللي بيدّي الاتنين هيبة. مفيش زخرفة زيادة — كل عنصر بيشتغل.
+
+   بيعتمد على tokens.css و styles.css. الملف ده بيرفع مستوى العرض، مش
+   بيعيد تعريف المكوّنات الوظيفية.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── إيقاع تحريري: مسافات أكبر بكتير من الواجهات العادية ────────── */
+  --ed-section: clamp(88px, 13vw, 200px);
+  --ed-gutter: clamp(20px, 5vw, 72px);
+  --ed-measure: 62ch;          /* أقصى عرض لسطر نص مقروء */
+  --ed-measure-tight: 46ch;
+
+  /* ── تيبوغرافي تحريري ─────────────────────────────────────────────
+     العناوين الكبيرة بخط أميري — نسخة معاصرة من نسخ بولاق. مقاساتها
+     بتوصل لحجم "غلاف مجلة" مش حجم "عنوان صفحة ويب".               */
+  --ed-display: clamp(2.75rem, 8.5vw, 8rem);
+  --ed-display-sm: clamp(2rem, 5.2vw, 4.25rem);
+  --ed-statement: clamp(1.35rem, 2.6vw, 2.35rem);
+  --ed-lede: clamp(1.05rem, 1.35vw, 1.35rem);
+
+  --ed-lh-display: 1.02;
+  --ed-lh-statement: 1.45;
+
+  /* ── حركة هادئة وواثقة ──────────────────────────────────────────── */
+  --ed-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ed-slow: 900ms;
+  --ed-mid: 620ms;
+
+  /* ── حجب الصور: طبقات تدرّج بتخلّي النص مقروء فوق أي صورة ──────── */
+  --ed-scrim-bottom: linear-gradient(to top,
+      rgba(3, 11, 23, .96) 0%,
+      rgba(3, 11, 23, .92) 22%,
+      rgba(3, 11, 23, .78) 40%,
+      rgba(3, 11, 23, .5) 58%,
+      rgba(3, 11, 23, .22) 78%,
+      rgba(3, 11, 23, .06) 100%);
+  --ed-ink: #05101F;           /* حبر الأقسام الداكنة */
+  --ed-paper: #F7F5F1;         /* ورق الأقسام الفاتحة — دافي مش أبيض ثلج */
+}
+
+[data-theme='dark'] {
+  --ed-paper: #0B1220;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { --ed-paper: #0B1220; }
+}
+
+/* ═══ ١. أدوات التخطيط التحريري ══════════════════════════════════════ */
+
+/* قسم بعرض الشاشة بالكامل، بيكسر حدود الـ container */
+.ed-bleed {
+  width: 100vw;
+  margin-inline-start: 50%;
+  transform: translateX(50%);
+}
+[dir='ltr'] .ed-bleed { transform: translateX(-50%); }
+
+.ed-section { padding-block: var(--ed-section); }
+
+.ed-wrap {
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: var(--ed-gutter);
+}
+
+.ed-measure { max-width: var(--ed-measure); }
+.ed-measure-tight { max-width: var(--ed-measure-tight); }
+
+/* شبكة تحريرية ١٢ عمود — أساس التخطيطات غير المتماثلة */
+.ed-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--s-6);
+}
+@media (max-width: 900px) {
+  .ed-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ═══ ٢. التيبوغرافي ═════════════════════════════════════════════════ */
+
+.ed-display {
+  font-family: var(--font-display);
+  font-size: var(--ed-display);
+  line-height: var(--ed-lh-display);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.ed-display-sm {
+  font-family: var(--font-display);
+  font-size: var(--ed-display-sm);
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* جملة تحريرية كبيرة — بتستخدم كفقرة افتتاحية لقسم */
+.ed-statement {
+  font-size: var(--ed-statement);
+  line-height: var(--ed-lh-statement);
+  font-weight: 400;
+  color: var(--text-2);
+  max-width: var(--ed-measure);
+}
+.ed-statement strong { font-weight: 700; color: var(--text); }
+
+.ed-lede {
+  font-size: var(--ed-lede);
+  line-height: var(--lh-relaxed);
+  color: var(--text-2);
+  max-width: var(--ed-measure);
+}
+
+/* ترويسة قسم: خط ذهبي رفيع + كلمة صغيرة — بديل هادي للـ eyebrow */
+.ed-kicker {
+  display: flex; align-items: center; gap: var(--s-4);
+  font-size: var(--t-sm); font-weight: 700;
+  letter-spacing: .16em;
+  color: var(--gold);
+  margin-block-end: var(--s-6);
+}
+.ed-kicker::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(to left, transparent, currentColor);
+  opacity: .45;
+  max-width: 180px;
+}
+[dir='ltr'] .ed-kicker::after {
+  background: linear-gradient(to right, transparent, currentColor);
+}
+
+/* رقم تحريري ضخم */
+.ed-figure {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 5.5vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ═══ ٣. الهيرو السينمائي ════════════════════════════════════════════ */
+
+.ed-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;          /* المحتوى تحت — أكثر تحريرية من التوسيط */
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ed-ink);
+}
+
+/* الصورة كطبقة منفصلة عشان نقدر نحرّكها من غير ما نحرّك النص */
+.ed-hero-media {
+  position: absolute; inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center 55%;
+  background-repeat: no-repeat;
+  /* زووم بطيء جدًا — بيدّي إحساس بالحياة من غير ما ياخد الانتباه */
+  animation: ed-kenburns 26s var(--ed-ease) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes ed-kenburns {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.11); }
+}
+
+.ed-hero-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--ed-scrim-bottom);
+}
+
+.ed-hero-body {
+  position: relative; z-index: 2;
+  width: 100%;
+  padding-block: clamp(64px, 11vh, 148px);
+  color: #fff;
+}
+
+.ed-hero .ed-kicker { color: var(--gold-300); margin-block-end: var(--s-5); }
+.ed-hero .ed-display {
+  color: #fff;
+  max-width: 20ch;
+  /* ظل واسع وخفيف — بيرفع التباين فوق أي جزء فاتح في الصورة من غير
+     ما يبان كظل. الحجاب لوحده مابيكفيش على سماء ساطعة. */
+  text-shadow: 0 2px 40px rgba(3, 11, 23, .55), 0 1px 3px rgba(3, 11, 23, .3);
+}
+.ed-hero .ed-display .nowrap { white-space: nowrap; }
+
+.ed-hero-lede {
+  margin-block-start: var(--s-7);
+  font-size: var(--ed-lede);
+  line-height: var(--lh-normal);
+  color: rgba(255, 255, 255, .82);
+  max-width: 48ch;
+}
+
+.ed-hero-actions {
+  display: flex; flex-wrap: wrap; gap: var(--s-4);
+  margin-block-start: var(--s-10);
+}
+
+/* مؤشّر التمرير — خط رفيع بينبض */
+.ed-scroll-cue {
+  position: absolute;
+  inset-block-end: var(--s-8);
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  z-index: 2;
+  display: grid; place-items: center; gap: var(--s-2);
+  font-size: var(--t-xs);
+  letter-spacing: .12em;
+  color: rgba(255, 255, 255, .6);
+}
+[dir='ltr'] .ed-scroll-cue { transform: translateX(-50%); }
+.ed-scroll-cue i {
+  display: block; width: 1px; height: 44px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.7), transparent);
+  animation: ed-cue 2.4s var(--ed-ease) infinite;
+}
+@keyframes ed-cue {
+  0%, 100% { opacity: .25; transform: scaleY(.6); transform-origin: top; }
+  50%      { opacity: 1;   transform: scaleY(1);  transform-origin: top; }
+}
+
+/* ═══ ٤. كروت الخدمات المقودة بالصورة ════════════════════════════════ */
+
+.ed-services { display: grid; gap: var(--s-5); grid-template-columns: repeat(12, 1fr); }
+@media (max-width: 900px) { .ed-services { grid-template-columns: repeat(6, 1fr); } }
+
+.ed-card {
+  position: relative;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 300px;
+  padding: var(--s-8);
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  text-decoration: none;
+  background: var(--ed-ink);
+  grid-column: span 4;
+}
+@media (max-width: 900px) { .ed-card { grid-column: span 6; min-height: 260px; } }
+
+/* الكارت المميّز — ٨ من ١٢ عشان الصف الأول يقفل تمام مع كارت span 4،
+   والصف التاني ٣ كروت × ٤. من غير كده بيفضل عمودين فاضيين. */
+.ed-card.is-feature { grid-column: span 8; min-height: 460px; }
+@media (max-width: 900px) { .ed-card.is-feature { grid-column: span 6; min-height: 340px; } }
+
+.ed-card-media {
+  position: absolute; inset: 0; z-index: -2;
+  background-size: cover; background-position: center;
+  transform: scale(1.01);
+  transition: transform var(--ed-slow) var(--ed-ease);
+}
+.ed-card:hover .ed-card-media { transform: scale(1.07); }
+
+.ed-card::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top,
+      rgba(4, 14, 28, .92) 0%,
+      rgba(4, 14, 28, .6) 38%,
+      rgba(4, 14, 28, .16) 72%,
+      rgba(4, 14, 28, .05) 100%);
+  transition: opacity var(--ed-mid) var(--ed-ease);
+}
+.ed-card:hover::after { opacity: .82; }
+
+.ed-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.15;
+  color: #fff;
+  margin: 0;
+}
+.ed-card p {
+  margin-block-start: var(--s-3);
+  color: rgba(255, 255, 255, .78);
+  font-size: var(--t-md);
+  line-height: var(--lh-normal);
+  max-width: 38ch;
+}
+.ed-card .ed-card-go {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  margin-block-start: var(--s-6);
+  font-weight: 700; font-size: var(--t-md);
+  color: var(--gold-200);
+}
+.ed-card .ed-card-go span {
+  transition: transform var(--d-base) var(--ed-ease);
+  display: inline-block;
+}
+.ed-card:hover .ed-card-go span { transform: translateX(-6px); }
+[dir='ltr'] .ed-card:hover .ed-card-go span { transform: translateX(6px); }
+
+.ed-card:hover { text-decoration: none; }
+.ed-card:focus-visible { outline: 3px solid var(--gold-300); outline-offset: 3px; }
+
+/* ═══ ٥. شريط الأرقام التحريري ═══════════════════════════════════════ */
+
+.ed-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--s-10) var(--s-6);
+}
+.ed-figures .item { position: relative; padding-inline-start: var(--s-6); }
+.ed-figures .item::before {
+  content: ''; position: absolute;
+  inset-block: 4px auto; inset-inline-start: 0;
+  width: 2px; height: calc(100% - 8px);
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  opacity: .55;
+}
+.ed-figures .k {
+  margin-block-start: var(--s-3);
+  font-size: var(--t-md);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* على خلفية داكنة */
+.ed-dark {
+  background: var(--ed-ink);
+  color: #fff;
+}
+.ed-dark .ed-figure { color: #fff; }
+.ed-dark .ed-figures .k { color: rgba(255, 255, 255, .62); }
+.ed-dark .ed-statement { color: rgba(255, 255, 255, .8); }
+.ed-dark .ed-statement strong { color: #fff; }
+
+/* ═══ ٦. قائمة الأحياء — كشف الصورة عند المرور ═══════════════════════
+   تخطيط تحريري: أسماء الأحياء كقائمة كبيرة، وصورة الحي بتظهر ورا
+   الاسم اللي المؤشّر عليه. بديل أنيق للشبكة التقليدية.              */
+
+.ed-districts { position: relative; }
+
+.ed-district-row {
+  position: relative;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s-6);
+  padding-block: clamp(20px, 2.6vw, 34px);
+  border-block-end: 1px solid var(--border);
+  text-decoration: none; color: inherit;
+  transition: padding-inline var(--ed-mid) var(--ed-ease);
+}
+.ed-district-row:first-child { border-block-start: 1px solid var(--border); }
+.ed-district-row:hover { text-decoration: none; padding-inline-start: var(--s-5); }
+
+.ed-district-row .name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  transition: color var(--d-base) var(--ed-ease);
+}
+.ed-district-row:hover .name { color: var(--primary-text); }
+
+.ed-district-row .meta {
+  font-size: var(--t-md);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ═══ ٧. الظهور التدريجي — هادي وواثق ════════════════════════════════ */
+
+.js [data-ed-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity var(--ed-slow) var(--ed-ease),
+              transform var(--ed-slow) var(--ed-ease);
+}
+.js [data-ed-reveal].is-in { opacity: 1; transform: none; }
+
+/* تتابع بسيط للعناصر الأبناء */
+.js [data-ed-stagger] > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity var(--ed-mid) var(--ed-ease),
+              transform var(--ed-mid) var(--ed-ease);
+}
+.js [data-ed-stagger].is-in > * { opacity: 1; transform: none; }
+.js [data-ed-stagger].is-in > *:nth-child(2) { transition-delay: 90ms; }
+.js [data-ed-stagger].is-in > *:nth-child(3) { transition-delay: 180ms; }
+.js [data-ed-stagger].is-in > *:nth-child(4) { transition-delay: 270ms; }
+.js [data-ed-stagger].is-in > *:nth-child(5) { transition-delay: 360ms; }
+.js [data-ed-stagger].is-in > *:nth-child(6) { transition-delay: 450ms; }
+
+/* ═══ ٨. احترام تقليل الحركة ═════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-hero-media { animation: none; }
+  .ed-scroll-cue i { animation: none; opacity: .6; }
+  .js [data-ed-reveal],
+  .js [data-ed-stagger] > * { opacity: 1; transform: none; transition: none; }
+}

@@ -1,21 +1,15 @@
-// الصفحة الرئيسية — بتحقن مشهد الإسكندرية في الهيرو وتملّى الأرقام الحيّة.
-// الهيرو خلفيته صورة حقيقية للكورنيش (راجع index.html) فمش محتاجين نرسم
-// أفق سلويت فوقها — بس الموج والنوارس والنجوم فضلوا كلمسة حركة حيّة.
-import { HERO_WAVES, seagulls, stars } from './marks.js';
+// الصفحة الرئيسية — الأرقام الحيّة واعتماد صورة الهيرو.
+//
+// الهيرو بقى صورة سينمائية بعرض الشاشة. الموج والنوارس والنجوم المرسومة
+// اتشالت من هنا عن قصد: رسمة كرتونية فوق صورة فوتوغرافية حقيقية بتقلّل
+// من الاتنين. الصورة لوحدها أقوى.
 import { api, formatNumber } from './common.js';
 
-// ═══ ١. مشهد الهيرو ══════════════════════════════════════════════════════
+// ═══ ١. اعتماد صورة الهيرو ═══════════════════════════════════════════════
 
-function paintHero() {
+function heroCredit() {
   const hero = document.getElementById('hero');
   if (!hero) return;
-
-  const scene = document.createElement('div');
-  scene.setAttribute('aria-hidden', 'true');
-  scene.innerHTML = stars(46) + HERO_WAVES + seagulls(5);
-
-  // الطبقات بتتحط قبل المحتوى عشان النص يفضل فوقها
-  hero.prepend(...scene.childNodes);
 
   const credit = document.createElement('a');
   credit.className = 'photo-credit';
@@ -85,6 +79,30 @@ function smoothAnchors() {
   }
 }
 
-paintHero();
+// ═══ ٤. الظهور التدريجي التحريري ═════════════════════════════════════════
+
+/** بيظهّر الأقسام وهي داخلة الشاشة. من غير IntersectionObserver بيظهّر الكل. */
+function edReveal() {
+  const targets = document.querySelectorAll('[data-ed-reveal], [data-ed-stagger]');
+  if (!targets.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    for (const t of targets) t.classList.add('is-in');
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    }
+  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+
+  for (const t of targets) io.observe(t);
+}
+
+heroCredit();
 loadStats();
 smoothAnchors();
+edReveal();

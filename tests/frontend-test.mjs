@@ -13,7 +13,7 @@ const ASSETS = [
   '/img/landmarks/qaitbay.jpg', '/img/landmarks/bibliotheca.jpg', '/img/landmarks/stanley.jpg',
   '/img/landmarks/corniche.jpg', '/img/landmarks/montaza.jpg', '/img/landmarks/pompey.jpg',
   '/img/landmarks/amphitheatre.jpg',
-  '/css/styles.css',
+  '/css/styles.css', '/css/tokens.css', '/css/alexandria.css', '/css/editorial.css',
   '/js/common.js', '/js/report-form.js', '/js/dashboard.js', '/js/track.js', '/js/login.js',
   '/js/citizen-login.js', '/js/my.js', '/js/appointments.js', '/js/admin.js', '/js/governor.js',
   '/js/queue.js',

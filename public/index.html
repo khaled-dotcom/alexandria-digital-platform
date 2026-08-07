@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/tokens.css">
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/alexandria.css">
+  <link rel="stylesheet" href="/css/editorial.css">
   <script src="/js/theme-boot.js"></script>
 </head>
 <body>
@@ -58,85 +59,153 @@
   </div>
 </header>
 
-<!-- ═══ الهيرو: بحر الإسكندرية وأفق المدينة ═══════════════════════════ -->
-<section class="hero hero-sea has-photo" id="hero" style="--hero-photo-url:url('/img/landmarks/corniche.jpg')">
-  <span class="hero-sun" aria-hidden="true"></span>
-  <!-- النجوم والأفق والموج والنوارس بتتحقن من home.js -->
-  <div class="hero-content">
-    <span class="eyebrow">محافظة الإسكندرية · البوابة الرقمية</span>
-    <h1 class="display">مدينتك على بُعد<br>بلاغ واحد</h1>
-    <p class="lead">
-      من الكورنيش لبرج العرب — صوّر المشكلة، حدّد مكانها على الخريطة،
-      وسيبنا نوصّلها للإدارة المختصة. وتابعها بالرقم المرجعي لحد ما تتحلّ.
-    </p>
-    <div class="hero-cta">
-      <a class="btn btn-lg btn-gold" href="#report">بلّغ عن مشكلة</a>
-      <a class="btn btn-lg btn-glass" href="/appointments">احجز موعد في الحي</a>
+<!-- ═══ الهيرو السينمائي — الكورنيش بعرض الشاشة ═══════════════════════ -->
+<section class="ed-hero" id="hero">
+  <div class="ed-hero-media" aria-hidden="true"
+       style="background-image:url('/img/landmarks/corniche.jpg')"></div>
+
+  <div class="ed-hero-body">
+    <div class="ed-wrap">
+      <p class="ed-kicker">محافظة الإسكندرية · البوابة الرقمية</p>
+      <h1 class="ed-display"><span class="nowrap">مدينتك على بُعد</span><br><span class="nowrap">بلاغ واحد</span></h1>
+      <p class="ed-hero-lede">
+        من الكورنيش لبرج العرب — صوّر المشكلة، حدّد مكانها على الخريطة،
+        وسيبنا نوصّلها للإدارة المختصة. وتابعها بالرقم المرجعي لحد ما تتحلّ.
+      </p>
+      <div class="ed-hero-actions">
+        <a class="btn btn-lg btn-gold" href="#report">بلّغ عن مشكلة</a>
+        <a class="btn btn-lg btn-glass" href="/appointments">احجز موعد في الحي</a>
+      </div>
+    </div>
+  </div>
+
+  <span class="ed-scroll-cue" aria-hidden="true">
+    <i></i>
+  </span>
+</section>
+
+<!-- ═══ بيان + الأرقام الحيّة ═════════════════════════════════════════ -->
+<section class="ed-section ed-dark">
+  <div class="ed-wrap">
+    <div data-ed-reveal>
+      <p class="ed-kicker">المنصة في سطر</p>
+      <p class="ed-statement">
+        بوابة واحدة لكل خدمات المحافظة. البلاغ بيتصنّف ويتحوّل للإدارة المختصة
+        <strong>في نفس اللحظة</strong>، وليه مهلة محدّدة بيتراقب عليها —
+        ولو اتأخر بيتصعّد لوحده.
+      </p>
+    </div>
+
+    <div class="ed-figures mt-8" data-ed-stagger>
+      <div class="item">
+        <div class="ed-figure" id="hsTotal">—</div>
+        <div class="k">بلاغ مستلَم</div>
+      </div>
+      <div class="item">
+        <div class="ed-figure" id="hsResolved">—</div>
+        <div class="k">تم حلّه</div>
+      </div>
+      <div class="item">
+        <div class="ed-figure" id="hsSla">—</div>
+        <div class="k">التزام بالمواعيد</div>
+      </div>
+      <div class="item">
+        <div class="ed-figure" id="hsDistricts">١٠</div>
+        <div class="k">أحياء تحت التغطية</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- شريط الأرقام الحيّة — بيتملّى من /api/stats -->
-<div class="hero-strip" id="heroStrip">
-  <div class="cell"><div class="n" id="hsTotal">—</div><div class="k">بلاغ مستلَم</div></div>
-  <div class="cell"><div class="n" id="hsResolved">—</div><div class="k">تم حلّه</div></div>
-  <div class="cell"><div class="n" id="hsSla">—</div><div class="k">التزام بالمواعيد</div></div>
-  <div class="cell"><div class="n" id="hsDistricts">١٠</div><div class="k">أحياء تحت التغطية</div></div>
-</div>
+<main id="main">
 
-<main id="main" class="page">
+  <!-- ═══ الخدمات — كروت مقودة بالصورة ══════════════════════════════ -->
+  <section class="ed-section">
+    <div class="ed-wrap">
+      <div data-ed-reveal>
+        <p class="ed-kicker">الخدمات</p>
+        <h2 class="ed-display-sm">إيه اللي محتاجه دلوقتي؟</h2>
+        <p class="ed-lede mt-4">كل خدمات المحافظة من مكان واحد — من غير طوابير ولا ورق.</p>
+      </div>
 
-  <!-- ═══ الخدمات السريعة ═══════════════════════════════════════════ -->
-  <section class="mt-8" data-reveal>
-    <span class="eyebrow">الخدمات</span>
-    <h2 class="mt-2">إيه اللي محتاجه دلوقتي؟</h2>
-    <p class="subtitle">كل خدمات المحافظة من مكان واحد — من غير طوابير ولا ورق.</p>
+      <div class="ed-services mt-8" data-ed-stagger>
+        <a class="ed-card is-feature" href="#report">
+          <span class="ed-card-media" aria-hidden="true"
+                style="background-image:url('/img/landmarks/stanley.jpg')"></span>
+          <h3>بلّغ عن مشكلة</h3>
+          <p>قمامة، حفرة، كسر مواسير، إنارة مطفية، إشغالات… صوّر وابعت في دقيقة.</p>
+          <span class="ed-card-go">ابدأ البلاغ <span aria-hidden="true">←</span></span>
+        </a>
 
-    <div class="tile-grid">
-      <a class="tile" href="#report">
-        <span class="tile-icon">📣</span>
-        <span class="tile-title">بلّغ عن مشكلة</span>
-        <span class="tile-desc">قمامة، حفرة، كسر مواسير، إنارة مطفية، إشغالات… صوّر وابعت في دقيقة.</span>
-        <span class="tile-go">ابدأ البلاغ ←</span>
-      </a>
+        <a class="ed-card" href="/appointments">
+          <span class="ed-card-media" aria-hidden="true"
+                style="background-image:url('/img/landmarks/bibliotheca.jpg')"></span>
+          <h3>احجز موعد</h3>
+          <p>تصاريح، شهادات، ورخص — اختار الحي والميعاد واستلم رقم دورك فورًا.</p>
+          <span class="ed-card-go">شوف المواعيد <span aria-hidden="true">←</span></span>
+        </a>
 
-      <a class="tile c-teal" href="/appointments">
-        <span class="tile-icon">📅</span>
-        <span class="tile-title">احجز موعد</span>
-        <span class="tile-desc">تصاريح، شهادات، ورخص — اختار الحي والميعاد واستلم رقم دورك فورًا.</span>
-        <span class="tile-go">شوف المواعيد المتاحة ←</span>
-      </a>
+        <a class="ed-card" href="/track">
+          <span class="ed-card-media" aria-hidden="true"
+                style="background-image:url('/img/landmarks/qaitbay.jpg')"></span>
+          <h3>تابع بلاغك</h3>
+          <p>اكتب الرقم المرجعي وشوف البلاغ وصل فين ومين الإدارة المسؤولة.</p>
+          <span class="ed-card-go">تابع دلوقتي <span aria-hidden="true">←</span></span>
+        </a>
 
-      <a class="tile c-gold" href="/track">
-        <span class="tile-icon">🔍</span>
-        <span class="tile-title">تابع بلاغك</span>
-        <span class="tile-desc">اكتب الرقم المرجعي وشوف البلاغ وصل فين ومين الإدارة المسؤولة.</span>
-        <span class="tile-go">تابع دلوقتي ←</span>
-      </a>
+        <a class="ed-card" href="/my">
+          <span class="ed-card-media" aria-hidden="true"
+                style="background-image:url('/img/landmarks/montaza.jpg')"></span>
+          <h3>حسابي</h3>
+          <p>كل بلاغاتك ومواعيدك وبياناتك في صفحة واحدة — بالرقم القومي.</p>
+          <span class="ed-card-go">ادخل على حسابك <span aria-hidden="true">←</span></span>
+        </a>
 
-      <a class="tile c-green" href="/my">
-        <span class="tile-icon">👤</span>
-        <span class="tile-title">حسابي</span>
-        <span class="tile-desc">كل بلاغاتك ومواعيدك وبياناتك في صفحة واحدة — بالرقم القومي.</span>
-        <span class="tile-go">ادخل على حسابك ←</span>
-      </a>
-
-      <a class="tile" href="/citizen-login">
-        <span class="tile-icon">🆔</span>
-        <span class="tile-title">دخول المواطنين</span>
-        <span class="tile-desc">بالرقم القومي وكود تحقق يوصلك على تليفونك — من غير باسورد تحفظه.</span>
-        <span class="tile-go">سجّل دخولك ←</span>
-      </a>
+        <a class="ed-card" href="/citizen-login">
+          <span class="ed-card-media" aria-hidden="true"
+                style="background-image:url('/img/landmarks/amphitheatre.jpg')"></span>
+          <h3>دخول المواطنين</h3>
+          <p>بالرقم القومي وكود تحقق يوصلك على تليفونك — من غير باسورد تحفظه.</p>
+          <span class="ed-card-go">سجّل دخولك <span aria-hidden="true">←</span></span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <div class="divider-deco" aria-hidden="true"><span class="marks"><span></span><span></span><span></span></span></div>
+  <!-- ═══ الأحياء تحت التغطية ═══════════════════════════════════════ -->
+  <section class="ed-section" style="padding-block-start:0">
+    <div class="ed-wrap">
+      <div data-ed-reveal>
+        <p class="ed-kicker">التغطية</p>
+        <h2 class="ed-display-sm">عشرة أحياء — مقر خدمة في كل واحد</h2>
+        <p class="ed-lede mt-4">
+          كل حي ليه مقر بمواعيده وخدماته، ورئيس حي بيشوف بلاغات حيّه ويتابعها.
+        </p>
+      </div>
+
+      <div class="ed-districts mt-8" data-ed-reveal>
+        <a class="ed-district-row" href="/appointments"><span class="name">المنتزه أول</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">المنتزه ثان</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">شرق</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">وسط</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">غرب</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">الجمرك</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">العامرية أول</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">العامرية ثان</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">برج العرب</span><span class="meta">احجز في المقر ←</span></a>
+        <a class="ed-district-row" href="/appointments"><span class="name">برج العرب الجديدة</span><span class="meta">احجز في المقر ←</span></a>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══ نموذج البلاغ ══════════════════════════════════════════════ -->
-  <section id="report" class="mt-8" data-reveal>
-    <span class="eyebrow">بلاغ جديد</span>
-    <h2 class="mt-2">بلّغ عن مشكلة في مدينتك</h2>
-    <p class="subtitle">صوّر المشكلة، حدد مكانها على الخريطة، وابعت البلاغ. هيوصل للإدارة المختصة فورًا وتقدر تتابعه برقم مرجعي.</p>
+  <section id="report" class="ed-section" style="padding-block-start:0">
+    <div class="ed-wrap ed-form-wrap">
+      <div data-ed-reveal>
+        <p class="ed-kicker">بلاغ جديد</p>
+        <h2 class="ed-display-sm">بلّغ عن مشكلة في مدينتك</h2>
+        <p class="ed-lede mt-4">صوّر المشكلة، حدد مكانها على الخريطة، وابعت البلاغ. هيوصل للإدارة المختصة فورًا وتقدر تتابعه برقم مرجعي.</p>
+      </div>
 
   <div id="alert" class="alert hidden"></div>
 
@@ -278,35 +347,40 @@
 
     <button type="submit" class="btn btn-lg btn-block" id="submitBtn">إرسال البلاغ</button>
   </form>
+    </div>
   </section>
 
   <!-- ═══ أرقام الطوارئ ═════════════════════════════════════════════ -->
-  <section class="mt-8" data-reveal>
-    <span class="eyebrow">في الحالات الخطرة</span>
-    <h2 class="mt-2">اتصل فورًا — متستناش البلاغ</h2>
-    <p class="subtitle">لو فيه خطر على الأرواح أو حريق أو تسريب غاز، المكالمة أسرع من أي منصة.</p>
+  <section class="ed-section" style="padding-block-start:0">
+    <div class="ed-wrap">
+      <div data-ed-reveal>
+        <p class="ed-kicker">في الحالات الخطرة</p>
+        <h2 class="ed-display-sm">اتصل فورًا — متستناش البلاغ</h2>
+        <p class="ed-lede mt-4">لو فيه خطر على الأرواح أو حريق أو تسريب غاز، المكالمة أسرع من أي منصة.</p>
+      </div>
 
-    <div class="emergency-row">
-      <a class="emergency-item" href="tel:123">
-        <span class="tile-icon" aria-hidden="true">🚑</span>
-        <span><span class="num">123</span><span class="who">الإسعاف</span></span>
-      </a>
-      <a class="emergency-item" href="tel:180">
-        <span class="tile-icon" aria-hidden="true">🚒</span>
-        <span><span class="num">180</span><span class="who">المطافي</span></span>
-      </a>
-      <a class="emergency-item" href="tel:122">
-        <span class="tile-icon" aria-hidden="true">🚓</span>
-        <span><span class="num">122</span><span class="who">النجدة</span></span>
-      </a>
-      <a class="emergency-item" href="tel:129">
-        <span class="tile-icon" aria-hidden="true">🔥</span>
-        <span><span class="num">129</span><span class="who">طوارئ الغاز</span></span>
-      </a>
-      <a class="emergency-item" href="tel:16528">
-        <span class="tile-icon" aria-hidden="true">🏛️</span>
-        <span><span class="num">16528</span><span class="who">خط المحافظة</span></span>
-      </a>
+      <div class="emergency-row mt-8" data-ed-stagger>
+        <a class="emergency-item" href="tel:123">
+          <span class="tile-icon" aria-hidden="true">🚑</span>
+          <span><span class="num">123</span><span class="who">الإسعاف</span></span>
+        </a>
+        <a class="emergency-item" href="tel:180">
+          <span class="tile-icon" aria-hidden="true">🚒</span>
+          <span><span class="num">180</span><span class="who">المطافي</span></span>
+        </a>
+        <a class="emergency-item" href="tel:122">
+          <span class="tile-icon" aria-hidden="true">🚓</span>
+          <span><span class="num">122</span><span class="who">النجدة</span></span>
+        </a>
+        <a class="emergency-item" href="tel:129">
+          <span class="tile-icon" aria-hidden="true">🔥</span>
+          <span><span class="num">129</span><span class="who">طوارئ الغاز</span></span>
+        </a>
+        <a class="emergency-item" href="tel:16528">
+          <span class="tile-icon" aria-hidden="true">🏛️</span>
+          <span><span class="num">16528</span><span class="who">خط المحافظة</span></span>
+        </a>
+      </div>
     </div>
   </section>
 </main>
