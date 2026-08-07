@@ -330,9 +330,10 @@
   font-weight: 600;
 }
 
-/* على خلفية داكنة */
+/* على خلفية داكنة — position: relative عشان قوس الخليج يتثبّت على حافتها */
 .ed-dark {
-  background: var(--ed-ink);
+  position: relative;
+  background: linear-gradient(165deg, var(--alx-sea-deep) 0%, var(--ed-ink) 62%);
   color: #fff;
 }
 .ed-dark .ed-figure { color: #fff; }

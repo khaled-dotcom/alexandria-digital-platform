@@ -393,3 +393,130 @@
   .page-banner { height: 124px; }
   .banner-caption { inset-inline-start: var(--s-4); font-size: 10px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   هوية الإسكندرية البصرية — الخلفيات والزخارف
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── ١. خلفية الصفحة: أفق بحري ──────────────────────────────────────
+   طبقتين فوق لون الحجر الجيري: وهج بحري خفيف جاي من فوق (السما
+   والبحر)، ودفا رملي جاي من تحت. المحصلة إن الصفحة الطويلة
+   مابتبقاش لون واحد ميّت من فوق لتحت.                             */
+
+/* طبقة ثابتة ورا كل حاجة بدل background-attachment: fixed —
+   الأخيرة بتعيد الرسم مع كل تمرير، وiOS Safari بيتجاهلها أصلاً.
+   عنصر position:fixed بيدّي نفس المنظر بتكلفة رسم واحدة. */
+body { background-color: var(--bg); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(120% 62% at 50% -12%,
+      rgba(20, 101, 127, .16) 0%,
+      rgba(20, 101, 127, .06) 42%,
+      transparent 72%),
+    radial-gradient(90% 46% at 50% 108%,
+      rgba(232, 148, 75, .10) 0%,
+      transparent 68%);
+}
+
+[data-theme='dark'] body::before {
+  background-image:
+    radial-gradient(120% 62% at 50% -12%,
+      rgba(63, 163, 168, .13) 0%,
+      rgba(11, 59, 84, .10) 44%,
+      transparent 74%),
+    radial-gradient(90% 46% at 50% 108%,
+      rgba(232, 148, 75, .07) 0%,
+      transparent 68%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) body::before {
+    background-image:
+      radial-gradient(120% 62% at 50% -12%,
+        rgba(63, 163, 168, .13) 0%,
+        rgba(11, 59, 84, .10) 44%,
+        transparent 74%),
+      radial-gradient(90% 46% at 50% 108%,
+        rgba(232, 148, 75, .07) 0%,
+        transparent 68%);
+  }
+}
+
+/* ── ٢. جدار الحروف — إشارة لمكتبة الإسكندرية ───────────────────────
+   سور المكتبة منقوش عليه حروف من أبجديات العالم كلها. العلامات دي
+   مجرّدة عن قصد — مش حروف حقيقية من أي لغة، عشان ماتقراش غلط.
+   بتتحط كطبقة خفيفة جدًا ورا الأقسام الداكنة.                     */
+
+.alx-script {
+  position: relative;
+  isolation: isolate;
+}
+.alx-script::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 16v18M8 25h12'/%3E%3Cpath d='M40 14c6 0 8 4 8 9s-2 9-8 9'/%3E%3Cpath d='M68 32l7-18 7 18'/%3E%3Cpath d='M100 14v18M100 14h9M100 23h7'/%3E%3Ccircle cx='131' cy='23' r='7'/%3E%3Cpath d='M12 62h16M20 54v16'/%3E%3Cpath d='M44 54l12 16M56 54L44 70'/%3E%3Cpath d='M74 70V54h10v7h-10'/%3E%3Cpath d='M104 54v16h10'/%3E%3Cpath d='M126 54h14l-14 16h14'/%3E%3Cpath d='M14 94h14M14 102h14M21 88v20'/%3E%3Cpath d='M46 88c8 4 8 16 0 20'/%3E%3Cpath d='M72 108V88l12 20V88'/%3E%3Cpath d='M104 96a7 7 0 1 0 0 .1'/%3E%3Cpath d='M126 88v20M126 98h13v10'/%3E%3Cpath d='M16 126h16l-8 16z'/%3E%3Cpath d='M48 122v20M42 132h12'/%3E%3Cpath d='M70 142c10 0 14-6 14-10s-4-10-14-10'/%3E%3Cpath d='M100 122h14M107 122v20'/%3E%3Cpath d='M128 142V122l12 10-12 10'/%3E%3C/g%3E%3C/svg%3E");
+  /* بلاطة أكبر من الرسمة الأصلية عشان التكرار مايبانش كشبكة منتظمة،
+     وشفافية أقل عشان تفضل نقش مش نمط */
+  background-size: 210px 210px;
+  opacity: .035;
+  pointer-events: none;
+}
+
+/* على الخلفيات الفاتحة العلامات بتبقى غامقة بدل بيضا */
+.alx-script.on-light::before {
+  filter: invert(1);
+  opacity: .05;
+}
+
+/* ── ٣. الميندر — الزخرفة اليونانية ─────────────────────────────────
+   الإسكندرية اتأسست هيلينستية، والمفتاح اليوناني ده أكتر عنصر زخرفي
+   بيفرّقها بصريًا عن أي مدينة مصرية تانية. بيتستخدم كخط فاصل رفيع
+   بس — مش كإطار حوالين كل حاجة.                                  */
+
+.alx-meander {
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='14' viewBox='0 0 36 14'%3E%3Cpath d='M1 13V1h16v9H7v-5h6' fill='none' stroke='%23D18D1F' stroke-width='1.5' stroke-linecap='square'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+  opacity: .5;
+  margin-block: var(--s-8);
+}
+
+/* ── ٤. قوس الخليج — انحناءة الكورنيش ───────────────────────────────
+   خليج الإسكندرية الشرقي له قوس مميّز جدًا، وهو أكتر شكل بيدل على
+   المدينة من فوق. بنستخدمه كفاصل بين الأقسام بدل الخط المستقيم.   */
+
+/* بيتحط جوّه القسم الداكن ومثبّت على حافته السفلية — كده مايتأثرش
+   بالـ padding بتاع القسم، والانحناءة بتقع على الحد بالظبط. لونه لون
+   الصفحة اللي بعده عشان يبان إن الفاتح بيقضم في الداكن. */
+.alx-bay {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;          /* -1px عشان مايبانش خط شعرة بين القسمين */
+  z-index: 1;
+  height: clamp(40px, 5vw, 84px);
+  color: var(--bg);
+  pointer-events: none;
+}
+.alx-bay svg { display: block; width: 100%; height: 100%; }
+.alx-bay path { fill: currentColor; }
+
+/* ── ٥. ختم المدينة — نقطة تركيز صغيرة ──────────────────────────────
+   دايرة فيها موجة وشعاع فنار. بتتحط جنب عناوين الأقسام المهمة.    */
+
+.alx-seal {
+  width: 46px; height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: linear-gradient(150deg, var(--alx-sea) 0%, var(--alx-sea-deep) 100%);
+  box-shadow: 0 6px 18px -6px rgba(11, 59, 84, .5),
+              inset 0 0 0 1px rgba(255, 255, 255, .16);
+  color: var(--gold-300);
+}
+.alx-seal svg { width: 26px; height: 26px; }
