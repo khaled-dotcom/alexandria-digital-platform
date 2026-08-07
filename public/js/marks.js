@@ -335,12 +335,12 @@ export const LIGHTHOUSE_BEAM = `
  * فصفحة track.html فضلت بالرسمة المرسومة بس، أصدق من صورة بديلة مش دقيقة.
  */
 export const LANDMARK_PHOTOS = {
-  qaitbay:      { file: 'qaitbay.jpg',      author: 'Aziz1005',       license: 'CC BY-SA 3.0' },
-  bibliotheca:  { file: 'bibliotheca.jpg',  author: 'mogaio',         license: 'CC BY-SA 1.0' },
+  qaitbay:      { file: 'qaitbay.jpg',      author: 'Ahmed Younis Sif Saad', license: 'CC BY-SA 4.0' },
+  bibliotheca:  { file: 'bibliotheca.jpg',  author: 'Ahmed Hagrasi',  license: 'CC BY-SA 4.0' },
   stanley:      { file: 'stanley.jpg',      author: 'Ahmad Ali',      license: 'CC BY 2.0' },
   montaza:      { file: 'montaza.jpg',      author: 'Daniel Mayer',   license: 'CC BY-SA 4.0' },
   pompey:       { file: 'pompey.jpg',       author: 'Daniel Mayer',   license: 'CC BY-SA 4.0' },
-  amphitheatre: { file: 'amphitheatre.jpg', author: 'Abdelrhman 1990', license: 'CC BY 4.0' },
+  amphitheatre: { file: 'amphitheatre.jpg', author: 'ISAW (NYU)',      license: 'CC BY 2.0' },
   corniche:     { file: 'corniche.jpg',     author: 'Abdelrhman 1990', license: 'CC BY-SA 4.0' },
 };
 

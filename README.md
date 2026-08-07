@@ -3,7 +3,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A522.5-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)
 ![SQLite](https://img.shields.io/badge/DB-node%3Asqlite-003B57?logo=sqlite&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-459%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-465%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 منصة متكاملة لإدارة بلاغات وشكاوى المواطنين وخدمات المرافق العامة في محافظة الإسكندرية.
@@ -57,7 +57,7 @@ npm start                 # http://localhost:3000
 ```
 
 **للتطوير** (`npm run dev`) بيعيد تشغيل السيرفر تلقائيًا مع أي تعديل (`node --watch`).
-لتشغيل الـ **٤٥٩ اختبار** (راجع [tests/run-all.mjs](tests/run-all.mjs)):
+لتشغيل الـ **٤٦٥ اختبار** (راجع [tests/run-all.mjs](tests/run-all.mjs)):
 ```bash
 npm test
 ```

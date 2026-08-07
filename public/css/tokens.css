@@ -129,6 +129,8 @@
   --t-4xl: 2.375rem;  /* 38 */
   --t-5xl: 3rem;      /* 48 */
   --t-6xl: 3.75rem;   /* 60 */
+  --t-7xl: 4.5rem;    /* 72 */
+  --t-8xl: 5.5rem;    /* 88 */
 
   --font: 'Cairo', 'Segoe UI', 'Noto Sans Arabic', system-ui, -apple-system, sans-serif;
   --font-display: 'Amiri', 'Cairo', 'Segoe UI', serif;
@@ -157,9 +159,16 @@
   --z-toast: 600;   --z-palette: 700;  --z-tooltip: 800;
 
   /* ═══ المقاسات الثابتة ══════════════════════════════════════════ */
-  --header-h: 68px;
+  --header-h: 72px;
   --container: 1320px;
   --container-narrow: 760px;
+  --container-wide: 1480px;
+
+  /* ═══ إيقاع الأقسام ═════════════════════════════════════════════
+     المسافة الرأسية بين أقسام الصفحة. بتكبر مع الشاشة عشان الصفحة
+     تتنفّس على الديسكتوب من غير ما تتبعتر على الموبايل.            */
+  --section-y: clamp(56px, 7vw, 112px);
+  --section-gap: clamp(28px, 3.5vw, 56px);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════

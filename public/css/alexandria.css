@@ -75,35 +75,67 @@
    طبقة صورة فعلية (Wikimedia Commons، تراخيص CC-BY/CC-BY-SA — الاعتمادات
    في /credits) بتتحط بأدنى مستوى، وفوقها تدرّج شفاف بلون الهوية عشان
    النص يفضل مقروء والصورة تحس إنها جزء من نفس النظام مش لزقة خارجية. */
+/* طبقتين فوق الصورة:
+   ١) حجاب أفقي بيغمّق ناحية النص (يمين في RTL) — من غيره النص الأبيض
+      بيقع على مباني فاتحة والتباين بيوقع تحت الحد المقبول.
+   ٢) تدرّج رأسي بيربط الهيرو بالهيدر فوق وبالموجة تحت. */
 .hero-sea.has-photo,
 .page-banner.has-photo {
   background-image:
+    linear-gradient(to left,
+      rgba(6, 24, 46, .88) 0%,
+      rgba(6, 24, 46, .66) 26%,
+      rgba(6, 24, 46, .18) 58%,
+      transparent 82%),
     linear-gradient(180deg,
-      rgba(10, 30, 56, .78) 0%,
-      rgba(15, 47, 83, .32) 45%,
-      rgba(10, 62, 82, .55) 78%,
+      rgba(10, 30, 56, .72) 0%,
+      rgba(15, 47, 83, .26) 45%,
+      rgba(10, 62, 82, .52) 78%,
       rgba(8, 50, 68, .82) 100%),
     var(--hero-photo-url);
-  background-size: cover, cover;
-  background-position: center, center 38%;
-  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover, cover;
+  background-position: center, center, center 38%;
+  background-repeat: no-repeat, no-repeat, no-repeat;
 }
 [data-theme='dark'] .hero-sea.has-photo,
 [data-theme='dark'] .page-banner.has-photo {
   background-image:
+    linear-gradient(to left,
+      rgba(2, 7, 15, .92) 0%,
+      rgba(2, 7, 15, .74) 26%,
+      rgba(2, 7, 15, .24) 58%,
+      transparent 82%),
     linear-gradient(180deg,
-      rgba(2, 7, 15, .88) 0%,
-      rgba(5, 13, 28, .5) 45%,
-      rgba(6, 32, 47, .68) 78%,
+      rgba(2, 7, 15, .84) 0%,
+      rgba(5, 13, 28, .44) 45%,
+      rgba(6, 32, 47, .64) 78%,
       rgba(2, 7, 15, .9) 100%),
     var(--hero-photo-url);
 }
 
-/* لمّا فيه صورة حقيقية، الأفق المرسوم والشعاع بيتخفوا — مفيش داعي
-   لسلويت فوق صورة حقيقية لنفس المعلم */
+/* على الموبايل النص بياخد العرض كله، فالحجاب بيبقى رأسي بدل جانبي */
+@media (max-width: 760px) {
+  .hero-sea.has-photo,
+  .page-banner.has-photo {
+    background-image:
+      linear-gradient(180deg,
+        rgba(6, 24, 46, .82) 0%,
+        rgba(6, 24, 46, .62) 55%,
+        rgba(8, 50, 68, .88) 100%),
+      var(--hero-photo-url);
+    background-size: cover, cover;
+    background-position: center, center 38%;
+  }
+}
+
+/* لمّا فيه صورة حقيقية، كل العناصر المرسومة اللي بتمثّل حاجة حقيقية
+   بتتخفي — الأفق والشعاع والشمس والنجوم. رسم شمس يدوية فوق صورة
+   فوتوغرافية ليها شمسها بيبان غلط، زيّه زيّ سلويت فوق نفس المعلم. */
 .has-photo .hero-skyline,
 .has-photo .banner-landmark,
-.has-photo .hero-beam {
+.has-photo .hero-beam,
+.has-photo .hero-sun,
+.has-photo .star {
   display: none;
 }
 
@@ -325,6 +357,10 @@
   overflow: hidden;
   border-bottom: 1px solid var(--border);
 }
+
+/* الشريط اللي فيه صورة حقيقية بياخد ارتفاع أكبر — ١٨٦px بتقص الصورة
+   لشريحة ضيّقة مالهاش معنى. المرسوم بالـ SVG مش محتاج الزيادة دي. */
+.page-banner.has-photo { height: clamp(200px, 24vw, 300px); }
 
 .banner-landmark {
   position: absolute;

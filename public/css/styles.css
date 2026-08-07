@@ -92,14 +92,17 @@ h1, .display {
   letter-spacing: 0;
 }
 
-h1 { font-size: var(--t-4xl); }
-h2 { font-size: var(--t-2xl); }
-h3 { font-size: var(--t-xl); }
+/* المقاسات بتتدرّج مع الشاشة — عنوان ثابت الحجم إما بيبقى صغير على
+   الديسكتوب أو بيكسر السطر على الموبايل. الـ clamp بيحل الاتنين. */
+h1 { font-size: clamp(1.875rem, 3.6vw, var(--t-5xl)); }
+h2 { font-size: clamp(1.4rem, 2.4vw, var(--t-3xl)); }
+h3 { font-size: clamp(1.15rem, 1.6vw, var(--t-xl)); }
 h4 { font-size: var(--t-lg); }
 
 .display {
-  font-size: clamp(2.25rem, 5.5vw, var(--t-6xl));
-  line-height: 1.18;
+  font-size: clamp(2.5rem, 6.4vw, var(--t-8xl));
+  line-height: 1.08;
+  letter-spacing: -0.015em;
 }
 
 .lead { font-size: var(--t-lg); color: var(--text-2); line-height: var(--lh-relaxed); }
@@ -162,11 +165,25 @@ h4 { font-size: var(--t-lg); }
 .page {
   max-width: var(--container);
   margin-inline: auto;
-  padding: var(--s-8) var(--s-5) var(--s-20);
+  padding: var(--s-12) var(--s-5) var(--s-24);
 }
 
 .page-narrow { max-width: var(--container-narrow); }
-.page-wide { max-width: 1560px; }
+.page-wide { max-width: var(--container-wide); }
+
+/* ── إيقاع الأقسام ──────────────────────────────────────────────────
+   قسم الصفحة الواحد. المسافة بينهم بتيجي من --section-y عشان الإيقاع
+   يفضل واحد في كل الصفحات بدل ما كل صفحة تخترع مسافاتها. */
+.section { padding-block: var(--section-y); }
+.section + .section { padding-block-start: 0; }
+.section-tight { padding-block: var(--section-gap); }
+
+/* ترويسة القسم — سطر تمهيدي وعنوان ووصف، بعرض مقروء */
+.section-head { margin-block-end: var(--section-gap); max-width: 62ch; }
+.section-head h2 { margin-block: var(--s-3) 0; }
+.section-head .subtitle { margin-block-end: 0; margin-block-start: var(--s-3); font-size: var(--t-lg); }
+.section-head.center { margin-inline: auto; text-align: center; }
+.section-head.center .eyebrow { justify-content: center; }
 
 .stack { display: flex; flex-direction: column; gap: var(--s-5); }
 .row { display: flex; align-items: center; gap: var(--s-3); }
@@ -1418,22 +1435,25 @@ kbd {
 
 /* ═══ ٣٢. الظهور عند التمرير ═════════════════════════════════════════ */
 
-[data-reveal] {
+/* الإخفاء الابتدائي متعلّق بكلاس .js اللي theme-boot.js بيحطه.
+   من غير جافاسكربت الشرط مابيتحققش والمحتوى بيظهر عادي — مايصحّش
+   إن المحتوى يعتمد على سكربت عشان يبان أصلاً. */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity var(--d-slower) var(--ease-out), transform var(--d-slower) var(--ease-out);
 }
-[data-reveal].revealed { opacity: 1; transform: none; }
+.js [data-reveal].revealed { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1; transform: none; }
+  .js [data-reveal] { opacity: 1; transform: none; }
 }
 
 /* ═══ ٣٣. الهيرو (الصفحة الرئيسية) ═══════════════════════════════════ */
 
 .hero {
   position: relative;
-  min-height: min(78vh, 640px);
+  min-height: min(88vh, 780px);
   display: flex; align-items: center;
   isolation: isolate;
 }
@@ -1442,7 +1462,7 @@ kbd {
   position: relative; z-index: 2;
   max-width: var(--container);
   margin-inline: auto;
-  padding: var(--s-16) var(--s-5) var(--s-24);
+  padding: var(--s-24) var(--s-5) var(--s-32);
   width: 100%;
   color: #fff;
   text-shadow: 0 2px 24px rgba(0, 20, 40, .45);
@@ -1458,9 +1478,14 @@ kbd {
   text-shadow: none;
 }
 
-.hero h1 { color: #fff; max-width: 20ch; margin-top: var(--s-5); }
-.hero .lead { color: rgba(255, 255, 255, .88); max-width: 52ch; margin-top: var(--s-4); font-size: var(--t-lg); }
-.hero-cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-8); }
+.hero h1 { color: #fff; max-width: 18ch; margin-top: var(--s-6); }
+.hero .lead {
+  color: rgba(255, 255, 255, .9);
+  max-width: 54ch; margin-top: var(--s-6);
+  font-size: clamp(var(--t-lg), 1.5vw, var(--t-xl));
+  line-height: var(--lh-normal);
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-10); }
 
 .hero-cta .btn-glass {
   background: rgba(255, 255, 255, .14);
@@ -1481,19 +1506,26 @@ kbd {
 }
 .hero-strip .cell {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--border);
-  padding: var(--s-5);
+  padding: var(--s-7) var(--s-5);
   text-align: center;
+  transition: background var(--d-base) var(--ease-out);
 }
-.hero-strip .cell:first-child { border-start-start-radius: var(--r-xl); border-end-start-radius: var(--r-xl); }
-.hero-strip .cell:last-child  { border-start-end-radius: var(--r-xl);  border-end-end-radius: var(--r-xl); }
+.hero-strip .cell:hover { background: var(--surface); }
+.hero-strip .cell:first-child { border-start-start-radius: var(--r-2xl); border-end-start-radius: var(--r-2xl); }
+.hero-strip .cell:last-child  { border-start-end-radius: var(--r-2xl);  border-end-end-radius: var(--r-2xl); }
 .hero-strip .n {
-  font-size: var(--t-2xl); font-weight: 800;
+  font-size: var(--t-4xl); font-weight: 800;
   font-variant-numeric: tabular-nums;
+  line-height: 1.1;
   color: var(--primary-text);
 }
-.hero-strip .k { font-size: var(--t-sm); color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+.hero-strip .k {
+  font-size: var(--t-md); color: var(--text-muted);
+  font-weight: 600; margin-top: var(--s-1);
+}
 
 /* ═══ ٣٤. بلاطات الخدمات ═════════════════════════════════════════════ */
 
@@ -1506,27 +1538,35 @@ kbd {
 /* على الشاشات الكبيرة نثبّتها ٣ أعمدة — auto-fit بيدّي ٥ أعمدة
    فيفضل عنصر وحيد في سطر تاني، وده بيبوّظ الإيقاع البصري. */
 @media (min-width: 900px) {
-  .tile-grid { grid-template-columns: repeat(3, 1fr); }
+  .tile-grid { grid-template-columns: repeat(6, 1fr); }
+  /* كل بلاطة بتاخد عمودين = ٣ في الصف */
+  .tile-grid > .tile { grid-column: span 2; }
+
+  /* ٥ بلاطات = ٣ + ٢. من غير تدخّل الاتنين بيقعدوا على الشمال وسط فراغ.
+     نزحزح أول واحدة في الصف التاني بنص خانة فيتوسّطوا تحت التلاتة. */
+  .tile-grid > .tile:nth-last-child(2):nth-child(4) { grid-column: 2 / span 2; }
 }
 
 .tile {
   position: relative;
   display: flex; flex-direction: column; gap: var(--s-2);
-  padding: var(--s-6);
+  padding: var(--s-7);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-2xl);
   text-decoration: none; color: inherit;
   overflow: hidden;
   transition: transform var(--d-base) var(--ease-out), box-shadow var(--d-base) var(--ease-out),
               border-color var(--d-base) var(--ease-out);
 }
 .tile:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--tile-c, var(--primary));
   text-decoration: none;
 }
+
+/* شريط لوني رفيع على الحافة العلوية بيظهر مع الهوفر */
 .tile::after {
   content: ''; position: absolute;
   inset-block-start: 0; inset-inline: 0; height: 3px;
@@ -1535,18 +1575,37 @@ kbd {
 }
 .tile:hover::after { opacity: 1; }
 
+/* توهّج لوني خفيف من الركن العلوي — بيدّي عمق من غير ما يقلّل التباين */
+.tile::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(120% 80% at 100% 0%,
+              var(--tile-soft, var(--primary-soft)) 0%, transparent 62%);
+  opacity: 0; transition: opacity var(--d-slow) var(--ease-out);
+  pointer-events: none;
+}
+.tile:hover::before { opacity: 1; }
+
+.tile > * { position: relative; z-index: 1; }
+
 .tile-icon {
-  width: 46px; height: 46px;
+  width: 52px; height: 52px;
   display: grid; place-items: center;
-  font-size: 1.4rem;
-  border-radius: var(--r-md);
+  font-size: 1.55rem;
+  border-radius: var(--r-lg);
   background: var(--tile-soft, var(--primary-soft));
   color: var(--tile-c, var(--primary));
-  margin-bottom: var(--s-1);
+  margin-bottom: var(--s-2);
+  transition: transform var(--d-base) var(--ease-spring);
 }
-.tile-title { font-weight: 800; font-size: var(--t-base); }
-.tile-desc  { font-size: var(--t-sm); color: var(--text-muted); line-height: var(--lh-snug); }
-.tile-go    { font-size: var(--t-sm); font-weight: 700; color: var(--primary-text); margin-top: auto; padding-top: var(--s-3); }
+.tile:hover .tile-icon { transform: scale(1.08) rotate(-3deg); }
+
+.tile-title { font-weight: 800; font-size: var(--t-lg); }
+.tile-desc  { font-size: var(--t-md); color: var(--text-muted); line-height: var(--lh-normal); }
+.tile-go    {
+  font-size: var(--t-md); font-weight: 700; color: var(--tile-c, var(--primary-text));
+  margin-top: auto; padding-top: var(--s-4);
+  transition: gap var(--d-fast) var(--ease-out);
+}
 
 .tile.c-teal   { --tile-c: var(--accent); --tile-soft: var(--accent-soft); }
 .tile.c-gold   { --tile-c: var(--gold);   --tile-soft: var(--gold-soft); }

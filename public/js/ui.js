@@ -352,7 +352,14 @@ function initRipple() {
 /** ظهور تدريجي للعناصر عند التمرير */
 function initReveal() {
   const targets = document.querySelectorAll('[data-reveal]');
-  if (!targets.length || !('IntersectionObserver' in window)) return;
+  if (!targets.length) return;
+
+  // من غير IntersectionObserver مافيش طريقة نعرف إمتى العنصر بان — فنظهّر
+  // الكل فورًا. الخروج من غير كده كان بيسيب المحتوى مخفي للأبد.
+  if (!('IntersectionObserver' in window)) {
+    for (const t of targets) t.classList.add('revealed');
+    return;
+  }
 
   const io = new IntersectionObserver((entries) => {
     for (const entry of entries) {
@@ -361,7 +368,9 @@ function initReveal() {
         io.unobserve(entry.target);
       }
     }
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    // threshold صفر = أول بكسل يبان يكفي. النسبة المئوية كانت هشّة مع
+    // الأقسام الأطول من الشاشة (النموذج ٢٠٠٠px) ومع السكرول السريع.
+  }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
 
   for (const t of targets) io.observe(t);
 }

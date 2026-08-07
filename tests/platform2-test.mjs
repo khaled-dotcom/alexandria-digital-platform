@@ -112,7 +112,17 @@ let locations, myAppt;
   const days = await (await get(`/api/appointments/locations/${loc.id}/days`)).json();
   check('الأيام المتاحة', Array.isArray(days.days) && days.days.length > 0, `عدد=${days.days?.length}`);
 
-  const openDay = days.days.find((d) => d.open && d.available > 0);
+  // في قاعدة فيها بيانات seed، المواطن ممكن يكون حاجز نفس الخدمة في أول
+  // يوم متاح — والقاعدة بتمنع حجزين لنفس الخدمة في نفس اليوم. فبنستبعد
+  // الأيام اللي عنده فيها حجز general_inquiry بدل ما نفترض إن أول يوم فاضي.
+  const mine = await (await get('/api/citizen/requests', citizenCookie)).json();
+  const taken = new Set(
+    (mine.appointments ?? [])
+      .filter((a) => a.service_code === 'general_inquiry' && a.status !== 'cancelled')
+      .map((a) => a.slot_date),
+  );
+
+  const openDay = days.days.find((d) => d.open && d.available > 0 && !taken.has(d.date));
   check('فيه يوم عمل متاح', Boolean(openDay), JSON.stringify(days.days?.slice(0, 3)));
 
   const slots = await (await get(`/api/appointments/locations/${loc.id}/slots?date=${openDay.date}`)).json();
